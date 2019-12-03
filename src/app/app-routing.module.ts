@@ -3,10 +3,12 @@ import {RouterModule, Routes} from '@angular/router';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AuthorizationComponent} from './pages/authorization/authorization.component';
+import {SurveysComponent} from './pages/surveys/surveys.component';
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
   {path: 'login', component: AuthorizationComponent},
+  {path: 'surveys', component: SurveysComponent},
   {path: 'test1', component: HeaderComponent},
   {path: '**', redirectTo: '/'},
 ];

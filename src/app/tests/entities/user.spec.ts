@@ -1,4 +1,4 @@
-import { User } from '../tests/entities/user';
+import { User } from '../../entities/user';
 
 describe('User', () => {
   it('should create an instance', () => {
