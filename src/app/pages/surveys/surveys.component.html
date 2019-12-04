@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-10 offset-1">
+      <div *ngIf="surveys; else notSurveys" class="row">
+        <div class="col-3">
+          <app-survey-skltn></app-survey-skltn>
+        </div>
+        <div *ngFor="let item of surveys" class="col-3">
+          <div class="card mt-3">
+            <img class="card--image"
+                 [src]="item.image"/>
+            <div class="card-body pt-1 pb-2">
+              <div class="card--title">{{item.title}}</div>
+              <div class="card-text no--select pa-1">
+                <em class="material-icons icon--little">assignment_ind</em>
+                <a class="small-text">
+                  <a class="text-success">23</a>
+                  /
+                  <a class="text-danger">47</a>
+                </a>
+                <div class="dropdown ml--auto">
+                  <em class="material-icons button--icon"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">more_vert</em>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Edit</a>
+                    <a class="dropdown-item" href="#">Rename</a>
+                    <a class="dropdown-item" href="#">Clone</a>
+                    <a class="dropdown-item" href="#">Open in new tab</a>
+                    <a class="dropdown-item" href="#">Delete</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #notSurveys>
+        <div class="row">
+          <div class="col-3" *ngFor="let item of [0,1,2,3,4,5,6,7,8,9,10,11]">
+            <app-survey-skltn></app-survey-skltn>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -12,7 +12,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {APP_CONFIG, AppConfig} from './app.config';
 
 import {UserService} from './services/user.service';
-import { SurveysComponent } from './pages/surveys/surveys.component';
+import {SurveysComponent} from './pages/surveys/surveys.component';
+import {NgxSkltnModule} from 'ngx-skltn';
+import { SurveySkltnComponent } from './components/survey-skltn/survey-skltn.component';
 
 @NgModule({
   declarations: [
@@ -21,11 +23,13 @@ import { SurveysComponent } from './pages/surveys/surveys.component';
     DashboardComponent,
     AuthorizationComponent,
     SurveysComponent,
+    SurveySkltnComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    NgxSkltnModule.forRoot(),
   ],
   providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig}],
   bootstrap: [AppComponent]
