@@ -1,0 +1,13 @@
+.question{
+  border: 2px dotted black;
+  height: 15%;
+  margin-bottom: 2%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  padding-left: 2%;
+}
+.formConstructor{
+  margin-left: 30%;
+  margin-top: 5%;
+  width: 40%;
+}

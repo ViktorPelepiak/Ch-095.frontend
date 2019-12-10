@@ -12,6 +12,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {APP_CONFIG, AppConfig} from './app.config';
 
 import {UserService} from './services/user.service';
+import { FormConstructorComponent } from './form-constructor/form-constructor.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {UserService} from './services/user.service';
     HeaderComponent,
     DashboardComponent,
     AuthorizationComponent,
+    FormConstructorComponent
   ],
   imports: [
     BrowserModule,
