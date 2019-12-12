@@ -15,6 +15,7 @@ import {UserService} from './services/user.service';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import { SurveySkltnComponent } from './components/survey-skltn/survey-skltn.component';
+import { SurveyComponent } from './components/survey/survey.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SurveySkltnComponent } from './components/survey-skltn/survey-skltn.com
     AuthorizationComponent,
     SurveysComponent,
     SurveySkltnComponent,
+    SurveyComponent,
   ],
   imports: [
     BrowserModule,
