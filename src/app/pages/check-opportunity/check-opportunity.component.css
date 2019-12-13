@@ -1,0 +1,13 @@
+.mainContainer{
+  text-align: center;
+  margin: auto 0;
+}
+
+.container{
+  height: 70%;
+}
+
+.container .row{
+  width: 100%;
+  align-content: center;
+}
