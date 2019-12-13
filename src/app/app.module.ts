@@ -18,7 +18,6 @@ import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
 import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-top-buttons.component';
-import {SurveyComponent} from './components/survey/survey.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,6 @@ import {SurveyComponent} from './components/survey/survey.component';
     SurveysComponent,
     SurveySkltnComponent,
     SurveyTopButtonsComponent,
-    SurveyComponent,
   ],
   imports: [
     BrowserModule,

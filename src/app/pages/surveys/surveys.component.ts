@@ -3,8 +3,6 @@ import {Survey} from '../../models/survey';
 import {SurveyService} from "../../services/survey.service";
 import {Pageable} from "../../models/pageable";
 import {ActivatedRoute} from "@angular/router";
-import {map} from "rxjs/operators";
-import {Sort} from "../../models/sort";
 
 @Component({
   selector: 'app-surveys',
@@ -53,7 +51,7 @@ export class SurveysComponent implements OnInit {
       sort: {direction,
         fields:this.route.snapshot.queryParamMap.getAll("direction")}
     };
-    this.service.getSurveys()
+    this.service.getSurveys(this.pageable)
       .toPromise()
       .then(e => {
         console.log(e);
