@@ -5,7 +5,31 @@
       <app-survey-skltn></app-survey-skltn>
     </div>
     <div *ngFor="let item of surveys" class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3" style="position: relative">
-      <app-survey [survey]="item"></app-survey>
+      <div class="card">
+        <img [src]="item.image" alt="">
+
+        <div class="card-content">
+          <p class="title">{{item.title}}</p>
+          <div class="d-flex">
+            <a class="views align-self-center">Views : <a style="color: #44C160">17</a> / <a style="color: #FF6A5A">49</a></a>
+            <div class="dropright d-inline-flex ml-auto">
+              <em class="material-icons btn-round no--select" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">more_vert</em>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Edit</a>
+                <a class="dropdown-item" href="#">Rename</a> <!-- todo OPEN modal with field -->
+                <a class="dropdown-item" (click)="tempSurvey = item" data-toggle="modal" data-target="#cloneModal">Clone</a>
+                <a class="dropdown-item" href="#">Add contacts</a>
+                <a class="dropdown-item" href="#">Delete</a>
+                <a class="dropdown-item" href="#">Close</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
   <ng-template #notSurveys>
@@ -19,5 +43,28 @@
     <em class="material-icons">add</em>
     <a href="#"><em class="material-icons">add_circle</em></a>
     <a href="#"><em class="material-icons">dashboard</em></a>
+  </div>
+  <div class="modal fade" id="cloneModal" tabindex="-1"
+       role="dialog" aria-labelledby="cloneModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cloneModalLabel">Clone settings ({{tempSurvey.title}})</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" class="custom-control-input" id="isCloneContacts" required>
+            <label class="custom-control-label" for="isCloneContacts">Clone all contacts</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Deny</button>
+          <button type="button" class="btn btn-primary" (click)="clone(true)">Accept!</button> <!-- todo CHANGE TRUE-->
+        </div>
+      </div>
+    </div>
   </div>
 </div>
