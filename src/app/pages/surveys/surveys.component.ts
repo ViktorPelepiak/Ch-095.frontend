@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Survey} from '../../models/survey';
+import {SurveyService} from "../../services/survey.service";
 
 @Component({
   selector: 'app-surveys',
@@ -10,7 +11,7 @@ export class SurveysComponent implements OnInit {
 
   surveys: Survey[];
 
-  constructor() {
+  constructor(private service: SurveyService) {
     this.surveys = [
       {id: 1, image: 'https://images.unsplash.com/photo-1535498730771-e735b998cd64?' +
           'ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80', title: 'Large height photo lol and super large text!'},
@@ -26,6 +27,13 @@ export class SurveysComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.service.getSurveys()
+      .toPromise()
+      .then(e => {
+        console.log(e);
+        // this.surveys = e.result.items
+      })
+      .catch(e => console.log(e));
   }
 
 }

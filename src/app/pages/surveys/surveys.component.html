@@ -1,22 +1,23 @@
 <div class="container">
-  <div class="row">
-    <div class="col-10 offset-1">
-      <app-survey-top-buttons></app-survey-top-buttons>
-      <div *ngIf="surveys; else notSurveys" class="row">
-        <div class="col-3">
-          <app-survey-skltn></app-survey-skltn>
-        </div>
-        <div *ngFor="let item of surveys" class="col-3" style="position: relative">
-          <app-survey [survey]="item"></app-survey>
-        </div>
-      </div>
-      <ng-template #notSurveys>
-        <div class="row">
-          <div class="col-3" *ngFor="let item of [0,1,2,3,4,5,6,7,8,9,10,11]">
-            <app-survey-skltn></app-survey-skltn>
-          </div>
-        </div>
-      </ng-template>
+  <app-survey-top-buttons></app-survey-top-buttons>
+  <div *ngIf="surveys; else notSurveys" class="row">
+    <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+      <app-survey-skltn></app-survey-skltn>
     </div>
+    <div *ngFor="let item of surveys" class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3" style="position: relative">
+      <app-survey [survey]="item"></app-survey>
+    </div>
+  </div>
+  <ng-template #notSurveys>
+    <div class="row">
+      <div class="col-3" *ngFor="let item of [0,1,2,3,4,5,6,7,8,9,10,11]">
+        <app-survey-skltn></app-survey-skltn>
+      </div>
+    </div>
+  </ng-template>
+  <div class="menu-button no--select">
+    <em class="material-icons">add</em>
+    <a href="#"><em class="material-icons">add_circle</em></a>
+    <a href="#"><em class="material-icons">dashboard</em></a>
   </div>
 </div>

@@ -12,11 +12,13 @@ import {AppRoutingModule} from './app-routing.module';
 import {APP_CONFIG, AppConfig} from './app.config';
 
 import {UserService} from './services/user.service';
+import {SurveyService} from './services/survey.service';
+
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
-import { SurveySkltnComponent } from './components/survey-skltn/survey-skltn.component';
-import { SurveyTopButtonsComponent } from './components/survey-top-buttons/survey-top-buttons.component';
-import { SurveyComponent } from './components/survey/survey.component';
+import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
+import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-top-buttons.component';
+import {SurveyComponent} from './components/survey/survey.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import { SurveyComponent } from './components/survey/survey.component';
     AppRoutingModule,
     NgxSkltnModule.forRoot(),
   ],
-  providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig}],
+  providers: [UserService, SurveyService, {provide: APP_CONFIG, useValue: AppConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

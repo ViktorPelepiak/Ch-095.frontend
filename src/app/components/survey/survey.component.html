@@ -3,17 +3,20 @@
 
   <div class="card-content">
     <p class="title">{{survey.title}}</p>
-    <a class="views">Views :<a style="color: #44C160">17</a> / <a style="color: #FF6A5A">49</a></a>
-    <div class="dropdown">
-      <em class="material-icons btn-round no--select" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">more_vert</em>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Edit</a>
-        <a class="dropdown-item" href="#">Rename</a>
-        <a class="dropdown-item" href="#">Clone</a>
-        <a class="dropdown-item" href="#">Open in new tab</a>
-        <a class="dropdown-item" href="#">Delete</a>
-        <a class="dropdown-item" href="#">Something else here</a>
+    <div class="d-flex">
+      <a class="views align-self-center">Views : <a style="color: #44C160">17</a> / <a style="color: #FF6A5A">49</a></a>
+      <div class="dropright d-inline-flex ml-auto">
+        <em class="material-icons btn-round no--select" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">more_vert</em>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Edit</a>
+          <a class="dropdown-item" href="#">Rename</a> <!-- todo OPEN modal with field -->
+          <a class="dropdown-item" (click)="clone()">Clone</a>
+          <a class="dropdown-item" href="#">Add contacts</a>
+          <a class="dropdown-item" href="#">Delete</a>
+          <a class="dropdown-item" href="#">Close</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
       </div>
     </div>
   </div>
