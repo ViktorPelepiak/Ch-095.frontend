@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { QuestionsFormService } from '../../services/questions-form.service';
 
-describe('AnswersFormService', () => {
+describe('QuestionsFormService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {

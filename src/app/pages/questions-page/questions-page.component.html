@@ -1,0 +1,14 @@
+
+<form method="post" action="//localhost:8080/question">
+  <div>
+    <p>
+      <input type="hidden" value="{{contactEmail}}">
+      <app-question
+        *ngFor="let question of quest"
+        [oneQuestion] = question
+      ></app-question>
+    </p>
+    <p><input type="submit" style="cursor: pointer" value="submit"/></p>
+  </div>
+</form>
+

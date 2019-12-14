@@ -14,7 +14,11 @@ import {APP_CONFIG, AppConfig} from './app.config';
 import {UserService} from './services/user.service';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
-import { SurveySkltnComponent } from './components/survey-skltn/survey-skltn.component';
+import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
+import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
+import {QuestionsFormService} from './services/questions-form.service';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { QuestionComponent } from './pages/questions-page/question/question.component';
 
 @NgModule({
   declarations: [
@@ -24,14 +28,19 @@ import { SurveySkltnComponent } from './components/survey-skltn/survey-skltn.com
     AuthorizationComponent,
     SurveysComponent,
     SurveySkltnComponent,
+    QuestionsPageComponent,
+    QuestionComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     NgxSkltnModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig}],
+  providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig},
+              QuestionsFormService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
