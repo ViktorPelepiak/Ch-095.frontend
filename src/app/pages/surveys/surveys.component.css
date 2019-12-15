@@ -7,6 +7,14 @@
   user-select: none;
 }
 
+.text--green{
+  color: #44C160 !important;
+}
+
+.text--red{
+  color: #FF6A5A !important;
+}
+
 .dropdown-item{
   cursor: pointer;
 }

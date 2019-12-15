@@ -11,18 +11,23 @@
         <div class="card-content">
           <p class="title">{{item.title}}</p>
           <div class="d-flex">
-            <a class="views align-self-center">Views : <a style="color: #44C160">17</a> / <a style="color: #FF6A5A">49</a></a>
+            <a class="views align-self-center">Views : <a class="text--green">17</a> / <a class="text--red">49</a></a>
             <div class="dropright d-inline-flex ml-auto">
               <em class="material-icons btn-round no--select" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">more_vert</em>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Edit</a>
-                <a class="dropdown-item" href="#">Rename</a> <!-- todo OPEN modal with field -->
-                <a class="dropdown-item" (click)="tempSurvey = item" data-toggle="modal" data-target="#cloneModal">Clone</a>
-                <a class="dropdown-item" href="#">Add contacts</a>
-                <a class="dropdown-item" href="#">Delete</a>
-                <a class="dropdown-item" href="#">Close</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Watch as user</a> <!-- other page -->
+                <a class="dropdown-item" href="#">Edit</a> <!-- other page -->
+                <a class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
+                   data-target="#editTitleModal">Rename</a>
+                <a class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
+                   data-target="#cloneModal">Clone</a>
+                <a class="dropdown-item" href="#">Add contacts</a> <!-- other page -->
+                <a class="dropdown-item" href="#">Statistics</a> <!-- other page -->
+                <a *ngIf="item.status === 'ACTIVE'; else notActive" class="dropdown-item" (click)="surveyStatusDone(item.id)">Close</a>
+                <ng-template #notActive>
+                  <a class="dropdown-item" (click)="deleteSurvey(item.id)">Delete</a>
+                </ng-template>
               </div>
             </div>
           </div>
@@ -56,13 +61,37 @@
         </div>
         <div class="modal-body">
           <div class="custom-control custom-checkbox mb-3">
-            <input type="checkbox" class="custom-control-input" id="isCloneContacts" required>
+            <input type="checkbox" class="custom-control-input" id="isCloneContacts" [checked]="isCloneContacts"
+                   required>
             <label class="custom-control-label" for="isCloneContacts">Clone all contacts</label>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Deny</button>
-          <button type="button" class="btn btn-primary" (click)="clone(true)">Accept!</button> <!-- todo CHANGE TRUE-->
+          <button type="button" class="btn btn-primary" (click)="clone()">Accept!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="editTitleModal" tabindex="-1"
+       role="dialog" aria-labelledby="editTitleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editTitleModalLabel">Title edit</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="custom-control custom-checkbox mb-3">
+            <input type="text" class="custom-control-input" id="newTitle" [value]="tempSurvey.title" required>
+            <label class="custom-control-label" for="newTitle">New title</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Deny</button>
+          <button type="button" class="btn btn-primary" (click)="surveyUpdateTitle()">Accept!</button> <!-- todo CHANGE TRUE-->
         </div>
       </div>
     </div>

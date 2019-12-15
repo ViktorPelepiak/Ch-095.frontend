@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {RedirectUtil} from '../../util/redirect-util';
 
 @Component({
   selector: 'app-survey-top-buttons',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SurveyTopButtonsComponent implements OnInit {
 
-  constructor() { }
+  private redirects: RedirectUtil;
+
+  constructor() {
+    this.redirects = new RedirectUtil();
+  }
 
   ngOnInit() {
   }

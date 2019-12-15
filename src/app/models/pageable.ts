@@ -1,8 +1,8 @@
-import {Sort} from "./sort";
+import {Sort} from './sort';
 
 export class Pageable {
-  size:number;
+  size: number;
   currentPage: number;
-  lastPage:number;
+  lastPage: number;
   sort: Sort;
 }
