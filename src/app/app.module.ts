@@ -15,6 +15,11 @@ import {UserService} from './services/user.service';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import { SurveySkltnComponent } from './components/survey-skltn/survey-skltn.component';
+import { BarChartComponent } from './components/statistic/bar-chart-component/bar-chart-component.component';
+import { ChartsModule } from 'ng2-charts';
+import { StatisticComponent } from './components/statistic/statistic.component';
+import {RouterModule, Routes} from "@angular/router";
+
 
 @NgModule({
   declarations: [
@@ -24,12 +29,18 @@ import { SurveySkltnComponent } from './components/survey-skltn/survey-skltn.com
     AuthorizationComponent,
     SurveysComponent,
     SurveySkltnComponent,
+    BarChartComponent,
+    StatisticComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     NgxSkltnModule.forRoot(),
+    ChartsModule,
+  ],
+  exports:[
+    ChartsModule
   ],
   providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig}],
   bootstrap: [AppComponent]
