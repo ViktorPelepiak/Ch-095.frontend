@@ -13,6 +13,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {APP_CONFIG, AppConfig} from './app.config';
 
 import {UserService} from './services/user.service';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {UserService} from './services/user.service';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
   ],
   providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig}],
   bootstrap: [AppComponent]

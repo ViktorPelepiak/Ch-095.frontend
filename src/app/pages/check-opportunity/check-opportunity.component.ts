@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {CheckOpportunityService} from "../../services/check-opportunity.service";
+import {APP_CONFIG, IAppConfig} from "../../app.config";
+import {Survey} from "../../entities/survey";
+
+export interface CheckOpportunityDto {
+  token: string;
+  email: string;
+}
 
 @Component({
   selector: 'app-check-opportunity',
@@ -8,32 +15,49 @@ import {CheckOpportunityService} from "../../services/check-opportunity.service"
   styleUrls: ['./check-opportunity.component.css']
 })
 export class CheckOpportunityComponent implements OnInit {
+  token: string;
+  email: string;
+  isExist: boolean;
+  wrongEmail: boolean = false;
 
-  constructor(private route: ActivatedRoute, private checkOpportunityService: CheckOpportunityService) { }
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private route: ActivatedRoute, private checkOpportunityService: CheckOpportunityService) { }
 
   ngOnInit() {
-    var token = this.route.snapshot.paramMap.get("token");
-
-    if (token !== null) {
-      this.checkOpportunityService.test(token)
-        .subscribe(data => {
-          // this.company = data;
-          //
-          // if (this.app.currentUserValue.userId != this.company.user.userId) {
-          //   this.router.navigate(['accessDenied']);
-          // }
-          // else {
-          //   this.companyService.approve(this.company, companyToken)
-          //     .subscribe(data => {
-          //       if (data.status == 'APPROVED')
-          //         this.router.navigate(['updateCompany/' + companyName]);
-          //       else
-          //         this.router.navigate(['login']);
-          //     });
-          // }
-          console.log(data)
+    this.token = this.route.snapshot.paramMap.get("token");
+    if (this.token !== null) {
+      this.checkOpportunityService.test(this.token)
+        .toPromise()
+        .then(data  => {
+          this.isExist = true;
+          console.log({success: data})
+        })
+        .catch(
+          data => {
+            this.isExist = false;
+            console.log({error:data})
         });
     }
+  }
+
+  checkEmail(){
+    const dto: CheckOpportunityDto = {
+      token: this.token,
+      email: this.email
+    }
+
+    this.checkOpportunityService.checkEmail(dto)
+      .toPromise()
+      .then(data => {
+        this.wrongEmail = false;
+        console.log(data);
+        // window.location.href = this.config.frontBaseUrl + "/question?surveyId=" + data.surveyId + "&&contactEmail=" + data.email;
+        // window.location.href = "https://google.com"
+      })
+      .catch(data => {
+        this.wrongEmail = true;
+        console.log(data)
+      })
+
   }
 
 }

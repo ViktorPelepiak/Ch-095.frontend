@@ -2,18 +2,24 @@
   <div class="row">
     <div class="col-6 offset-3">
       <div class="mainContainer align-self-center" style="margin: auto 0; align-content: center; text-align: center;">
-<!--        <strong>Enter your email for confirm possibility to pass the test</strong>-->
-        <div>
-          <form action="">
-            <div class="form-group">
-              <input type="text" id="token" hidden>
-              <label for="exampleInputEmail1"><strong>Enter your email for confirm possibility to pass the test</strong></label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <input type="submit" value="Submit" class="btn btn-success" style="width: 100%">
-          </form>
+        <!--        <strong>Enter your email for confirm possibility to pass the test</strong>-->
+        <div *ngIf="isExist; else notExist">
+          <div class="form-group">
+            <input type="text" id="token" hidden>
+            <label for="exampleInputEmail1"><h5>Enter your email for confirm possibility to pass the
+              test</h5></label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="Enter email" [(ngModel)]="email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <strong *ngIf="wrongEmail" style="color: red">These emails are not equals</strong>
+          </div>
+          <button class="btn btn-success" style="width: 100%" (click)="checkEmail()">Submit</button>
+<!--            <input type="submit" value="Submit" class="btn btn-success" style="width: 100%">-->
         </div>
+
+        <ng-template #notExist>
+          <h3>Sorry, you are not allowed to follow this link</h3>
+        </ng-template>
       </div>
     </div>
   </div>
