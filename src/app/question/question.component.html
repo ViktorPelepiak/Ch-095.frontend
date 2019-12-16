@@ -1,0 +1,35 @@
+<div class="question" id="{{question.index}}">
+  <form>
+    Input your question
+    <input type="text" name="userQuestion" #userQuestion (input)="setQuestion(question.index,userQuestion.value)">
+    <br>
+    <br>
+
+    <select (change)="setType($event)" [hidden]="question.isTypeSet">
+      <option disabled>SELECT ANSWER TYPE</option>
+      <option value="TEXT">TEXT</option>
+      <option value="RADIOBUTTON">RADIOBUTTON</option>
+      <option value="CHECKBOX">CHECKBOX</option>
+    </select>
+
+    <div *ngIf="question.type === 'CHECKBOX'">
+      <p *ngFor="let answer of question.answers">
+        <!--    <img src=""> <--><input class="checkboxAnswer">value checkbox<br>
+      </p>
+    </div>
+    <div *ngIf="question.type === 'TEXT'">
+      <p *ngFor="let answer of question.answers">
+        <!--    <img src=""> <-->
+        <input class="textAnswer" >value textfield<Br>
+      </p>
+    </div>
+
+    <div *ngIf="question.type === 'RADIOBUTTON'">
+      <p *ngFor="let answer of question.answers">
+        <!--    <img src=""> <-->
+        <input class="radiobuttonAnswer">value radiobutton<Br>
+      </p>
+    </div>
+  </form>
+</div>
+

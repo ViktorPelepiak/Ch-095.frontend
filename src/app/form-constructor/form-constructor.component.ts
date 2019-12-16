@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {fakeAsync} from "@angular/core/testing";
 
 @Component({
   selector: 'app-form-constructor',
@@ -23,7 +22,7 @@ export class FormConstructorComponent implements OnInit {
     this.questionCounter = this.questionCounter + 1;
     let question = new Question();
     question.id = this.questionCounter;
-    question.surveyName = this.surveyName;
+    question.surveyName = this.surveyName.valueOf();
     question.question = '';
     question.isTypeSet = false;
     if(question.type)
@@ -46,13 +45,13 @@ export class FormConstructorComponent implements OnInit {
     if(this.arrQuestions[id].type === "TEXT"){
       this.arrQuestions[id].answer.push('');
     }
-    console.log(this.arrQuestions[id]);
-  }
+      console.log(JSON.stringify(this.arrQuestions));
+    }
 
-  setQuestion(id,value){
-    this.arrQuestions[id].surveyName = this.surveyName;
-    this.arrQuestions[id].question = value;
-    console.log(this.arrQuestions[id]);
+  setQuestion(index,value){
+    this.arrQuestions[index].surveyName = this.surveyName;
+    this.arrQuestions[index].question = value;
+    console.log(this.arrQuestions[index]);
   }
 
   setSurveyName(surveyName){
@@ -63,7 +62,7 @@ export class FormConstructorComponent implements OnInit {
 }
 
 export class Question{
-  id:number;
+  index:number;
   surveyName:string;
   question:string;
   type:string;

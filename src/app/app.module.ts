@@ -13,6 +13,7 @@ import {APP_CONFIG, AppConfig} from './app.config';
 
 import {UserService} from './services/user.service';
 import { FormConstructorComponent } from './form-constructor/form-constructor.component';
+import { QuestionComponent } from './question/question.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormConstructorComponent } from './form-constructor/form-constructor.co
     HeaderComponent,
     DashboardComponent,
     AuthorizationComponent,
-    FormConstructorComponent
+    FormConstructorComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,

@@ -2,41 +2,7 @@
   Name of survey <input type="text" name="userQuestion" #surveyName (input)="setSurveyName(surveyName.value)">
   <br>
   <br>
-  <div class="question" id="{{question.id}}" *ngFor="let question of arrQuestions ">
-    <form>
-      Input your question
-      <input type="text" name="userQuestion" #userQuestion (input)="setQuestion(question.id,userQuestion.value)">
-      <br>
-      <br>
-
-      <select (change)="setType(question.id,$event)" [hidden]="question.isTypeSet">
-        <option disabled>SELECT ANSWER TYPE</option>
-        <option value="TEXT">TEXT</option>
-        <option value="RADIOBUTTON">RADIOBUTTON</option>
-        <option value="CHECKBOX">CHECKBOX</option>
-      </select>
-
-      <div *ngIf="question.type === 'CHECKBOX'">
-          <p *ngFor="let answer of question.answer">
-            <!--    <img src=""> <--><input class="checkboxAnswer">value checkbox<br>
-          </p>
-      </div>
-      <div *ngIf="question.type === 'TEXT'">
-          <p *ngFor="let answer of question.answer">
-        <!--    <img src=""> <-->
-        <input class="textAnswer" >value textfield<Br>
-          </p>
-      </div>
-
-      <div *ngIf="question.type === 'RADIOBUTTON'">
-          <p *ngFor="let answer of question.answer">
-        <!--    <img src=""> <-->
-        <input class="radiobuttonAnswer">value radiobutton<Br>
-          </p>
-      </div>
-    </form>
-  </div>
-
+  <app-question *ngFor="let question of arrQuestions " [question]="question"></app-question>
   <br>
   <button (click)="addNewQuestion()">ADD NEW QUESTION</button>
   <br>
