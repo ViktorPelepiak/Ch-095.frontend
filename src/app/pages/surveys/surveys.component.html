@@ -1,12 +1,9 @@
 <div class="container">
   <app-survey-top-buttons></app-survey-top-buttons>
   <div *ngIf="surveys; else notSurveys" class="row">
-    <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-      <app-survey-skltn></app-survey-skltn>
-    </div>
-    <div *ngFor="let item of surveys" class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3" style="position: relative">
+    <div *ngFor="let item of surveys" class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 p-relative">
       <div class="card">
-        <img [src]="item.image" alt="">
+        <img [src]="item.imageUrl" alt="">
 
         <div class="card-content">
           <p class="title">{{item.title}}</p>
@@ -16,7 +13,7 @@
               <em class="material-icons btn-round no--select" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">more_vert</em>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Watch as user</a> <!-- other page -->
+                <a class="dropdown-item" href="#">View as user</a> <!-- other page -->
                 <a class="dropdown-item" href="#">Edit</a> <!-- other page -->
                 <a class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
                    data-target="#editTitleModal">Rename</a>
@@ -24,37 +21,49 @@
                    data-target="#cloneModal">Clone</a>
                 <a class="dropdown-item" href="#">Add contacts</a> <!-- other page -->
                 <a class="dropdown-item" href="#">Statistics</a> <!-- other page -->
-                <a *ngIf="item.status === 'ACTIVE'; else notActive" class="dropdown-item" (click)="surveyStatusDone(item.id)">Close</a>
+                <a *ngIf="item.status === 'ACTIVE'; else notActive" class="dropdown-item"
+                   (click)="surveyStatusDone(item.id)">Close</a>
                 <ng-template #notActive>
                   <a class="dropdown-item" (click)="deleteSurvey(item.id)">Delete</a>
                 </ng-template>
               </div>
             </div>
           </div>
+          <div class="views align-self-center">Status : <a class="text--red">{{item.status}}</a></div>
         </div>
-
       </div>
-
+    </div>
+  </div>
+  <div *ngIf="surveys" class="row">
+    <div class="d-flex col-12">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" [ngClass]="{disabled:pageable.currentPage === 1}">
+            <a class="page-link" (click)="previousPage()">Previous</a>
+          </li>
+          <li class="page-item" *ngFor="let page of buildPages()" [ngClass]="{active:pageable.currentPage === page}">
+            <a class="page-link" (click)="setPage(page)">{{page}}</a>
+          </li>
+          <li class="page-item" [ngClass]="{disabled:pageable.currentPage === pageable.lastPage}">
+            <a class="page-link" (click)="nextPage()">Next</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
   <ng-template #notSurveys>
     <div class="row">
-      <div class="col-3" *ngFor="let item of [0,1,2,3,4,5,6,7,8,9,10,11]">
+      <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 p-relative" *ngFor="let item of [0,1,2,3,4,5,6,7,8,9,10,11]">
         <app-survey-skltn></app-survey-skltn>
       </div>
     </div>
   </ng-template>
-  <div class="menu-button no--select">
-    <em class="material-icons">add</em>
-    <a href="#"><em class="material-icons">add_circle</em></a>
-    <a href="#"><em class="material-icons">dashboard</em></a>
-  </div>
   <div class="modal fade" id="cloneModal" tabindex="-1"
        role="dialog" aria-labelledby="cloneModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="cloneModalLabel">Clone settings ({{tempSurvey.title}})</h5>
+          <h5 class="modal-title" id="cloneModalLabel">Clone settings ({{title.value}})</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -68,7 +77,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Deny</button>
-          <button type="button" class="btn btn-primary" (click)="clone()">Accept!</button>
+          <button type="button" class="btn btn-primary" (click)="clone()" data-dismiss="modal">Accept!</button>
         </div>
       </div>
     </div>
@@ -85,15 +94,24 @@
         </div>
         <div class="modal-body">
           <div class="custom-control custom-checkbox mb-3">
-            <input type="text" class="custom-control-input" id="newTitle" [value]="tempSurvey.title" required>
-            <label class="custom-control-label" for="newTitle">New title</label>
+            <label for="newTitle">New title</label>
+            <input type="text" class="form-control" id="newTitle" [formControl]="title"
+                   aria-describedby="emailHelp">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Deny</button>
-          <button type="button" class="btn btn-primary" (click)="surveyUpdateTitle()">Accept!</button> <!-- todo CHANGE TRUE-->
+          <button type="button" class="btn btn-primary" (click)="surveyUpdateTitle()"
+                  data-dismiss="modal">Accept!
+          </button>
+          <!-- todo CHANGE TRUE-->
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="menu-button no--select sticky">
+  <em class="material-icons">add</em>
+  <a href="#"><em class="material-icons">add_circle</em></a>
+  <a href="#"><em class="material-icons">dashboard</em></a>
 </div>

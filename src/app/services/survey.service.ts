@@ -19,7 +19,9 @@ export class SurveyService {
 
   public getSurveys(pageable: Pageable): Observable<Page<Survey>> {
     let params = new HttpParams();
-    params = params.append('page', String(pageable.currentPage));
+    if (pageable.currentPage !== null && pageable.currentPage >= 0){
+      params = params.append('page', String(pageable.currentPage - 1));
+    }
     if (pageable.size > 0) {
       params = params.append('size', String(pageable.size));
     }
@@ -29,6 +31,7 @@ export class SurveyService {
     if (pageable.sort.fields.length > 0) {
       params = params.append('sort', pageable.sort.fields.join(','));
     }
+    console.log(pageable)
     return this.http.get<Page<Survey>>(this.config.baseUrl + '/survey', {params});
   }
 
@@ -51,8 +54,8 @@ export class SurveyService {
     return this.http.post<Survey>(this.config.baseUrl + this.endPoint, {id, isClearContacts});
   }
 
-  public deleteSurvey(id: number): Observable<Survey> {
-    return this.http.delete<Survey>(this.config.baseUrl + this.endPoint, {
+  public deleteSurvey(id: number): Observable<string> {
+    return this.http.delete<string>(this.config.baseUrl + this.endPoint, {
       params: new HttpParams().append('id', id + '')
     });
   }

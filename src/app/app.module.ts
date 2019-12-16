@@ -18,6 +18,7 @@ import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
 import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-top-buttons.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-
     HttpClientModule,
     AppRoutingModule,
     NgxSkltnModule.forRoot(),
+    ReactiveFormsModule,
   ],
   providers: [UserService, SurveyService, {provide: APP_CONFIG, useValue: AppConfig}],
   bootstrap: [AppComponent]
