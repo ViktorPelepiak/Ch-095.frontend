@@ -11,9 +11,17 @@
   position: relative;
 }
 
+.page-link{
+  cursor: pointer;
+}
+
 .sticky{
   position: -webkit-sticky; /* Safari */
   position: sticky;
+}
+
+.text--blue{
+  color: #4f5fc1 !important;
 }
 
 .text--green{

@@ -17,4 +17,16 @@ export class SurveyTopButtonsComponent implements OnInit {
   ngOnInit() {
   }
 
+  setParam(name: string, value: string){
+    RedirectUtil.setParam(name, value)
+  }
+
+  deleteParam(name: string){
+    RedirectUtil.deleteParam(name)
+  }
+
+  setParam2(name: string, value: string, name2: string, value2: string){
+    RedirectUtil.setParam2(name, value, name2, value2);
+  }
+
 }

@@ -26,6 +26,7 @@
 
 .dropdown-item{
   display: flex;
+  cursor: pointer;
 }
 
 .dropdown-item .material-icons{

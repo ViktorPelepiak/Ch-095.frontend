@@ -17,21 +17,7 @@ export class SurveyService {
               private http: HttpClient) {
   }
 
-  public getSurveys(pageable: Pageable): Observable<Page<Survey>> {
-    let params = new HttpParams();
-    if (pageable.currentPage !== null && pageable.currentPage >= 0){
-      params = params.append('page', String(pageable.currentPage - 1));
-    }
-    if (pageable.size > 0) {
-      params = params.append('size', String(pageable.size));
-    }
-    if (pageable.sort.direction !== null) {
-      params = params.append('direction', pageable.sort.direction);
-    }
-    if (pageable.sort.fields.length > 0) {
-      params = params.append('sort', pageable.sort.fields.join(','));
-    }
-    console.log(pageable)
+  public getSurveys(params: HttpParams): Observable<Page<Survey>> {
     return this.http.get<Page<Survey>>(this.config.baseUrl + '/survey', {params});
   }
 
