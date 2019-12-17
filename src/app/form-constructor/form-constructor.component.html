@@ -1,11 +1,10 @@
 <div class="formConstructor">
-  Name of survey <input type="text" name="userQuestion" #surveyName (input)="setSurveyName(surveyName.value)">
+  Name of survey <input type="text"  [(ngModel)]="surveyName">
   <br>
   <br>
-  <app-question *ngFor="let question of arrQuestions " [question]="question"></app-question>
+  <app-question *ngFor="let question of questions " [question]="question"></app-question>
   <br>
-  <button (click)="addNewQuestion()">ADD NEW QUESTION</button>
+  <button (click)="addNewQuestion()" id="addNewQuestion">ADD NEW QUESTION</button>
   <br>
-  <br>
-  <p>{{arrQuestions.length}}</p>
+  <button type="button" class="btn btn-success" id="saveSurvey" (click)="sendSurvey()">SAVE SURVEY</button>
 </div>

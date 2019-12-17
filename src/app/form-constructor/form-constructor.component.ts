@@ -1,4 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import {Question} from "../entities/question";
+import {SaveSurvey} from "../entities/SaveSurvey";
+import {SaveSurveyService} from "../services/survey.service";
+import {combineAll} from "rxjs/operators";
 
 @Component({
   selector: 'app-form-constructor',
@@ -6,13 +10,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./form-constructor.component.css']
 })
 export class FormConstructorComponent implements OnInit {
-  @ViewChild("surveyName",{static: false}) surveyName:string;
+  surveyName:string;
   questionCounter:number;
-  arrQuestions:[Question] = [{id:0,surveyName:this.surveyName,question:'',type: '',isTypeSet:false,answer:[],required:false}];
+  questions:Question[];
 
-  constructor() {
+  constructor(private saveSurveyService : SaveSurveyService) {
     this.questionCounter = 1;
-
+    this.questions = [];
   }
 
   ngOnInit() {
@@ -21,37 +25,14 @@ export class FormConstructorComponent implements OnInit {
   addNewQuestion(){
     this.questionCounter = this.questionCounter + 1;
     let question = new Question();
-    question.id = this.questionCounter;
-    question.surveyName = this.surveyName.valueOf();
+    question.index = this.questionCounter;
     question.question = '';
     question.isTypeSet = false;
-    if(question.type)
-    question.answer = [];
+    question.type = "not set";
+    question.answers = [];
     question.required = false;
-    this.arrQuestions.push(question);
-  }
-
-  setType(id,event:any){
-    this.arrQuestions[id].type = event.target.value;
-    this.arrQuestions[id].isTypeSet = true;
-    if(this.arrQuestions[id].type === "CHECKBOX"){
-      this.arrQuestions[id].answer.push('');
-      this.arrQuestions[id].answer.push('');
-    }
-    if(this.arrQuestions[id].type === "RADIOBUTTON"){
-      this.arrQuestions[id].answer.push('');
-      this.arrQuestions[id].answer.push('');
-    }
-    if(this.arrQuestions[id].type === "TEXT"){
-      this.arrQuestions[id].answer.push('');
-    }
-      console.log(JSON.stringify(this.arrQuestions));
-    }
-
-  setQuestion(index,value){
-    this.arrQuestions[index].surveyName = this.surveyName;
-    this.arrQuestions[index].question = value;
-    console.log(this.arrQuestions[index]);
+    console.log(question);
+    this.questions.push(question);
   }
 
   setSurveyName(surveyName){
@@ -59,18 +40,14 @@ export class FormConstructorComponent implements OnInit {
     console.log(this.surveyName)
   }
 
-}
-
-export class Question{
-  index:number;
-  surveyName:string;
-  question:string;
-  type:string;
-  isTypeSet:boolean;
-  answer:String[];
-  required:boolean;
-
-  constructor() {
+  sendSurvey(){
+    let saveSurvey:SaveSurvey = new SaveSurvey();
+    saveSurvey.title = this.surveyName.valueOf();
+    console.log(saveSurvey.title);
+    saveSurvey.userID = 0;
+    saveSurvey.questions = this.questions;
+    this.saveSurveyService.saveSurvey(saveSurvey);
   }
+
 
 }

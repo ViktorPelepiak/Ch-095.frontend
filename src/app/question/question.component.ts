@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Question} from "../form-constructor/form-constructor.component";
+import {Question} from "../entities/question";
 
 @Component({
   selector: 'app-question',
@@ -8,6 +8,7 @@ import {Question} from "../form-constructor/form-constructor.component";
 })
 export class QuestionComponent implements OnInit {
  @Input() public question: Question;
+  isButtonDisable:boolean = true;
 
   constructor() {
   }
@@ -15,37 +16,35 @@ export class QuestionComponent implements OnInit {
   ngOnInit() {
   }
 
-  // addNewQuestion(){
-  //   this.questionCounter++;
-  //   let question = new Question();
-  //   question.index = this.questionCounter;
-  //   question.question = '';
-  //   question.isTypeSet = false;
-  //   // if(question.type)
-  //     question.answers = [];
-  //   question.required = false;
-  //   // this.arrQuestions.push(question);
-  //   this.question = question;
-  // }
+  setType(event:any){
+   this.question.type = event.target.value;
+   this.question.isTypeSet = true;
+    if(this.question.type === "CHECKBOX"){
+     this.question.answers.push('');
+    }
+    if(this.question.type === "RADIOBUTTON"){
+     this.question.answers.push('');
+    }
+    if(this.question.type === "TEXT"){
+     this.question.answers.push('');
+    }
+    console.log(JSON.stringify(this.question));
+  }
 
-  // setType(event:any){
-  //   this.question.type = event.target.value;
-  //   // this.question.isTypeSet = true;
-  //   if(this.question.type === "CHECKBOX"){
-  //     this.question.answers.push('');
-  //     this.question.answers.push('');
-  //   }
-  //   if(this.question.type === "RADIOBUTTON"){
-  //     this.question.answers.push('');
-  //     this.question.answers.push('');
-  //   }
-  //   if(this.question.type === "TEXT"){
-  //     this.question.answers.push('');
-  //   }
-  // }
-  //
-  // setQuestion(value, s: string){
-  //   this.question = value;
-  // }
+  addAnswerVariant(){
+  this.question.answers.push("");
+  this.isButtonDisable = true;
+  }
+
+  setQuestion(value){
+    this.question.question = value;
+    console.log(this.question);
+  }
+
+  setAnswerVariant(index,variantOfAnswer){
+    this.question.answers[index]= variantOfAnswer;
+    this.isButtonDisable = false;
+    console.log(this.question.answers)
+  }
 
 }

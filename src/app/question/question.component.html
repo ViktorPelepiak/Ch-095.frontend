@@ -1,7 +1,7 @@
 <div class="question" id="{{question.index}}">
   <form>
     Input your question
-    <input type="text" name="userQuestion" #userQuestion (input)="setQuestion(question.index,userQuestion.value)">
+    <input type="text" name="userQuestion" #userQuestion (change)="setQuestion(userQuestion.value)">
     <br>
     <br>
 
@@ -13,21 +13,22 @@
     </select>
 
     <div *ngIf="question.type === 'CHECKBOX'">
-      <p *ngFor="let answer of question.answers">
-        <!--    <img src=""> <--><input class="checkboxAnswer">value checkbox<br>
+      <p *ngFor="let answer of question.answers; index as i">
+        <img src="https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png">
+        <input class="checkboxAnswer" value="{{answer}}" #variantOfAnswer (change)="setAnswerVariant(i,variantOfAnswer.value)" ><br>
       </p>
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD VARIANT</button>
+    </div>
+    <div *ngIf="question.type === 'RADIOBUTTON'">
+      <p *ngFor="let answer of question.answers; index as i">
+        <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
+        <input class="radiobuttonAnswer" value="{{answer}}" #variantOfAnswer (change)="setAnswerVariant(i,variantOfAnswer.value)" ><br>
+      </p>
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD VARIANT</button>
     </div>
     <div *ngIf="question.type === 'TEXT'">
-      <p *ngFor="let answer of question.answers">
-        <!--    <img src=""> <-->
-        <input class="textAnswer" >value textfield<Br>
-      </p>
-    </div>
-
-    <div *ngIf="question.type === 'RADIOBUTTON'">
-      <p *ngFor="let answer of question.answers">
-        <!--    <img src=""> <-->
-        <input class="radiobuttonAnswer">value radiobutton<Br>
+      <p *ngFor="let answer of question.answers; index as i">
+        <input class="textAnswer" value="{{answer}}" #variantOfAnswer (change)="setAnswerVariant(i,variantOfAnswer.value)" >
       </p>
     </div>
   </form>
