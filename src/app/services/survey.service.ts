@@ -18,11 +18,11 @@ export class SurveyService {
   }
 
   public getSurveys(params: HttpParams): Observable<Page<Survey>> {
-    return this.http.get<Page<Survey>>(this.config.baseUrl + '/survey', {params});
+    return this.http.get<Page<Survey>>(this.config.backBaseUrl + '/survey', {params});
   }
 
   public surveyUpdateTitle(id: number, title: string) {
-    return this.http.put<string>(this.config.baseUrl + this.endPoint, {}, {
+    return this.http.put<string>(this.config.backBaseUrl + this.endPoint, {}, {
       params: new HttpParams()
         .append('id', id + '')
         .append('title', title)
@@ -30,18 +30,18 @@ export class SurveyService {
   }
 
   public surveyStatusDone(id: number) {
-    return this.http.put<string>(this.config.baseUrl + this.endPoint + '/status/done', {}, {
+    return this.http.put<string>(this.config.backBaseUrl + this.endPoint + '/status/done', {}, {
       params: new HttpParams()
         .append('id', id + '')
     });
   }
 
   public cloneSurvey(id: number, isClearContacts: boolean): Observable<Survey> {
-    return this.http.post<Survey>(this.config.baseUrl + this.endPoint, {id, isClearContacts});
+    return this.http.post<Survey>(this.config.backBaseUrl + this.endPoint, {id, isClearContacts});
   }
 
   public deleteSurvey(id: number): Observable<string> {
-    return this.http.delete<string>(this.config.baseUrl + this.endPoint, {
+    return this.http.delete<string>(this.config.backBaseUrl + this.endPoint, {
       params: new HttpParams().append('id', id + '')
     });
   }
