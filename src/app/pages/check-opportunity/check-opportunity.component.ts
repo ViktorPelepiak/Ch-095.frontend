@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {CheckOpportunityService} from "../../services/check-opportunity.service";
 import {APP_CONFIG, IAppConfig} from "../../app.config";
-import {Survey} from "../../entities/survey";
 
 export interface CheckOpportunityDto {
   token: string;
@@ -20,26 +19,31 @@ export class CheckOpportunityComponent implements OnInit {
   isExist: boolean;
   wrongEmail: boolean = false;
 
-  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private route: ActivatedRoute, private checkOpportunityService: CheckOpportunityService) { }
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private route: ActivatedRoute, private checkOpportunityService: CheckOpportunityService) {
+    console.log(this.config.backBaseUrl);
+    console.log(this.config.frontBaseUrl);
+  }
 
   ngOnInit() {
+    console.log(this.config.backBaseUrl);
+    console.log(this.config.frontBaseUrl);
     this.token = this.route.snapshot.paramMap.get("token");
     if (this.token !== null) {
       this.checkOpportunityService.test(this.token)
         .toPromise()
-        .then(data  => {
+        .then(data => {
           this.isExist = true;
           console.log({success: data})
         })
         .catch(
           data => {
             this.isExist = false;
-            console.log({error:data})
-        });
+            console.log({error: data})
+          });
     }
   }
 
-  checkEmail(){
+  checkEmail() {
     const dto: CheckOpportunityDto = {
       token: this.token,
       email: this.email
@@ -50,8 +54,8 @@ export class CheckOpportunityComponent implements OnInit {
       .then(data => {
         this.wrongEmail = false;
         console.log(data);
-        // window.location.href = this.config.frontBaseUrl + "/question?surveyId=" + data.surveyId + "&&contactEmail=" + data.email;
-        // window.location.href = "https://google.com"
+        console.log(this.config.frontBaseUrl + "/question?surveyId=" + data.surveyId + "&&contactEmail=" + data.email);
+        window.location.href = this.config.frontBaseUrl + "/question?surveyId=" + data.surveyId + "&&contactEmail=" + data.email;
       })
       .catch(data => {
         this.wrongEmail = true;

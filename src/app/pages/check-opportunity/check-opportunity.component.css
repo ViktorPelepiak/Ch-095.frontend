@@ -1,13 +1,27 @@
-.mainContainer{
+.mainContainer {
   text-align: center;
   margin: auto 0;
 }
 
-.container{
+.container {
   height: 70%;
 }
 
-.container .row{
+.container .row {
   width: 100%;
   align-content: center;
+}
+
+#main {
+  margin: auto 0;
+  align-content: center;
+  text-align: center;
+}
+
+#warning {
+  color: red;
+}
+
+button {
+  width: 100%;
 }

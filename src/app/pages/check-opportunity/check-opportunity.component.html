@@ -1,8 +1,7 @@
 <div class="container d-flex">
   <div class="row">
     <div class="col-6 offset-3">
-      <div class="mainContainer align-self-center" style="margin: auto 0; align-content: center; text-align: center;">
-        <!--        <strong>Enter your email for confirm possibility to pass the test</strong>-->
+      <div class="mainContainer align-self-center" id="main">
         <div *ngIf="isExist; else notExist">
           <div class="form-group">
             <input type="text" id="token" hidden>
@@ -11,14 +10,13 @@
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                    placeholder="Enter email" [(ngModel)]="email">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            <strong *ngIf="wrongEmail" style="color: red">These emails are not equals</strong>
+            <strong *ngIf="wrongEmail" id="warning">These emails are not equals</strong>
           </div>
-          <button class="btn btn-success" style="width: 100%" (click)="checkEmail()">Submit</button>
-<!--            <input type="submit" value="Submit" class="btn btn-success" style="width: 100%">-->
+          <button class="btn btn-success" (click)="checkEmail()">Submit</button>
         </div>
 
         <ng-template #notExist>
-          <h3>Sorry, you are not allowed to follow this link</h3>
+          <h3>Sorry, but you can`t pass survey by this link</h3>
         </ng-template>
       </div>
     </div>
