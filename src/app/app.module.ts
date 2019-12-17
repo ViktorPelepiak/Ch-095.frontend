@@ -24,7 +24,7 @@ import {FormsModule} from "@angular/forms";
     DashboardComponent,
     AuthorizationComponent,
     FormConstructorComponent,
-    QuestionComponent
+    QuestionComponent,
     CheckOpportunityComponent,
   ],
     imports: [
