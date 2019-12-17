@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AuthorizationComponent} from './pages/authorization/authorization.component';
+import {CheckOpportunityComponent} from './pages/check-opportunity/check-opportunity.component';
 
 import {AppRoutingModule} from './app-routing.module';
 
@@ -23,7 +24,8 @@ import {FormsModule} from "@angular/forms";
     DashboardComponent,
     AuthorizationComponent,
     FormConstructorComponent,
-    QuestionComponent
+    QuestionComponent,
+    CheckOpportunityComponent,
   ],
     imports: [
         BrowserModule,
