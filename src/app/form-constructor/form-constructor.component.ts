@@ -45,8 +45,9 @@ export class FormConstructorComponent implements OnInit {
     saveSurvey.title = this.surveyName.valueOf();
     console.log(saveSurvey.title);
     saveSurvey.userID = 0;
+    this.questions.forEach(x => delete x.isTypeSet);
     saveSurvey.questions = this.questions;
-    this.saveSurveyService.saveSurvey(saveSurvey);
+    this.saveSurveyService.saveSurvey(saveSurvey).subscribe(e=> {console.log("kkk")});
   }
 
 

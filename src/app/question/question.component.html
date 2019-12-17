@@ -7,7 +7,7 @@
 
     <select (change)="setType($event)" [hidden]="question.isTypeSet">
       <option disabled>SELECT ANSWER TYPE</option>
-      <option value="TEXT">TEXT</option>
+      <option value="TEXTBOX">TEXTBOX</option>
       <option value="RADIOBUTTON">RADIOBUTTON</option>
       <option value="CHECKBOX">CHECKBOX</option>
     </select>
@@ -26,7 +26,7 @@
       </p>
       <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD VARIANT</button>
     </div>
-    <div *ngIf="question.type === 'TEXT'">
+    <div *ngIf="question.type === 'TEXTBOX'">
       <p *ngFor="let answer of question.answers; index as i">
         <input class="textAnswer" value="{{answer}}" #variantOfAnswer (change)="setAnswerVariant(i,variantOfAnswer.value)" >
       </p>

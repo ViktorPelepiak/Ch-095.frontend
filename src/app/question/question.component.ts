@@ -25,7 +25,7 @@ export class QuestionComponent implements OnInit {
     if(this.question.type === "RADIOBUTTON"){
      this.question.answers.push('');
     }
-    if(this.question.type === "TEXT"){
+    if(this.question.type === "TEXTBOX"){
      this.question.answers.push('');
     }
     console.log(JSON.stringify(this.question));
@@ -34,6 +34,7 @@ export class QuestionComponent implements OnInit {
   addAnswerVariant(){
   this.question.answers.push("");
   this.isButtonDisable = true;
+  console.log(this.question);
   }
 
   setQuestion(value){
