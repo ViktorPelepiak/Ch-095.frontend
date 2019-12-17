@@ -18,27 +18,23 @@ export class CheckOpportunityComponent implements OnInit {
   email: string;
   isExist: boolean;
   wrongEmail: boolean = false;
+  errorMessage: string;
 
   constructor(@Inject(APP_CONFIG) private config: IAppConfig, private route: ActivatedRoute, private checkOpportunityService: CheckOpportunityService) {
-    console.log(this.config.backBaseUrl);
-    console.log(this.config.frontBaseUrl);
   }
 
   ngOnInit() {
-    console.log(this.config.backBaseUrl);
-    console.log(this.config.frontBaseUrl);
     this.token = this.route.snapshot.paramMap.get("token");
     if (this.token !== null) {
       this.checkOpportunityService.test(this.token)
         .toPromise()
         .then(data => {
           this.isExist = true;
-          console.log({success: data})
         })
         .catch(
           data => {
+            this.errorMessage = data.error;
             this.isExist = false;
-            console.log({error: data})
           });
     }
   }
@@ -53,13 +49,10 @@ export class CheckOpportunityComponent implements OnInit {
       .toPromise()
       .then(data => {
         this.wrongEmail = false;
-        console.log(data);
-        console.log(this.config.frontBaseUrl + "/question?surveyId=" + data.surveyId + "&&contactEmail=" + data.email);
         window.location.href = this.config.frontBaseUrl + "/question?surveyId=" + data.surveyId + "&&contactEmail=" + data.email;
       })
       .catch(data => {
         this.wrongEmail = true;
-        console.log(data)
       })
 
   }
