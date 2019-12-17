@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AuthorizationComponent} from './pages/authorization/authorization.component';
+import {CheckOpportunityComponent} from './pages/check-opportunity/check-opportunity.component';
 
 import {AppRoutingModule} from './app-routing.module';
 
@@ -19,6 +20,7 @@ import {NgxSkltnModule} from 'ngx-skltn';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
 import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-top-buttons.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     SurveysComponent,
     SurveySkltnComponent,
     SurveyTopButtonsComponent,
+    CheckOpportunityComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     AppRoutingModule,
     NgxSkltnModule.forRoot(),
     ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [UserService, SurveyService, {provide: APP_CONFIG, useValue: AppConfig}],
   bootstrap: [AppComponent]

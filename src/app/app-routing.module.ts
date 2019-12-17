@@ -5,12 +5,15 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AuthorizationComponent} from './pages/authorization/authorization.component';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {AuthGuardService} from './services/auth-guard.service';
+import {CheckOpportunityComponent} from "./pages/check-opportunity/check-opportunity.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
   {path: 'login', component: AuthorizationComponent, canActivate: [AuthGuardService]},
   {path: 'surveys', component: SurveysComponent},
   {path: 'test1', component: HeaderComponent},
+  {path: 'checkOpportunity', component: CheckOpportunityComponent},
+  {path: 'test/:token', component: CheckOpportunityComponent},
   {path: '**', redirectTo: '/'},
 ];
 
