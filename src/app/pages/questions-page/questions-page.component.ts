@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionsFormService} from '../../services/questions-form.service';
+import {Question} from '../../models/question';
 
 @Component({
   selector: 'app-questions-page',
   templateUrl: './questions-page.component.html',
-  styleUrls: ['./questions-page.component.css']
+  styleUrls: ['./questions-page.component.css', './question/bootstrap.min.css']
 })
 
 export class QuestionsPageComponent implements OnInit {
@@ -13,7 +14,10 @@ export class QuestionsPageComponent implements OnInit {
   surveyId;
   contactEmail;
 
-getQuestions() {
+  model: Question;
+  submitted = false;
+
+  getQuestions() {
   this.questionsFormService.getSurvey()
     .toPromise()
     .then((data: any) => {
@@ -27,11 +31,12 @@ getQuestions() {
     });
 }
 
+  onSubmit() { this.submitted = true; }
+
   constructor(private questionsFormService: QuestionsFormService) {
   }
 
   ngOnInit() {
   this.getQuestions();
   }
-
 }

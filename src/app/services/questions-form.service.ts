@@ -14,6 +14,6 @@ export class QuestionsFormService {
   }
 
   getSurvey(): Observable<any> {
-    return this.httpClient.get<any>(this.config.baseUrl + this.QUESTION_API);
+    return this.httpClient.get<any>(this.config.backBaseUrl + this.QUESTION_API);
   }
 }

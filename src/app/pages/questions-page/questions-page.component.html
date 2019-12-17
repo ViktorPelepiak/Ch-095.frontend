@@ -1,6 +1,10 @@
 
-<form method="post" action="//localhost:8080/question">
+<form  (ngSubmit)="onSubmit()" #questionForm="ngForm">
   <div>
+    <h2 class="font-weight-normal">Hello, you logged in as</h2>
+    <h2 class="font-weight-normal">{{contactEmail}}</h2>
+    <br>
+    <br>
     <p>
       <input type="hidden" value="{{contactEmail}}">
       <input type="hidden" value="{{surveyId}}">
@@ -9,7 +13,7 @@
         [oneQuestion] = question
       ></app-question>
     </p>
-    <p><input type="submit" style="cursor: pointer" value="submit"/></p>
+    <h4><button type="submit" class="btn btn-success" [disabled]="!questionForm.form.valid">Submit</button></h4>
   </div>
 </form>
 
