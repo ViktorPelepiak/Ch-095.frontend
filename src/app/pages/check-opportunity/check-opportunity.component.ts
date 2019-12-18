@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {CheckOpportunityService} from "../../services/check-opportunity.service";
-import {APP_CONFIG, IAppConfig} from "../../app.config";
+import {ActivatedRoute} from '@angular/router';
+import {CheckOpportunityService} from '../../services/check-opportunity.service';
+import {APP_CONFIG, IAppConfig} from '../../app.config';
 
 export interface CheckOpportunityDto {
   token: string;
@@ -43,7 +43,7 @@ export class CheckOpportunityComponent implements OnInit {
     const dto: CheckOpportunityDto = {
       token: this.token,
       email: this.email
-    }
+    };
 
     this.checkOpportunityService.checkEmail(dto)
       .toPromise()

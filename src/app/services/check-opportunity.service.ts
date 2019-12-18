@@ -5,6 +5,13 @@ import {Observable} from "rxjs";
 import {APP_CONFIG, IAppConfig} from "../app.config";
 import {ContactSurveyDto} from "../models/contact-survey-dto";
 
+import {HttpClient} from '@angular/common/http';
+import {CheckOpportunityDto} from '../pages/check-opportunity/check-opportunity.component';
+import {Observable} from 'rxjs';
+import {APP_CONFIG, IAppConfig} from '../app.config';
+// @ts-ignore
+import {ContactSurveyDto} from '../entities/contact-survey-dto';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,10 +22,10 @@ export class CheckOpportunityService {
 
 
   public test(token: string): Observable<string> {
-    return this.http.get(this.config.backBaseUrl + '/testAccess/' + token, {responseType: "text"});
+    return this.http.get(this.config.backBaseUrl + '/testAccess/' + token, {responseType: 'text'});
   }
 
   public checkEmail(dto: CheckOpportunityDto): Observable<ContactSurveyDto> {
-    return this.http.post<ContactSurveyDto>(this.config.backBaseUrl +'/testAccess/check', dto)
+    return this.http.post<ContactSurveyDto>(this.config.backBaseUrl + '/testAccess/check', dto);
   }
 }
