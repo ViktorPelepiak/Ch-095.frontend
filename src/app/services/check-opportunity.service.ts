@@ -15,10 +15,10 @@ export class CheckOpportunityService {
 
 
   public test(token: string): Observable<string> {
-    return this.http.get(this.config.baseUrl + '/testAccess/' + token, {responseType: "text"});
+    return this.http.get(this.config.backBaseUrl + '/testAccess/' + token, {responseType: "text"});
   }
 
   public checkEmail(dto: CheckOpportunityDto): Observable<ContactSurveyDto> {
-    return this.http.post<ContactSurveyDto>(this.config.baseUrl +'/testAccess/check', dto)
+    return this.http.post<ContactSurveyDto>(this.config.backBaseUrl +'/testAccess/check', dto)
   }
 }
