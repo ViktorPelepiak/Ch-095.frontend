@@ -1,0 +1,42 @@
+<div class="row mt-2">
+  <div class="col-4 mt-2 ml-4">
+    <a class="font-weight-500">Survey list</a>
+  </div>
+  <div class="col-4 col-sm-3 col-md-3 col-md-2 buttons" style="margin-left: auto">
+    <div class="dropleft">
+      <em class="material-icons button--icon" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">sort</em>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <h6 class="dropdown-header">Sorting</h6>
+        <a class="dropdown-item" (click)="setParam2('sort','title', 'direction', 'ASC')">By alphabet
+          <em class="material-icons">arrow_upward</em></a>
+        <a class="dropdown-item" (click)="setParam2('sort','title', 'direction', 'DESC')">By alphabet
+          <em class="material-icons">arrow_downward</em></a>
+        <a class="dropdown-item" (click)="setParam2('sort','creationDate', 'direction', 'ASC')">By date
+          <em class="material-icons">arrow_upward</em></a>
+        <a class="dropdown-item" (click)="setParam2('sort','creationDate', 'direction', 'DESC')">By date
+          <em class="material-icons">arrow_downward</em></a>
+      </div>
+    </div>
+    <div class="dropright ml-2">
+      <em class="material-icons button--icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">filter_list</em>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <h6 class="dropdown-header">Filter</h6>
+        <a class="dropdown-item" (click)="deleteParam('status')">All</a>
+        <a class="dropdown-item" (click)="setParam2('status','ACTIVE', 'page','1')">Active</a>
+        <a class="dropdown-item" (click)="setParam2('status','NON_ACTIVE', 'page','1')">Not active</a>
+        <a class="dropdown-item" (click)="setParam2('status','DONE', 'page','1')">Done</a>
+      </div>
+    </div>
+    <div class="dropright ml-2">
+      <em class="material-icons button--icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">filter_9_plus</em>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <h6 class="dropdown-header">Size</h6>
+        <a class="dropdown-item" (click)="setParam('size','12')">12</a>
+        <a class="dropdown-item" (click)="setParam('size','24')">24</a>
+        <a class="dropdown-item" (click)="setParam('size','36')">36</a>
+        <a class="dropdown-item" (click)="setParam('size','48')">48</a>
+      </div>
+    </div>
+  </div>
+</div>
