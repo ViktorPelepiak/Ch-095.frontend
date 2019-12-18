@@ -18,7 +18,6 @@ import { SurveySkltnComponent } from './components/survey-skltn/survey-skltn.com
 import { BarChartComponent } from './components/statistic/bar-chart-component/bar-chart-component.component';
 import { ChartsModule } from 'ng2-charts';
 import { StatisticComponent } from './components/statistic/statistic.component';
-import {RouterModule, Routes} from "@angular/router";
 
 
 @NgModule({

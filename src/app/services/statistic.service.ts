@@ -1,7 +1,5 @@
-import {AfterViewInit, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Question} from "../models/question";
-import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +10,22 @@ export class StatisticService {
 
   }
 
-  questions : Question[];
-  labels : string[];
-  data : number[];
+  private  baseUrl : string ='http://localhost:8080/' +
+    'Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war';
+  private questionUrl : string = '/statistic/questions?surveyId=';
+  private answerUrl : string = '/statistic/answers?questionId=';
+  private surveyTitleUrl : string = '/statistic/surveyTitle?surveyId=';
 
-  getQuestions(surveyId: number){
-    return this.http.get('http://localhost:8080/' +
-      'Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/statistic/questions?surveyId='+ surveyId);
+  getQuestions(surveyId: bigint){
+    return this.http.get(this.baseUrl + this.questionUrl + surveyId);
   }
 
   getAnswers(answerId: bigint) {
-    return this.http.get('http://localhost:8080/' +
-      'Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/statistic/answers?questionId='+ answerId);
+    return this.http.get(this.baseUrl + this.answerUrl + answerId);
+  }
+
+  getTitleSurvey(surveyId: bigint){
+    return this.http.get(this.baseUrl + this.surveyTitleUrl + surveyId);
   }
 
 }
