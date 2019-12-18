@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Question} from "../entities/question";
+import {Question} from "../models/question";
 
 @Component({
   selector: 'app-question',

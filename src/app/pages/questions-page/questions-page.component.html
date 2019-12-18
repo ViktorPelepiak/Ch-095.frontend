@@ -7,10 +7,10 @@
     <p>
       <input type="hidden" value="{{contactEmail}}">
       <input type="hidden" value="{{surveyId}}">
-      <app-question
+      <app-one-question
         *ngFor="let question of quest"
         [oneQuestion] = question
-      ></app-question>
+      ></app-one-question>
     </p>
     <h4><button type="submit" class="btn btn-success" [disabled]="!questionForm.form.valid">Submit</button></h4>
   </form>
