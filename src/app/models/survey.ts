@@ -1,5 +1,5 @@
 export class Survey {
-  id: bigint;
+  id: number;
   title: string;
-  image: number;
+  image: string;
 }
