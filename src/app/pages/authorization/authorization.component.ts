@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {User} from '../../tests/entities/user';
+import {Component, OnInit} from '@angular/core';
+import {User} from '../../models/user';
 import {UserService} from '../../services/user.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {UserService} from '../../services/user.service';
 export class AuthorizationComponent implements OnInit {
   title: string;
   data: string;
-  @Input() user: User;
+  user: User;
 
   constructor(private userService: UserService) {
     this.title = 'SurveysFront';
@@ -20,7 +20,9 @@ export class AuthorizationComponent implements OnInit {
   getFirstUser() {
     this.userService
       .getFirst()
-      .subscribe(e => this.user = e);
+      .toPromise()
+      .then(e => this.user = e)
+      .catch(e => console.log(e));
   }
 
   postUser() {

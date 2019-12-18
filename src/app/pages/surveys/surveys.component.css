@@ -1,0 +1,72 @@
+.no--select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.ml--auto{
+  margin-left: auto;
+}
+
+.col-3 {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.card-body {
+  background: white;
+}
+
+.card--image {
+  position: relative;
+  border-bottom: 1px solid #d4d4d4;
+  box-shadow: 0 25px 25px 0 rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 150px;
+}
+
+.card--title {
+  display: inline-block;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  height: 1.4em;
+  white-space: nowrap;
+}
+
+/* Modify bootstrap card-text */
+.card-text {
+  display: flex;
+  font-size: 14px;
+  align-items: center;
+  cursor: default;
+}
+
+.card-text .small-text{
+  font-size: 12px;
+}
+
+.button--icon{
+  color: #555555;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.button--icon:hover {
+  cursor: pointer;
+  background: rgba(212, 212, 212,0.5);
+  border-radius: 50%;
+}
+
+.icon--little {
+  font-size: 24px;
+}
+

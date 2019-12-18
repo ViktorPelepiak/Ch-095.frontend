@@ -1,0 +1,28 @@
+
+.skltn-card{
+  border: 1px solid #d4d4d4;
+  border-radius: 1%;
+  /*margin: 8px;*/
+}
+
+.skltn-content{
+  padding: 8px;
+}
+
+.skltn-chart {
+  height: 142px;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.skltn-card__title {
+  height: 24px;
+}
+
+.skltn-card__line {
+  height: 18px;
+}
+
+.skltn-card__line:last-child {
+  width: 60%;
+  margin-bottom: 5px;
+}
