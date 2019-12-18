@@ -1,0 +1,73 @@
+  <div class="form-check" *ngIf="oneQuestion.type === 'CHECKBOX'">
+    <h4 class="font-weight-bold">
+      {{oneQuestion.index + ". " + oneQuestion.value}}
+      <input type="hidden" value="{{oneQuestion.id}}"/>
+    </h4>
+    <p *ngFor="let answer of oneQuestion.answers">
+      <input type="checkbox" value="{{answer}}">{{answer}}
+    </p>
+  </div>
+
+  <div class="form-check" *ngIf="oneQuestion.type === 'RADIOBUTTON'">
+    <h4 class="font-weight-bold">
+      {{oneQuestion.index + ". " + oneQuestion.value}}
+      <input type="hidden" value="{{oneQuestion.id}}"/>
+    </h4>
+    <p *ngFor="let answer of oneQuestion.answers">
+      <input type="radio" name="radio" value="{{answer}}">{{answer}}
+    </p>
+  </div>
+
+  <div class="form-check" *ngIf="oneQuestion.type === 'TEXTAREA'">
+    <h4 class="font-weight-bold">
+      {{oneQuestion.index + ". " + oneQuestion.value}}
+      <input type="hidden" value="{{oneQuestion.id}}"/>
+    </h4>
+    <p>
+      <TEXTAREA name="textarea" cols=100 rows=6></TEXTAREA>
+    </p>
+  </div>
+
+  <div class="form-check" *ngIf="oneQuestion.type === 'TEXTBOX'">
+    <h4 class="font-weight-bold">
+      {{oneQuestion.index + ". " + oneQuestion.value}}
+      <input type="hidden" value="{{oneQuestion.id}}"/>
+    </h4>
+    <p>
+      <input type="text" name="UserName" size=35 maxlength=50 value="">
+    </p>
+  </div>
+
+  <div class="form-check" *ngIf="oneQuestion.type === 'CHECKBOX_PICTURE'">
+    <h4 class="font-weight-bold">
+      {{oneQuestion.index + ". " + oneQuestion.value}}
+      <input type="hidden" value="{{oneQuestion.id}}"/>
+    </h4>
+    <p *ngFor="let answer of oneQuestion.answers">
+      <input type="checkbox" name="">
+      <img style="max-width: 200px; height: auto;" src="{{answer}}" alt="">
+    </p>
+  </div>
+
+  <div class="form-check" *ngIf="oneQuestion.type === 'RADIO_PICTURE'">
+    <h4 class="font-weight-bold">
+      {{oneQuestion.index + ". " + oneQuestion.value}}
+      <input type="hidden" value="{{oneQuestion.id}}"/>
+    </h4>
+    <p *ngFor="let answer of oneQuestion.answers">
+      <input type="radio" name="radio_picture" value="">
+      <img style="max-width: 200px; height: auto;" src="{{answer}}" alt="">
+    </p>
+  </div>
+
+  <div class="form-check" *ngIf="oneQuestion.type === 'PICTURE'">
+    <h4 class="font-weight-bold">
+      {{oneQuestion.index + ". " + oneQuestion.value}}
+      <input type="hidden" value="{{oneQuestion.id}}"/>
+    </h4>
+    <p *ngFor="let answer of oneQuestion.answers">
+      <input type="radio" name="radio_picture" value="">
+      <img style="max-width: 200px; height: auto;" src="{{answer}}" alt="">
+    </p>
+  </div>
+

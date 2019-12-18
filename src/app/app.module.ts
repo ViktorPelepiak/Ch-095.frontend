@@ -17,6 +17,19 @@ import { FormConstructorComponent } from './form-constructor/form-constructor.co
 import { QuestionComponent } from './question/question.component';
 import {FormsModule} from "@angular/forms";
 
+import {SurveysComponent} from './pages/surveys/surveys.component';
+import {NgxSkltnModule} from 'ngx-skltn';
+
+import { BarChartComponent } from './components/statistic/bar-chart-component/bar-chart-component.component';
+import { ChartsModule } from 'ng2-charts';
+import { StatisticComponent } from './components/statistic/statistic.component';
+import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
+import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-top-buttons.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
+import {QuestionsFormService} from './services/questions-form.service';
+import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,14 +39,32 @@ import {FormsModule} from "@angular/forms";
     FormConstructorComponent,
     QuestionComponent,
     CheckOpportunityComponent,
+    SurveysComponent,
+    SurveySkltnComponent,
+    BarChartComponent,
+    StatisticComponent,
+    SurveyTopButtonsComponent,
+    CheckOpportunityComponent,
+    QuestionsPageComponent,
+    OneQuestionComponent,
   ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        FormsModule,
-    ],
-  providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig}],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxSkltnModule.forRoot(),
+    ChartsModule,
+  ],
+  exports:[
+    ChartsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig},
+              QuestionsFormService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

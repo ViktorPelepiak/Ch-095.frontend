@@ -1,19 +1,49 @@
 import {Inject, Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {APP_CONFIG, IAppConfig} from "../app.config";
-import {Observable} from "rxjs";
-import {SaveSurvey} from "../entities/SaveSurvey";
+import {APP_CONFIG, IAppConfig} from '../app.config';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Survey} from '../models/survey';
+import {Page} from '../models/page';
+import {Pageable} from '../models/pageable';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SaveSurveyService {
+export class SurveyService {
 
-  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private http: HttpClient) {
+  endPoint = '/survey';
+
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig,
+              private http: HttpClient) {
   }
 
-  public saveSurvey(saveSurvey): Observable<SaveSurvey>{
-    console.log(JSON.stringify(saveSurvey));
-    return this.http.post<SaveSurvey>(this.config.backBaseUrl +'/survey/createNewSurvey', saveSurvey);
+  public getSurveys(params: HttpParams): Observable<Page<Survey>> {
+    return this.http.get<Page<Survey>>(this.config.backBaseUrl + '/survey', {params});
   }
+
+  public surveyUpdateTitle(id: number, title: string) {
+    return this.http.put<string>(this.config.backBaseUrl + this.endPoint, {}, {
+      params: new HttpParams()
+        .append('id', id + '')
+        .append('title', title)
+    });
+  }
+
+  public surveyStatusDone(id: number) {
+    return this.http.put<string>(this.config.backBaseUrl + this.endPoint + '/status/done', {}, {
+      params: new HttpParams()
+        .append('id', id + '')
+    });
+  }
+
+  public cloneSurvey(id: number, isClearContacts: boolean): Observable<Survey> {
+    return this.http.post<Survey>(this.config.backBaseUrl + this.endPoint, {id, isClearContacts});
+  }
+
+  public deleteSurvey(id: number): Observable<string> {
+    return this.http.delete<string>(this.config.backBaseUrl + this.endPoint, {
+      params: new HttpParams().append('id', id + '')
+    });
+  }
+
 }
