@@ -1,0 +1,19 @@
+
+<div style="width: 900px" class="container panel panel-footer">
+  <form #email="ngForm" (ngSubmit)="sendEmails(email.value)">
+    <table class="table">
+      <tr>
+        <th class="text-center">Enter multiple email addresses</th>
+      </tr>
+      <tr valign="top">
+        <td class="text-center">
+          <label>
+          <textarea rows="4" cols="100" name="email" ngModel=""></textarea>
+        </label></td>
+      </tr>
+      <p><font size="2">Please separate multiple addresses with commas</font></p>
+      <button type="button">Back</button>
+      <input type="submit" value="Send E-mails"/>
+    </table>
+  </form>
+</div>
