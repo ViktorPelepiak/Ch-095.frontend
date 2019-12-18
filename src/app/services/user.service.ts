@@ -13,11 +13,11 @@ export class UserService {
   }
 
   public getFirst(): Observable<User> {
-    return this.http.get<User>(this.config.baseUrl + '/user');
+    return this.http.get<User>(this.config.backBaseUrl + '/user');
   }
 
   public postUser(user: User): Observable<User> {
-    return this.http.post<User>(this.config.baseUrl + '/user', user);
+    return this.http.post<User>(this.config.backBaseUrl + '/user', user);
   }
 
 }

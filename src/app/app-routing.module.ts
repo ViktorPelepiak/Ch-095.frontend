@@ -6,13 +6,15 @@ import {AuthorizationComponent} from './pages/authorization/authorization.compon
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {StatisticComponent} from "./components/statistic/statistic.component";
+import {CheckOpportunityComponent} from "./pages/check-opportunity/check-opportunity.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
-  {path: 'login', component: AuthorizationComponent, canActivate: [AuthGuardService]},
-  {path: 'surveys', component: SurveysComponent},
+  {path: 'login', component: AuthorizationComponent},
   {path: 'test1', component: HeaderComponent},
   {path: 'statistic', component: StatisticComponent},
+  {path: 'checkOpportunity', component: CheckOpportunityComponent},
+  {path: 'test/:token', component: CheckOpportunityComponent},
   {path: '**', redirectTo: '/'},
 
 ];

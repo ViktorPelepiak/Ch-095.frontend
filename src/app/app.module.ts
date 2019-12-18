@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AuthorizationComponent} from './pages/authorization/authorization.component';
+import {CheckOpportunityComponent} from './pages/check-opportunity/check-opportunity.component';
 
 import {AppRoutingModule} from './app-routing.module';
 
@@ -19,6 +20,7 @@ import { BarChartComponent } from './components/statistic/bar-chart-component/ba
 import { ChartsModule } from 'ng2-charts';
 import { StatisticComponent } from './components/statistic/statistic.component';
 
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { StatisticComponent } from './components/statistic/statistic.component';
     HeaderComponent,
     DashboardComponent,
     AuthorizationComponent,
+    CheckOpportunityComponent,
     SurveysComponent,
     SurveySkltnComponent,
     BarChartComponent,
@@ -35,6 +38,7 @@ import { StatisticComponent } from './components/statistic/statistic.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
     NgxSkltnModule.forRoot(),
     ChartsModule,
   ],
