@@ -13,19 +13,15 @@ import {AppRoutingModule} from './app-routing.module';
 import {APP_CONFIG, AppConfig} from './app.config';
 
 import {UserService} from './services/user.service';
-import {SurveyService} from './services/survey.service';
 
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
 import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-top-buttons.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import {FormsModule} from "@angular/forms";
-import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { OneQuestionComponent } from './pages/questions-page/one-question/one-question.component';
+import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
 
 @NgModule({
   declarations: [

@@ -6,7 +6,6 @@ import {AuthorizationComponent} from './pages/authorization/authorization.compon
 import {CheckOpportunityComponent} from './pages/check-opportunity/check-opportunity.component';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {AuthGuardService} from './services/auth-guard.service';
-import {CheckOpportunityComponent} from "./pages/check-opportunity/check-opportunity.component";
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 
 const routes: Routes = [

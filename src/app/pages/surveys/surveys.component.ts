@@ -86,19 +86,19 @@ export class SurveysComponent implements OnInit {
   }
 
   previousPage(): void {
-    if (this.pageable.currentPage > 1){
+    if (this.pageable.currentPage > 1) {
       RedirectUtil.setParam('page', String(this.pageable.currentPage - 1));
     }
   }
 
   setPage(page: number) {
-    if (page >= 1 && page <= this.pageable.lastPage){
+    if (page >= 1 && page <= this.pageable.lastPage) {
       RedirectUtil.setParam('page', String(page));
     }
   }
 
   nextPage(): void {
-    if (this.pageable.currentPage < this.pageable.lastPage){
+    if (this.pageable.currentPage < this.pageable.lastPage) {
       RedirectUtil.setParam('page', String(this.pageable.currentPage + 1));
     }
   }
@@ -107,10 +107,10 @@ export class SurveysComponent implements OnInit {
     let params = new HttpParams();
     let currentPage = Number(this.route.snapshot.queryParamMap.get('page'));
     let size = +this.route.snapshot.queryParamMap.get('size');
-    let direction =  this.route.snapshot.queryParamMap.get('direction');
-    let fields =  this.route.snapshot.queryParamMap.getAll('sort');
+    let direction = this.route.snapshot.queryParamMap.get('direction');
+    let fields = this.route.snapshot.queryParamMap.getAll('sort');
     let status = this.route.snapshot.queryParamMap.get('status');
-    if (currentPage !== null && currentPage >= 0){
+    if (currentPage !== null && currentPage > 0) {
       params = params.append('page', String(currentPage - 1));
     }
     if (size > 0) {
