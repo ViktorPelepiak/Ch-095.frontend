@@ -21,6 +21,11 @@ import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.compo
 import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-top-buttons.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {FormsModule} from "@angular/forms";
+import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
+import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
+import {QuestionsFormService} from './services/questions-form.service';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { OneQuestionComponent } from './pages/questions-page/one-question/one-question.component';
 
 @NgModule({
   declarations: [
@@ -28,20 +33,26 @@ import {FormsModule} from "@angular/forms";
     HeaderComponent,
     DashboardComponent,
     AuthorizationComponent,
+    CheckOpportunityComponent,
     SurveysComponent,
     SurveySkltnComponent,
     SurveyTopButtonsComponent,
     CheckOpportunityComponent,
+    QuestionsPageComponent,
+    OneQuestionComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
     NgxSkltnModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [UserService, SurveyService, {provide: APP_CONFIG, useValue: AppConfig}],
+  providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig},
+              QuestionsFormService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
