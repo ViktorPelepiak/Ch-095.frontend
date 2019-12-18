@@ -1,7 +1,4 @@
 import {Component, ComponentFactoryResolver, ViewContainerRef, OnInit, ViewChild} from '@angular/core';
-// import {BarChartComponent} from "./bar-chart-component/bar-chart-component.component";
-// import {StatisticService} from "../../services/statistic.service";
-// import {Question} from "../../entities/question";
 import {ActivatedRoute} from "@angular/router";
 import {BarChartComponent} from "./bar-chart-component/bar-chart-component.component";
 import {StatisticService} from "../../services/statistic.service";
