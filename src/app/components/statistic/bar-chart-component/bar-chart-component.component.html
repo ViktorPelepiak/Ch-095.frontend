@@ -1,0 +1,11 @@
+<div>
+  <p id="question">Question: {{question}}</p>
+  <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [chartType]="barChartType"
+  >
+  </canvas>
+  <p id="number">Number of voters: {{numberVoters}}</p>
+</div>
+<hr>
