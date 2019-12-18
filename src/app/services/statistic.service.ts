@@ -1,31 +1,29 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {APP_CONFIG, IAppConfig} from "../app.config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatisticService {
 
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient,
+              @Inject(APP_CONFIG) private config: IAppConfig){
 
   }
 
-  private  baseUrl : string ='http://localhost:8080/' +
-    'Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war';
-  private questionUrl : string = '/statistic/questions?surveyId=';
-  private answerUrl : string = '/statistic/answers?questionId=';
-  private surveyTitleUrl : string = '/statistic/surveyTitle?surveyId=';
+
 
   getQuestions(surveyId: bigint){
-    return this.http.get(this.baseUrl + this.questionUrl + surveyId);
+    return this.http.get(this.config.backBaseUrl + this.config.questionUrl + surveyId);
   }
 
   getAnswers(answerId: bigint) {
-    return this.http.get(this.baseUrl + this.answerUrl + answerId);
+    return this.http.get(this.config.backBaseUrl + this.config.answerUrl + answerId);
   }
 
   getTitleSurvey(surveyId: bigint){
-    return this.http.get(this.baseUrl + this.surveyTitleUrl + surveyId);
+    return this.http.get(this.config.backBaseUrl + this.config.surveyTitleUrl + surveyId);
   }
 
 }

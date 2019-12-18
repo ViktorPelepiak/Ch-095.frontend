@@ -3,12 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {CheckOpportunityDto} from "../pages/check-opportunity/check-opportunity.component";
 import {Observable} from "rxjs";
 import {APP_CONFIG, IAppConfig} from "../app.config";
-import {ContactSurveyDto} from "../models/contact-survey-dto";
-
-import {HttpClient} from '@angular/common/http';
-import {CheckOpportunityDto} from '../pages/check-opportunity/check-opportunity.component';
-import {Observable} from 'rxjs';
-import {APP_CONFIG, IAppConfig} from '../app.config';
 // @ts-ignore
 import {ContactSurveyDto} from '../entities/contact-survey-dto';
 

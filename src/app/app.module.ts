@@ -47,12 +47,13 @@ import {OneQuestionComponent} from './pages/questions-page/one-question/one-ques
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     NgxSkltnModule.forRoot(),
     ChartsModule,
   ],
   exports:[
-    ChartsModule
+    ChartsModule,
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule
