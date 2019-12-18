@@ -1,8 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {CheckOpportunityDto} from '../pages/check-opportunity/check-opportunity.component';
-import {Observable} from 'rxjs';
-import {APP_CONFIG, IAppConfig} from '../app.config';
+import {HttpClient} from "@angular/common/http";
+import {CheckOpportunityDto} from "../pages/check-opportunity/check-opportunity.component";
+import {Observable} from "rxjs";
+import {APP_CONFIG, IAppConfig} from "../app.config";
 // @ts-ignore
 import {ContactSurveyDto} from '../entities/contact-survey-dto';
 

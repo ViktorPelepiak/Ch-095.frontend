@@ -13,13 +13,19 @@ import {AppRoutingModule} from './app-routing.module';
 import {APP_CONFIG, AppConfig} from './app.config';
 
 import {UserService} from './services/user.service';
+
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
+
+import { BarChartComponent } from './components/statistic/bar-chart-component/bar-chart-component.component';
+import { ChartsModule } from 'ng2-charts';
+import { StatisticComponent } from './components/statistic/statistic.component';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
+import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-top-buttons.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { OneQuestionComponent } from './pages/questions-page/one-question/one-question.component';
+import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +36,10 @@ import { OneQuestionComponent } from './pages/questions-page/one-question/one-qu
     CheckOpportunityComponent,
     SurveysComponent,
     SurveySkltnComponent,
+    BarChartComponent,
+    StatisticComponent,
+    SurveyTopButtonsComponent,
+    CheckOpportunityComponent,
     QuestionsPageComponent,
     OneQuestionComponent,
   ],
@@ -37,8 +47,14 @@ import { OneQuestionComponent } from './pages/questions-page/one-question/one-qu
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     NgxSkltnModule.forRoot(),
+    ChartsModule,
+  ],
+  exports:[
+    ChartsModule,
+    ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule
   ],
