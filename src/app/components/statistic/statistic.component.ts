@@ -5,7 +5,7 @@ import {Component, ComponentFactoryResolver, ViewContainerRef, OnInit, ViewChild
 import {ActivatedRoute} from "@angular/router";
 import {BarChartComponent} from "./bar-chart-component/bar-chart-component.component";
 import {StatisticService} from "../../services/statistic.service";
-import {Question} from "../../models/question";
+import {QuestionStatistic} from "../../models/questionStatistic";
 
 
 @Component({
@@ -53,11 +53,10 @@ export class StatisticComponent implements OnInit {
 
   }
 
-  createBarChartComponents(dataQuestions: Question[]){
+  createBarChartComponents(dataQuestions: QuestionStatistic[]){
     let barChart = this.componentFactoryResolver.resolveComponentFactory(BarChartComponent);
     dataQuestions.sort((a, b) => a.index - b.index)
     dataQuestions.forEach(question => {
-
       let barChartComponentRef = this.questionViewRef.createComponent(barChart);
       this.statisticService.getAnswers(question.id)
         .toPromise().then(dataAnswers => {
@@ -73,9 +72,9 @@ export class StatisticComponent implements OnInit {
       this.statisticService.getTitleSurvey(surveyId)
         .toPromise().then(value => this.title = value["title"]);
       this.statisticService.getQuestions(surveyId).toPromise().then((
-        dataQuestions: Question[]) => {
+        dataQuestions: QuestionStatistic[]) => {
         this.createBarChartComponents(dataQuestions);
       })
   }
-  
+
 }

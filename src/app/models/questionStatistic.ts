@@ -1,4 +1,4 @@
-export class Question {
+export class QuestionStatistic {
   id: bigint;
   question: string;
   answers: string[];
