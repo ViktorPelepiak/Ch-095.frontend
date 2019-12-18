@@ -9,6 +9,7 @@ import {Question} from "../entities/question";
 export class QuestionComponent implements OnInit {
  @Input() public question: Question;
   isButtonDisable:boolean = true;
+  isTypeSet:boolean = false;
 
   constructor() {
   }
@@ -18,7 +19,7 @@ export class QuestionComponent implements OnInit {
 
   setType(event:any){
    this.question.type = event.target.value;
-   this.question.isTypeSet = true;
+   this.isTypeSet = true;
     if(this.question.type === "CHECKBOX"){
      this.question.answers.push('');
     }
@@ -35,11 +36,6 @@ export class QuestionComponent implements OnInit {
   this.question.answers.push("");
   this.isButtonDisable = true;
   console.log(this.question);
-  }
-
-  setQuestion(value){
-    this.question.question = value;
-    console.log(this.question);
   }
 
   setAnswerVariant(index,variantOfAnswer){

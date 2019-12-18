@@ -13,6 +13,7 @@ export class SaveSurveyService {
   }
 
   public saveSurvey(saveSurvey): Observable<SaveSurvey>{
+    console.log(JSON.stringify(saveSurvey));
     return this.http.post<SaveSurvey>(this.config.backBaseUrl +'/survey/createNewSurvey', saveSurvey);
   }
 }

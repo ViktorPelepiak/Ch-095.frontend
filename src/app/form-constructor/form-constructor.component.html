@@ -1,10 +1,14 @@
 <div class="formConstructor">
-  Name of survey <input type="text"  [(ngModel)]="surveyName">
+  <h2></h2>
+  <div class="form-group">
+    <input type="text" [(ngModel)]="surveyName" class="form-control" id="surveyName" placeholder="Input name of your survey">
+  </div>
   <br>
   <br>
   <app-question *ngFor="let question of questions " [question]="question"></app-question>
   <br>
-  <button (click)="addNewQuestion()" id="addNewQuestion">ADD NEW QUESTION</button>
+  <button type="button" class="btn btn-dark" (click)="addNewQuestion()" id="addNewQuestion">ADD NEW QUESTION</button>
+<!--  <button (click)="addNewQuestion()" id="addNewQuestion">ADD NEW QUESTION</button>-->
   <br>
-  <button type="button" class="btn btn-success" id="saveSurvey" (click)="sendSurvey()">SAVE SURVEY</button>
+  <button type="button" class="btn btn-success" id="saveSurvey" (click)="sendSurvey()" id="saveSurvey">SAVE SURVEY</button>
 </div>
