@@ -1,6 +1,5 @@
-
-<form  (ngSubmit)="onSubmit()" #questionForm="ngForm">
-  <div>
+<div>
+  <form (ngSubmit)="onSubmit()" #questionForm="ngForm">
     <h2 class="font-weight-normal">Hello, you logged in as</h2>
     <h2 class="font-weight-normal">{{contactEmail}}</h2>
     <br>
@@ -14,6 +13,6 @@
       ></app-question>
     </p>
     <h4><button type="submit" class="btn btn-success" [disabled]="!questionForm.form.valid">Submit</button></h4>
-  </div>
-</form>
+  </form>
+</div>
 

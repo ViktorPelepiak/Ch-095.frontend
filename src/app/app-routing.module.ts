@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AuthorizationComponent} from './pages/authorization/authorization.component';
-import {CheckOpportunityComponent} from "./pages/check-opportunity/check-opportunity.component";
+import {CheckOpportunityComponent} from './pages/check-opportunity/check-opportunity.component';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';

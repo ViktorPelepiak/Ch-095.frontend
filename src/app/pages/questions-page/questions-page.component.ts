@@ -5,7 +5,7 @@ import {Question} from '../../models/question';
 @Component({
   selector: 'app-questions-page',
   templateUrl: './questions-page.component.html',
-  styleUrls: ['./questions-page.component.css', './question/bootstrap.min.css']
+  styleUrls: ['./questions-page.component.css', './one-question/bootstrap.min.css']
 })
 
 export class QuestionsPageComponent implements OnInit {
