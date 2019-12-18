@@ -1,5 +1,4 @@
-
-<div style="width: 900px" class="container panel panel-footer">
+<div *ngIf="isShown" style="width: 900px" class="container panel panel-footer">
   <form #email="ngForm" (ngSubmit)="sendEmails(email.value)">
     <table class="table">
       <tr>
@@ -8,12 +7,32 @@
       <tr valign="top">
         <td class="text-center">
           <label>
-          <textarea rows="4" cols="100" name="email" ngModel=""></textarea>
+          <textarea rows="4" cols="100" name="email" ngModel="" placeholder="email@gmail.com,email2@gmail.com,..."></textarea>
         </label></td>
       </tr>
       <p><font size="2">Please separate multiple addresses with commas</font></p>
-      <button type="button">Back</button>
+      <button (click)="toggleShow()" type="checkbox" >Back</button>
       <input type="submit" value="Send E-mails"/>
+    </table>
+  </form>
+</div>
+
+<div *ngIf="isShown2" style="width: 900px" class="container panel panel-footer">
+  <form #email="ngForm" (ngSubmit)="sendEmails(email.value)">
+    <table class="table">
+      <tr>
+        <th class="col-sm text-center">To</th>
+        <th class="col-sm text-center"></th>
+      </tr>
+      <tr *ngFor="let email of emails; let i = index;" valign="top">
+        <td class="text-center"><input type="text" name="to" size="40" value="{{email.value}}" ngModel="" placeholder="email@gmail.com"/></td>
+        <td class="text-center">
+          <button type="button" (click)="removeEmail(i)"><i class="c-icon c-icon--times" type="times">x</i></button>
+        </td>
+      </tr>
+      <button type="button" (click)="addEmail()">Add another</button>
+      <button (click)="toggleShow()" type="checkbox">Add many at once</button>
+      <input type="submit" value="Send E-mail"/>
     </table>
   </form>
 </div>

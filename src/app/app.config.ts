@@ -7,5 +7,5 @@ export interface IAppConfig {
 }
 
 export const AppConfig: IAppConfig = {
-  baseUrl: 'http://localhost:8081'
+  baseUrl: 'http://localhost:8080'
 };

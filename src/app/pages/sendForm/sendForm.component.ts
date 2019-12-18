@@ -9,6 +9,14 @@ import {Email} from "../../models/email";
 })
 export class SendFormComponent implements OnInit {
 
+  isShown: boolean = true;
+  isShown2: boolean = false;
+  toggleShow() {
+    this.isShown = ! this.isShown;
+    this.isShown2 = ! this.isShown2;
+  }
+
+
   public emails: any[] = [''];
 
   addEmail() {
@@ -29,7 +37,7 @@ export class SendFormComponent implements OnInit {
   }
 
   sendEmails(formData) {
-    const email = new Email(formData.email, '1', '1');
+    const email = new Email(formData.email, '2', '1');
       console.log(formData.email);
       this.emailService
         .postEmailArray(email)

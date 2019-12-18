@@ -2,6 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {APP_CONFIG, IAppConfig} from '../app.config';
 import {Email} from "../models/email";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,9 @@ export class EmailService {
   constructor(@Inject(APP_CONFIG) private config: IAppConfig, private http: HttpClient) {
   }
 
-  public postEmailArray(email : Email){
-    return this.http.post<Email>(this.config.baseUrl + '/sendEmails', email);
+  public postEmailArray(email: Email): Observable<string> {
+    // @ts-ignore
+    return this.http.post<string>(this.config.baseUrl + '/sendEmails', email, {responseType: 'text'});
   }
 
 }
