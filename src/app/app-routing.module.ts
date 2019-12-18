@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AuthorizationComponent} from './pages/authorization/authorization.component';
+import {StatisticComponent} from "./components/statistic/statistic.component";
 import {CheckOpportunityComponent} from './pages/check-opportunity/check-opportunity.component';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {AuthGuardService} from './services/auth-guard.service';
@@ -14,9 +15,11 @@ const routes: Routes = [
   {path: 'surveys', component: SurveysComponent},
   {path: 'questions', component: QuestionsPageComponent},
   {path: 'test1', component: HeaderComponent},
+  {path: 'statistic', component: StatisticComponent},
   {path: 'checkOpportunity', component: CheckOpportunityComponent},
   {path: 'test/:token', component: CheckOpportunityComponent},
   {path: '**', redirectTo: '/'},
+
 ];
 
 @NgModule({
