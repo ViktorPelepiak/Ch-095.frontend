@@ -10,7 +10,7 @@
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                    placeholder="Enter email" [(ngModel)]="email">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            <strong *ngIf="wrongEmail" id="warning">These emails are not equals</strong>
+            <strong *ngIf="wrongEmail" id="warning">Sorry, but you can`t pass survey by this email</strong>
           </div>
           <button class="btn btn-success" (click)="checkEmail()">Pass the survey</button>
         </div>
