@@ -8,6 +8,7 @@ import {CheckOpportunityComponent} from './pages/check-opportunity/check-opportu
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
+import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'questions', component: QuestionsPageComponent},
   {path: 'test1', component: HeaderComponent},
   {path: 'statistic', component: StatisticComponent},
+  {path: 'surveys/add', component: FormConstructorComponent},
   {path: 'checkOpportunity', component: CheckOpportunityComponent},
   {path: 'test/:token', component: CheckOpportunityComponent},
   {path: '**', redirectTo: '/'},
