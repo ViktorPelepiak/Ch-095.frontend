@@ -1,0 +1,37 @@
+div{
+  background: linear-gradient(to right, aliceblue, beige);
+}
+div.content{
+  width: 50%;
+  margin: auto;
+  margin-top: 100px;
+  background: white;
+  border: antiquewhite;
+  border-radius: 10px;
+}
+hr{
+  margin-top: 0px;
+}
+button{
+  width: 50%;
+  margin: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: large;
+  background-color: white;
+  color: black;
+  border: 0;
+}
+#button_left{
+  border-radius: 10px 0px 0px 0px;
+}
+#button_right{
+  border-radius: 0px 10px 0px 0px;
+}
+#title{
+  margin-top: 50px;
+  font-size: x-large;
+  text-align: center;
+}
+
+
