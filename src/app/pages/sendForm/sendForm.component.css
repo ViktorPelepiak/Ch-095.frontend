@@ -1,0 +1,11 @@
+.table {
+  padding-top: 10px;
+  width: 600px;
+  box-sizing: inherit;
+  font-size: 15px;
+  border-radius: 8px;
+  flex-direction: column;
+  max-height: 100%;
+  position: relative;
+}
+
