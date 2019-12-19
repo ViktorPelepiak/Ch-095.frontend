@@ -16,7 +16,6 @@ export class SendFormComponent implements OnInit {
     this.isShown2 = ! this.isShown2;
   }
 
-
   public emails: any[] = [''];
 
   addEmail() {
@@ -27,9 +26,6 @@ export class SendFormComponent implements OnInit {
     this.emails.splice(i, 1);
   }
 
-  hideForm(){
-  }
-
   constructor(private emailService: EmailService) {
   }
 
@@ -37,7 +33,7 @@ export class SendFormComponent implements OnInit {
   }
 
   sendEmails(formData) {
-    const email = new Email(formData.email, '2', '1');
+    const email = new Email(formData.email, '1', '1');
       console.log(formData.email);
       this.emailService
         .postEmailArray(email)
