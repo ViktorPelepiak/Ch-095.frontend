@@ -2,18 +2,24 @@ import {Inject, Injectable} from '@angular/core';
 import {APP_CONFIG, IAppConfig} from '../app.config';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionsFormService {
 
-  QUESTION_API = '/question?surveyId=1&&contactEmail=test@gmail.com';
+  surveyId;
+  contactEmail;
 
-  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private httpClient: HttpClient) {
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private httpClient: HttpClient, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      this.surveyId = params.surveyId;
+      this.contactEmail = params.contactEmail;
+    });
   }
 
   getSurvey(): Observable<any> {
-    return this.httpClient.get<any>(this.config.backBaseUrl + this.QUESTION_API);
+    return this.httpClient.get<any>(this.config.backBaseUrl + '/question?surveyId=' + this.surveyId + '&&contactEmail=' + this.contactEmail);
   }
 }
