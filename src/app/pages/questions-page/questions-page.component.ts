@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionsFormService} from '../../services/questions-form.service';
-import {Question} from '../../models/question';
 
 @Component({
   selector: 'app-questions-page',
@@ -14,7 +13,6 @@ export class QuestionsPageComponent implements OnInit {
   surveyId;
   contactEmail;
 
-  model: Question;
   submitted = false;
 
   getQuestions() {
