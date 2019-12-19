@@ -1,4 +1,6 @@
-  <div class="form-check" *ngIf="oneQuestion.type === 'CHECKBOX'">
+<div class="question">
+
+<div class="answer" *ngIf="oneQuestion.type === 'CHECKBOX'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input type="hidden" value="{{oneQuestion.id}}"/>
@@ -8,27 +10,27 @@
     </p>
   </div>
 
-  <div class="form-check" *ngIf="oneQuestion.type === 'RADIOBUTTON'">
+  <div class="answer" *ngIf="oneQuestion.type === 'RADIOBUTTON'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input type="hidden" value="{{oneQuestion.id}}"/>
     </h4>
-    <p *ngFor="let answer of oneQuestion.answers">
+    <p *ngFor="let answer of oneQuestion.answers" >
       <input type="radio" name="radio" value="{{answer}}">{{answer}}
     </p>
   </div>
 
-  <div class="form-check" *ngIf="oneQuestion.type === 'TEXTAREA'">
+  <div class="answer" *ngIf="oneQuestion.type === 'TEXTAREA'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input type="hidden" value="{{oneQuestion.id}}"/>
     </h4>
     <p>
-      <TEXTAREA name="textarea" cols=100 rows=6></TEXTAREA>
+      <TEXTAREA name="textarea" cols=60 rows=6></TEXTAREA>
     </p>
   </div>
 
-  <div class="form-check" *ngIf="oneQuestion.type === 'TEXTBOX'">
+  <div class="answer" *ngIf="oneQuestion.type === 'TEXTBOX'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input type="hidden" value="{{oneQuestion.id}}"/>
@@ -38,7 +40,7 @@
     </p>
   </div>
 
-  <div class="form-check" *ngIf="oneQuestion.type === 'CHECKBOX_PICTURE'">
+  <div class="answer" *ngIf="oneQuestion.type === 'CHECKBOX_PICTURE'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input type="hidden" value="{{oneQuestion.id}}"/>
@@ -49,7 +51,7 @@
     </p>
   </div>
 
-  <div class="form-check" *ngIf="oneQuestion.type === 'RADIO_PICTURE'">
+  <div class="answer" *ngIf="oneQuestion.type === 'RADIO_PICTURE'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input type="hidden" value="{{oneQuestion.id}}"/>
@@ -60,7 +62,7 @@
     </p>
   </div>
 
-  <div class="form-check" *ngIf="oneQuestion.type === 'PICTURE'">
+  <div class="answer" *ngIf="oneQuestion.type === 'PICTURE'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input type="hidden" value="{{oneQuestion.id}}"/>
@@ -69,5 +71,6 @@
       <input type="radio" name="radio_picture" value="">
       <img style="max-width: 200px; height: auto;" src="{{answer}}" alt="">
     </p>
+  </div>
   </div>
 
