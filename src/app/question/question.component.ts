@@ -1,6 +1,5 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Question} from "../models/question";
-
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -40,9 +39,8 @@ export class QuestionComponent implements OnInit {
 
 
   addAnswerVariant(){
-  this.question.answers.push("");
-  this.isButtonDisable = true;
-  console.log(this.question);
+  this.question.answers.push(" ");
+  console.log(this.question.answers);
   }
 
   setAnswerVariant(index,variantOfAnswer){

@@ -14,11 +14,10 @@
     <div class="form-group" id="userQuestion">
       <input type="text" name="userQuestion" class="form-control" placeholder="Input your question"
              [(ngModel)]="question.question">
-
     </div>
 
   <form>
-    <select (change)="setType($event)" [hidden]="isTypeSet" class="custom-select" id="selectTypeOfAnswer">
+    <select (change)="setType($event)"  [hidden]="question.type !='not set' " class="custom-select" id="selectTypeOfAnswer">
       <option disabled>SELECT ANSWER TYPE</option>
       <option value="TEXTBOX">TEXTBOX</option>
       <option value="RADIOBUTTON">RADIOBUTTON</option>
@@ -29,11 +28,12 @@
     <div *ngIf="question.type === 'CHECKBOX'" class="answer">
       <p *ngFor="let answer of question.answers; index as i">
         <img src="https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png">
-        <input class="checkboxAnswer" value="{{answer}}" #variantOfAnswer
-               (change)="setAnswerVariant(i,variantOfAnswer.value)">
-        <button type="button" class="btn btn-secondary" id="deleteVariant" (click)="deleteVariant(i)">x</button>
+
+        <input class="checkboxAnswer" #VariantAnswer (change)="setAnswerVariant(i, VariantAnswer.value)" name="answer{{question.index}}" [value]="answer">
+
+        <button type="button" class="btn btn-secondary" class="deleteVariant" (click)="deleteVariant(i)">x</button>
       </p>
-      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+      <button type="button"   (click)="addAnswerVariant()">ADD
         VARIANT
       </button>
     </div>
@@ -42,7 +42,7 @@
         <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
         <input class="radiobuttonAnswer" value="{{answer}}" #variantOfAnswer
                (change)="setAnswerVariant(i,variantOfAnswer.value)">
-        <button type="button" class="btn btn-secondary" id="deleteVariant" (click)="deleteVariant(i)">x</button>
+        <button type="button"  class="deleteVariant" (click)="deleteVariant(i)">x</button>
       </p>
       <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
         VARIANT
