@@ -1,38 +1,75 @@
-<div *ngIf="isShown" style="width: 900px" class="container panel panel-footer">
-  <form #email="ngForm" (ngSubmit)="sendEmails(email.value)">
-    <table class="table">
-      <tr>
-        <th class="text-center">Enter multiple email addresses</th>
-      </tr>
-      <tr valign="top">
-        <td class="text-center">
-          <label>
-          <textarea rows="4" cols="100" name="email" ngModel="" placeholder="email@gmail.com,email2@gmail.com,..."></textarea>
-        </label></td>
-      </tr>
-      <p><font size="2">Please separate multiple addresses with commas</font></p>
-      <button (click)="toggleShow()" type="checkbox" >Back</button>
-      <input type="submit" value="Send E-mails"/>
-    </table>
-  </form>
-</div>
-
-<div *ngIf="isShown2" style="width: 900px" class="container panel panel-footer">
-  <form #email="ngForm" (ngSubmit)="sendEmails(email.value)">
-    <table class="table">
-      <tr>
-        <th class="col-sm text-center">To</th>
-        <th class="col-sm text-center"></th>
-      </tr>
-      <tr *ngFor="let email of emails; let i = index;" valign="top">
-        <td class="text-center"><input type="text" name="email" size="40" ngModel="" placeholder="email@gmail.com"/></td>
-        <td class="text-center">
-          <button type="button" (click)="removeEmail(i)"><i class="c-icon c-icon--times" type="times">x</i></button>
-        </td>
-      </tr>
-      <button type="button" (click)="addEmail()">Add another</button>
-      <button (click)="toggleShow()" type="checkbox">Add many at once</button>
-      <input type="submit" value="Send E-mail"/>
-    </table>
-  </form>
+<a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#basicModal">
+  Add Contacts
+</a>
+<div class="modal fade" id="basicModal" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <form role="form" #email="ngForm" (ngSubmit)="sendEmails(email.value)">
+      <div class="modal-dialog modal-custom" role="document">
+        <div class="modal-content modal-content-custom">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Sending survey "titleOfSurvey"</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div *ngIf="isShown2" class="container panel panel-footer">
+              <div class="form-group">
+                <table class="table">
+                  <tr>
+                    <th class="text-left">Enter multiple email addresses</th>
+                  </tr>
+                  <tr valign="top">
+                    <td class="text-center">
+                      <label>
+              <textarea rows="4" cols="120" class="text-left" name="email" ngModel=""
+                        placeholder="email@gmail.com,email2@gmail.com,..."></textarea>
+                      </label></td>
+                  </tr>
+                  <p>Please separate multiple addresses with commas</p>
+                </table>
+              </div>
+            </div>
+            <div *ngIf="isShown" class="container panel panel-footer">
+              <div class="form-group">
+                <table class="table table-striped">
+                  <tr>
+                    <th class="text-left">Email Address</th>
+                    <th class="text-center"></th>
+                  </tr>
+                  <tr *ngFor="let email of emails; let i = index;" valign="top">
+                    <td class="text-center">
+                      <input type="text" id="email" class="text-left" name="email" size="40" ngModel=""
+                             placeholder="email@gmail.com"/>
+                    </td>
+                    <td class="text-center" *ngIf="show">
+                      <div *ngIf="isShownRemoveSign" class="container panel panel-footer">
+                      <button type="button" class="close" (click)="removeEmail(i)"><span aria-hidden="true">×</span>
+                      </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <span class="box">
+                    <button type="button" (click)="addEmail()" class="btn btn-default" aria-label="Left Align">
+                      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                      Add another</button>
+                    or
+                    <button type="button" (click)="toggleShow()" type="checkbox" class="btn btn-default">
+                      add many at once
+                    </button>
+                  </span>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div *ngIf="isShown2" class="container panel panel-footer">
+              <button (click)="toggleShow()" type="checkbox">Back</button>
+            </div>
+            <input type="submit" value="Send E-mail"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

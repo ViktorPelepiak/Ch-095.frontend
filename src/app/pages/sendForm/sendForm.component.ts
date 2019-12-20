@@ -10,6 +10,7 @@ import {Email} from "../../models/email";
 export class SendFormComponent implements OnInit {
 
   isShown: boolean = true;
+  isShownRemoveSign: boolean = true;
   isShown2: boolean = false;
   toggleShow() {
     this.isShown = ! this.isShown;
@@ -19,12 +20,15 @@ export class SendFormComponent implements OnInit {
   public emails: any[] = [''];
 
   addEmail() {
-    this.emails.push('');
+    if (this.emails.length < 5) {
+      this.emails.push('');
+    }
   }
 
   removeEmail(i: number) {
-    this.emails.splice(i, 1);
+      this.emails.splice(i, 1);
   }
+
 
   constructor(private emailService: EmailService) {
   }
