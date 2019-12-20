@@ -37,7 +37,7 @@ export class FormConstructorComponent implements OnInit {
     let saveSurvey:SaveSurvey = new SaveSurvey();
     saveSurvey.title = this.surveyName.valueOf();
     console.log(saveSurvey.title);
-    saveSurvey.userID = 0;
+    saveSurvey.userID = 5;
     saveSurvey.questions = this.questions;
     this.saveSurveyService.saveSurvey(saveSurvey).subscribe(e=> {console.log("done")});
   }
