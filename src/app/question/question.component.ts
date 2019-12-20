@@ -32,6 +32,13 @@ export class QuestionComponent implements OnInit {
     console.log(JSON.stringify(this.question));
   }
 
+  deleteVariant(variantOfAnswerIndex:number){
+   this.question.answers.splice(variantOfAnswerIndex,1);
+   if(this.question.answers.length === 0) this.isButtonDisable = false;
+   console.log(this.question.answers);
+  }
+
+
   addAnswerVariant(){
   this.question.answers.push("");
   this.isButtonDisable = true;

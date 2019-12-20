@@ -33,6 +33,13 @@
 #userQuestion{
 
 }
+#deleteVariant{
+  font-size: 10px;
+  text-align: center;
+  width: 4%;
+  height: 4%;
+  margin-left: 3%;
+}
 #questionBox{
   margin-bottom: 7%;
 }
