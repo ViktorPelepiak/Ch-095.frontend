@@ -1,12 +1,23 @@
 <div class="question">
-  <form>
-    <h4 id="inputQuestion">Question {{question.index}}</h4>
-    <div class="form-group">
-      <input type="text" name="userQuestion" class="form-control" placeholder="Input your question" [(ngModel)]="question.question">
+    <div id="questionBox">
+      <div id="questionNumber">
+        <h4 id="inputQuestion">Question {{question.index}}</h4>
+      </div>
+      <div id="isRequired" title="is required question?">
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="question.required">
+          <span class="slider round"></span>
+        </label>
+      </div>
     </div>
 
+    <div class="form-group" id="userQuestion">
+      <input type="text" name="userQuestion" class="form-control" placeholder="Input your question"
+             [(ngModel)]="question.question">
 
+    </div>
 
+  <form>
     <select (change)="setType($event)" [hidden]="isTypeSet" class="custom-select" id="selectTypeOfAnswer">
       <option disabled>SELECT ANSWER TYPE</option>
       <option value="TEXTBOX">TEXTBOX</option>

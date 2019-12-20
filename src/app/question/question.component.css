@@ -20,7 +20,29 @@
 #inputQuestion{
   font-family: 'Fjalla One', sans-serif;
 }
+#questionNumber{
+  position: absolute;
+  width: 90%;
+}
+.tooltip .tooltiptext {
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+#userQuestion{
 
+}
+#questionBox{
+  margin-bottom: 7%;
+}
+#isRequired{
+  margin-top: 1%;
+  position: absolute;
+  margin-left: 80%;
+  width: 5%;
+  height: 20%;
+}
 .formConstructor{
   margin-left: 30%;
   margin-top: 5%;
@@ -45,4 +67,71 @@ input[type="text"]:focus,
 select.form-control:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+#questionBlock{
+  border: 2px dotted black;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  display: block;
+  position: relative;
+  width: 30px;
+  height: 17px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 17px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Question} from "../../models/question";
 import {SaveSurvey} from "../../models/SaveSurvey";
 import {SaveSurveyService} from "../../services/save-survey.service";
@@ -9,7 +9,7 @@ import {SaveSurveyService} from "../../services/save-survey.service";
   styleUrls: ['./form-constructor.component.css']
 })
 export class FormConstructorComponent implements OnInit {
-  surveyName:string;
+  @Input() surveyName:string;
   questionCounter:number;
   questions:Question[];
 
@@ -37,7 +37,6 @@ export class FormConstructorComponent implements OnInit {
     let saveSurvey:SaveSurvey = new SaveSurvey();
     saveSurvey.title = this.surveyName.valueOf();
     console.log(saveSurvey.title);
-    saveSurvey.userID = 5;
     saveSurvey.questions = this.questions;
     this.saveSurveyService.saveSurvey(saveSurvey).subscribe(e=> {console.log("done")});
   }
