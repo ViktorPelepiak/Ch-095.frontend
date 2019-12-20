@@ -1,0 +1,24 @@
+<div class="container d-flex">
+  <div class="row">
+    <div class="col-6 offset-3">
+      <div class="mainContainer align-self-center" id="main">
+        <div *ngIf="isExist; else notExist">
+          <div class="form-group">
+            <input type="text" id="token" hidden>
+            <label for="exampleInputEmail1"><h5>Enter your email for confirm possibility to pass the
+              test</h5></label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="Enter email" [(ngModel)]="email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <strong *ngIf="wrongEmail" id="warning">Sorry, but you can`t pass survey by this email</strong>
+          </div>
+          <button class="btn btn-success" (click)="checkEmail()">Pass the survey</button>
+        </div>
+
+        <ng-template #notExist>
+          <h3>{{errorMessage}}</h3>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
