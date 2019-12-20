@@ -20,7 +20,7 @@ export class QuestionComponent implements OnInit {
   setType(event:any){
    this.question.type = event.target.value;
    this.isTypeSet = true;
-    if(this.question.type === "CHECKBOX"){
+    if(this.question.type === 'CHECKBOX'){
      this.question.answers.push('');
     }
     if(this.question.type === "RADIOBUTTON"){
