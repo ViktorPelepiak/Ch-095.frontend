@@ -22,6 +22,7 @@
       <option value="TEXTBOX">TEXTBOX</option>
       <option value="RADIOBUTTON">RADIOBUTTON</option>
       <option value="CHECKBOX">CHECKBOX</option>
+      <option value="RADIO_PICTURE">RADIO_PICTURE</option>
     </select>
 
 
@@ -33,7 +34,7 @@
 
         <button type="button" class="btn btn-secondary" class="deleteVariant" (click)="deleteVariant(i)">x</button>
       </p>
-      <button type="button"   (click)="addAnswerVariant()">ADD
+      <button type="button" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
         VARIANT
       </button>
     </div>
@@ -53,6 +54,18 @@
         <input type="text" name="userQuestion" class="form-control" [disabled]=true placeholder="Textbox for answer">
       </p>
     </div>
+
+    <div *ngIf="question.type === 'RADIO_PICTURE'" class="answer">
+      <p *ngFor="let answer of question.answers; index as i">
+        <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
+        <input type="file" id="file" (change)="uploadPhoto($event,i)" />
+        <button type="button"  class="deleteVariant" (click)="deletePhoto(i)">x</button>
+      </p>
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+        VARIANT
+      </button>
+    </div>
+
   </form>
 </div>
 

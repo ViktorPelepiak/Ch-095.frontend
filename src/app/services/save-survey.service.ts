@@ -16,4 +16,8 @@ export class SaveSurveyService {
     console.log(JSON.stringify(saveSurvey));
     return this.http.post<SaveSurvey>(this.config.backBaseUrl +'/survey/createNewSurvey', saveSurvey);
   }
+
+  public savePicture(uploadingPhoto: { prototype: File; new(fileBits: BlobPart[], fileName: string, options?: FilePropertyBag): File }[]){
+    return this.http.post<File[]>(this.config.backBaseUrl + '/fileupload',uploadingPhoto);
+  }
 }

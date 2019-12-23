@@ -12,10 +12,12 @@ export class FormConstructorComponent implements OnInit {
   @Input() surveyName:string;
   questionCounter:number;
   questions:Question[];
+  uploadingPhoto:{ prototype: File; new(fileBits: BlobPart[], fileName: string, options?: FilePropertyBag): File }[];
 
   constructor(private saveSurveyService : SaveSurveyService) {
     this.questionCounter = 0;
     this.questions = [];
+    this.uploadingPhoto = [File];
   }
 
   ngOnInit() {
@@ -35,10 +37,16 @@ export class FormConstructorComponent implements OnInit {
 
   sendSurvey(){
     let saveSurvey:SaveSurvey = new SaveSurvey();
-    saveSurvey.title = this.surveyName.valueOf();
+    saveSurvey.title = this.surveyName;
     console.log(saveSurvey.title);
     saveSurvey.questions = this.questions;
-    this.saveSurveyService.saveSurvey(saveSurvey).subscribe(e=> {console.log("done")});
+    this.savePhoto();
+    this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => {console.log("done")});
+  }
+
+  savePhoto(){
+    this.questions.forEach(x => x.uploadingFiles.forEach( y => this.uploadingPhoto.push(y)));
+    this.saveSurveyService.savePicture(this.uploadingPhoto).subscribe(x => console.log("photos uploaded"));
   }
 
 

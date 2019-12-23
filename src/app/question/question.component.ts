@@ -28,6 +28,9 @@ export class QuestionComponent implements OnInit {
     if(this.question.type === "TEXTBOX"){
      this.question.answers.push('');
     }
+    if(this.question.type === "RADIO_PICTURE"){
+     this.question.answers.push('');
+    }
     console.log(JSON.stringify(this.question));
   }
 
@@ -37,16 +40,26 @@ export class QuestionComponent implements OnInit {
    console.log(this.question.answers);
   }
 
-
   addAnswerVariant(){
   this.question.answers.push(" ");
-  console.log(this.question.answers);
+  this.isButtonDisable = true;
   }
 
   setAnswerVariant(index,variantOfAnswer){
     this.question.answers[index]= variantOfAnswer;
     this.isButtonDisable = false;
-    console.log(this.question.answers)
   }
 
+  //////////UPLOADING PHOTO///////////////
+  uploadPhoto(event,index){
+    this.question.uploadingFiles[index] = event.target.files[0];
+    this.question.answers[index] = event.target.files[0].name;
+    this.isButtonDisable = false;
+  }
+
+  deletePhoto(index:number){
+    this.question.answers.splice(index,1);
+    this.question.uploadingFiles.splice(index,1);
+    if(this.question.answers.length === 0) this.isButtonDisable = false;
+  }
 }
