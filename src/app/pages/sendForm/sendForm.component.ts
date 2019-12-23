@@ -10,7 +10,7 @@ import {Email} from "../../models/email";
 export class SendFormComponent implements OnInit {
 
   isShown: boolean = true;
-  isShownRemoveSign: boolean = true;
+  // isShownRemoveSign: boolean = true;
   isShown2: boolean = false;
   toggleShow() {
     this.isShown = ! this.isShown;

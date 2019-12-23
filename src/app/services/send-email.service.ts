@@ -14,7 +14,7 @@ export class EmailService {
 
   public postEmailArray(email: Email): Observable<string> {
     // @ts-ignore
-    return this.http.post<string>(this.config.baseUrl + '/sendEmails', email, {responseType: 'text'});
+    return this.http.post<string>(this.config.backBaseUrl + '/sendEmails', email, {responseType: 'text'});
   }
 
 }

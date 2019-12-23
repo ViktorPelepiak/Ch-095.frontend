@@ -3,7 +3,7 @@
 </a>
 <div class="modal fade" id="basicModal" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
   <div class="modal-dialog">
-    <form role="form" #email="ngForm" (ngSubmit)="sendEmails(email.value)">
+    <form [formGroup]="sendForm" role="form" #email="ngForm" (ngSubmit)="sendEmails(email.value)">
       <div class="modal-dialog modal-custom" role="document">
         <div class="modal-content modal-content-custom">
           <div class="modal-header">
@@ -42,11 +42,11 @@
                       <input type="text" id="email" class="text-left" name="email" size="40" ngModel=""
                              placeholder="email@gmail.com"/>
                     </td>
-                    <td class="text-center" *ngIf="show">
-                      <div *ngIf="isShownRemoveSign" class="container panel panel-footer">
+                    <td class="text-center">
+<!--                      <div *ngIf="isShownRemoveSign" class="container panel panel-footer">-->
                       <button type="button" class="close" (click)="removeEmail(i)"><span aria-hidden="true">×</span>
                       </button>
-                      </div>
+<!--                      </div>-->
                     </td>
                   </tr>
                   <span class="box">

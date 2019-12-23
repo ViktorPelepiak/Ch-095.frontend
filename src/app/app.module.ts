@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
@@ -22,6 +21,7 @@ import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SendFormComponent} from "./pages/sendForm/sendForm.component";
 import {BarChartComponent} from './components/statistic/bar-chart-component/bar-chart-component.component';
+// @ts-ignore
 import {ChartsModule} from 'ng2-charts';
 import {StatisticComponent} from './components/statistic/statistic.component';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
@@ -59,7 +59,7 @@ import {OneQuestionComponent} from './pages/questions-page/one-question/one-ques
     ChartsModule,
   ],
   exports:[
-    ChartsModule,
+    // ChartsModule,
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule
