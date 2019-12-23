@@ -3,6 +3,6 @@ export class Survey {
   title: string;
   imageUrl: string;
   status: string;
-  contactsCount?: number;
-  contactsCountPassed?: number;
+  countAnswers?: number;
+  countContacts?: number;
 }

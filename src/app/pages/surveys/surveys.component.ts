@@ -39,14 +39,14 @@ export class SurveysComponent implements OnInit {
     console.log(this.tempSurvey)
     this.service.surveyUpdateTitle(this.tempSurvey, this.title.value)
       .toPromise()
-      .then(e => console.log(e))
+      .then(e => this.surveys[this.tempSurvey].title = this.title.value)
       .catch(e => console.error(e));
   }
 
   surveyStatusDone(id: number) {
     this.service.surveyStatusDone(id)
       .toPromise()
-      .then(e => console.log(e))
+      .then(e => this.surveys[this.surveys.findIndex(s => s.id === id)].status = 'DONE')
       .catch(e => console.error(e));
   }
 
