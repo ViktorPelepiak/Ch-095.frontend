@@ -39,7 +39,7 @@ export class FormConstructorComponent implements OnInit {
   isValidSurvey(saveSurvey: SaveSurvey) {
     let isValidSurvey: boolean = true;
     if (saveSurvey.title.length < 1) {
-      document.getElementById("surveyName").style.borderBottom = "1px solid #ff2600";
+      document.getElementById("surveyName").style.borderBottom = "3px solid #ff2600";
       isValidSurvey = false;
     } else {
       document.getElementById("surveyName").style.borderBottom = "1px solid #000000";
@@ -49,7 +49,7 @@ export class FormConstructorComponent implements OnInit {
       if (saveSurvey.questions[i].question.length && saveSurvey.questions[i].question.length > 0) {
         document.getElementById("UserQuestion" + (i + 1)).style.borderBottom = "1px solid #000000";
       } else {
-        document.getElementById("UserQuestion" + (i + 1)).style.borderBottom = "1px solid #ff2600";
+        document.getElementById("UserQuestion" + (i + 1)).style.borderBottom = "3px solid #ff2600";
         isValidSurvey = false;
       }
     }
