@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Question} from "../../models/question";
 import {SaveSurvey} from "../../models/SaveSurvey";
 import {SaveSurveyService} from "../../services/save-survey.service";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-form-constructor',
@@ -12,13 +13,13 @@ export class FormConstructorComponent implements OnInit {
   @Input() surveyName: string;
   questionCounter;
   questions: Question[];
-  uploadingPhoto: { prototype: File; new(fileBits: BlobPart[], fileName: string, options?: FilePropertyBag): File }[];
+  uploadingPhoto: File[];
 
-  constructor(private saveSurveyService: SaveSurveyService) {
+  constructor(private saveSurveyService: SaveSurveyService, private router: Router ) {
     this.surveyName = '';
     this.questionCounter = 0;
     this.questions = [];
-    this.uploadingPhoto = [File];
+    this.uploadingPhoto = [];
   }
 
   ngOnInit() {
@@ -63,15 +64,13 @@ export class FormConstructorComponent implements OnInit {
     saveSurvey.questions = this.questions;
     if (this.isValidSurvey(saveSurvey) == true) {
       if (this.uploadingPhoto.length > 0) this.savePhoto();
-      this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => {
-        console.log("done")
-      });
+      this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => this.router.navigateByUrl("/survey"));
     }
   }
 
   savePhoto() {
     this.questions.forEach(x => x.uploadingFiles.forEach(y => this.uploadingPhoto.push(y)));
-    this.saveSurveyService.savePicture(this.uploadingPhoto).subscribe(x => console.log("photos uploaded"));
+    this.saveSurveyService.savePicture(this.uploadingPhoto).subscribe();
   }
 
 }
