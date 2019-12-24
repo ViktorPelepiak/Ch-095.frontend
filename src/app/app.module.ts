@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
@@ -16,11 +15,11 @@ import {APP_CONFIG, AppConfig} from './app.config';
 import {UserService} from './services/user.service';
 import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
 import {QuestionComponent} from './question/question.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
-import {SendFormComponent} from "./pages/sendForm/sendForm.component";
+import {SendFormComponent} from './pages/sendForm/sendForm.component';
 import {BarChartComponent} from './components/statistic/bar-chart-component/bar-chart-component.component';
 import {ChartsModule} from 'ng2-charts';
 import {StatisticComponent} from './components/statistic/statistic.component';
@@ -58,7 +57,7 @@ import {OneQuestionComponent} from './pages/questions-page/one-question/one-ques
     NgxSkltnModule.forRoot(),
     ChartsModule,
   ],
-  exports:[
+  exports: [
     ChartsModule,
     ReactiveFormsModule,
     FormsModule,

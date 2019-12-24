@@ -1,18 +1,19 @@
 <div class="formConstructor">
-  <form (ngSubmit)="onSubmit()" #questionForm="ngForm">
+  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
     <h2 class="font-weight-normal">Hello, you logged in as</h2>
     <h2 class="font-weight-normal">{{contactEmail}}</h2>
     <br>
     <br>
-    <p>
-      <input type="hidden" value="{{contactEmail}}">
-      <input type="hidden" value="{{surveyId}}">
+    <p>{{contactEmail}} {{surveyId}}
+      <input formControlName="contactEmail" class="form-control" ngModel="{{contactEmail}}">
+      <input  formControlName="surveyId" class="form-control" ngModel="{{surveyId}}">
       <app-one-question
-        *ngFor="let question of quest"
+        *ngFor="let question of quest; let i = index"
         [oneQuestion] = question
+        [parentForm] =  "questionForm"
       ></app-one-question>
     </p>
-    <h4><button type="submit" class="btn btn-success" [disabled]="!questionForm.form.valid">Submit</button></h4>
+    <h4><button type="submit" class="btn btn-success" (click)="onSubmit()">Submit</button></h4>
   </form>
 </div>
 
