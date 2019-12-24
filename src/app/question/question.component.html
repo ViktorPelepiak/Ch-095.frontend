@@ -1,4 +1,4 @@
-<div class="question">
+<div class="question" id="question{{question.index}}">
     <div id="questionBox">
       <div id="questionNumber">
         <h4 id="inputQuestion">Question {{question.index}}</h4>
@@ -13,7 +13,7 @@
 
     <div class="form-group" id="userQuestion">
       <input type="text" name="userQuestion" class="form-control" placeholder="Input your question"
-             [(ngModel)]="question.question">
+             [(ngModel)]="question.question" id="UserQuestion{{question.index}}">
     </div>
 
   <form>

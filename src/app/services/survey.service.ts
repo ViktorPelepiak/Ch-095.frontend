@@ -4,7 +4,6 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Survey} from '../models/survey';
 import {Page} from '../models/page';
-import {Pageable} from '../models/pageable';
 
 @Injectable({
   providedIn: 'root'

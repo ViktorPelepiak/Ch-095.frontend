@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Question} from "../models/question";
+
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -55,6 +56,7 @@ export class QuestionComponent implements OnInit {
     this.question.uploadingFiles[index] = event.target.files[0];
     this.question.answers[index] = event.target.files[0].name;
     this.isButtonDisable = false;
+    console.log(this.question.answers);
   }
 
   deletePhoto(index:number){

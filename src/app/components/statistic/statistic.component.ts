@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, ViewContainerRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {BarChartComponent} from "./bar-chart-component/bar-chart-component.component";
 import {StatisticService} from "../../services/statistic.service";
