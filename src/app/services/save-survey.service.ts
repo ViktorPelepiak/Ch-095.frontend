@@ -18,8 +18,10 @@ export class SaveSurveyService {
   }
 
   public savePicture(uploadingPhoto:File[]){
-    const formdata:FormData = new FormData();
-    formdata.append('file',uploadingPhoto[0]);
-    return this.http.post<File[]>(this.config.backBaseUrl + '/fileupload',formdata);
+    let formData:FormData = new FormData();
+    for(let i = 0; i < uploadingPhoto.length; i++ ){
+      formData.append('file',uploadingPhoto[i]);
+    }
+    return this.http.post<File[]>(this.config.backBaseUrl + '/fileupload',formData);
   }
 }

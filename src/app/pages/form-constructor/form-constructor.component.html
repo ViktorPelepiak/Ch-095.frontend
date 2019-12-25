@@ -1,14 +1,19 @@
 <div class="formConstructor">
-  <h2></h2>
-  <div class="form-group">
-    <input type="text" [(ngModel)]="surveyName" class="form-control" id="surveyName" placeholder="Input name of your survey">
-  </div>
-  <br>
+   <form>
+     <div class="image-upload">
+       <label for="file-input">
+         <img src="https://img.icons8.com/material/24/000000/camera.png" id = "surveyPhoto">
+       </label>
+       <input id="file-input" type="file" (change)="uploadPhoto($event)"/>
+     </div>
+    <input type="text" [(ngModel)]="surveyName" class="form-control" id="surveyName"
+           placeholder="Input name of your survey"  name="surveyName">
+   </form>
   <br>
   <app-question *ngFor="let question of questions;" [question]="question"></app-question>
   <br>
   <button type="button" class="btn btn-dark" (click)="addNewQuestion()" id="addNewQuestion">ADD NEW QUESTION</button>
-<!--  <button (click)="addNewQuestion()" id="addNewQuestion">ADD NEW QUESTION</button>-->
   <br>
-  <button type="button" class="btn btn-success" id="saveSurvey" (click)="sendSurvey()" id="saveSurvey">SAVE SURVEY</button>
+  <button type="button" class="btn btn-success" id="saveSurvey" (click)="sendSurvey()" id="saveSurvey">SAVE SURVEY
+  </button>
 </div>

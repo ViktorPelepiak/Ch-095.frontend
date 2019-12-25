@@ -22,7 +22,9 @@
       <option value="TEXTBOX">TEXTBOX</option>
       <option value="RADIOBUTTON">RADIOBUTTON</option>
       <option value="CHECKBOX">CHECKBOX</option>
-      <option value="RADIO_PICTURE">RADIO_PICTURE</option>
+      <option value="RADIO_PICTURE">RADIO PICTURE</option>
+      <option value="CHECKBOX_PICTURE">CHECKBOX PICTURE</option>
+      <option value="TEXTAREA">TEXTAREA</option>
     </select>
 
 
@@ -49,6 +51,7 @@
         VARIANT
       </button>
     </div>
+
     <div *ngIf="question.type === 'TEXTBOX'" class="answer">
       <p *ngFor="let answer of question.answers; index as i">
         <input type="text" name="userQuestion" class="form-control" [disabled]=true placeholder="Textbox for answer">
@@ -58,12 +61,30 @@
     <div *ngIf="question.type === 'RADIO_PICTURE'" class="answer">
       <p *ngFor="let answer of question.answers; index as i">
         <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
-        <input type="file" id="file" (change)="uploadPhoto($event,i)" />
+        <input type="file" id="fileRadio" (change)="uploadPhoto($event,i)" />
         <button type="button"  class="deleteVariant" (click)="deletePhoto(i)">x</button>
       </p>
       <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
         VARIANT
       </button>
+    </div>
+
+     <div *ngIf="question.type === 'CHECKBOX_PICTURE'" class="answer">
+      <p *ngFor="let answer of question.answers; index as i">
+        <img src="https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png">
+        <input type="file" id="fileCheckbox" (change)="uploadPhoto($event,i)" />
+        <button type="button"  class="deleteVariant" (click)="deletePhoto(i)">x</button>
+      </p>
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+        VARIANT
+      </button>
+    </div>
+
+    <div *ngIf="question.type === 'TEXTAREA'" class="answer">
+        <div style="float:left;width:95%;">
+          <textarea style="width:100%;"  placeholder="Textarea for answer" disabled="true" ></textarea>
+        </div>
+        <div style="clear:both;"></div>
     </div>
 
   </form>

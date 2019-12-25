@@ -84,8 +84,8 @@ select.form-control:focus {
 .switch {
   display: block;
   position: relative;
-  width: 30px;
-  height: 17px;
+  width: 35px;
+  height: 20px;
 }
 
 /* Hide default HTML checkbox */
