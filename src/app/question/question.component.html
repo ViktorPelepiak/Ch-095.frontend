@@ -61,7 +61,7 @@
     <div *ngIf="question.type === 'RADIO_PICTURE'" class="answer">
       <p *ngFor="let answer of question.answers; index as i">
         <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
-        <input type="file" id="fileRadio" (change)="uploadPhoto($event,i)" />
+        <input type="file" id="fileRadio" accept="image/x-png,image/gif,image/jpeg" (change)="uploadPhoto($event,i)" />
         <button type="button"  class="deleteVariant" (click)="deletePhoto(i)">x</button>
       </p>
       <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
@@ -72,13 +72,15 @@
      <div *ngIf="question.type === 'CHECKBOX_PICTURE'" class="answer">
       <p *ngFor="let answer of question.answers; index as i">
         <img src="https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png">
-        <input type="file" id="fileCheckbox" (change)="uploadPhoto($event,i)" />
+        <input type="file" id="fileCheckbox" accept="image/x-png,image/gif,image/jpeg" (change)="uploadPhoto($event,i)" />
         <button type="button"  class="deleteVariant" (click)="deletePhoto(i)">x</button>
       </p>
       <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
         VARIANT
       </button>
     </div>
+
+
 
     <div *ngIf="question.type === 'TEXTAREA'" class="answer">
         <div style="float:left;width:95%;">

@@ -4,7 +4,7 @@
        <label for="file-input">
          <img src="https://img.icons8.com/material/24/000000/camera.png" id = "surveyPhoto">
        </label>
-       <input id="file-input" type="file" (change)="uploadPhoto($event)"/>
+       <input id="file-input" type="file" (change)="uploadSurveyPhoto($event)"/>
      </div>
     <input type="text" [(ngModel)]="surveyName" class="form-control" id="surveyName"
            placeholder="Input name of your survey"  name="surveyName">

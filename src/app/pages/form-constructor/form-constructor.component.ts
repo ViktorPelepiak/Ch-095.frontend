@@ -61,7 +61,7 @@ export class FormConstructorComponent implements OnInit {
     return isValidSurvey;
   }
 
-  uploadPhoto(event){
+  uploadSurveyPhoto(event){
     this.surveyPhoto = event.target.files[0];
     this.surveyPhotoName = event.target.files[0].name;
     (document.getElementById('surveyPhoto') as HTMLImageElement).src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABr0lEQVRIie2Svy9DURTHv+fequa1fwKmtsFIu7KwWAQxWRg8j4UQiY3VImHRt7GLjhYSs9faGNpgKH+BeF6q7x6L+vHUfU11kfhu937v+X7OuTnAXxeFPcjsl7dA2PyheNuxUhstA3ThzULeAZnczRigbABdusAmdA9BZsFMngCA+LhvSzgAdEGxXT+IL0b71N0IoNORUmqoariJquEmCDwM0HEzhaEAAq8UrNS0BD10PsdnOp/jMyRVpWAlpxhY+y3gyLHSu9lcaY4FXTGzzcy28uV1dr80W7RSOwzO6xt8UyZX5qCplBqSoAcWdAUgFrA9If1+ZtnDCufB2oKVotAJagnvkgmjDcIBIMa1yIj7Ui3qMrQA/zFCJMS3yepSgjnhR7UZWtOQHQPw1SkAr4HtSeGf+R0YaBnAEMvOUvqWmBcDEI+JrIv53jsQVloGADw5mCuvOovpAyH9fmIyicmMcK2vuJA8zNildQDjugTtFn1Mwnli2qvGXQcAok9G9q3zH8PrWxTRT1DvgiZAmIi6RqCtcH3+ovvmy0JV+Q4QZH42fhNOILMNOf9qk14BwZ+bhyOqPgEAAAAASUVORK5CYII=";

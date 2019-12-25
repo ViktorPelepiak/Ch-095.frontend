@@ -24,6 +24,9 @@
   position: absolute;
   width: 90%;
 }
+.image-upload>input {
+  display: none;
+}
 .tooltip .tooltiptext {
   width: 120px;
   bottom: 100%;

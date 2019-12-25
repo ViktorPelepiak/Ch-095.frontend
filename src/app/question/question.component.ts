@@ -56,10 +56,19 @@ export class QuestionComponent implements OnInit {
 
   //////////UPLOADING PHOTO///////////////
   uploadPhoto(event,index){
-    this.question.uploadingFiles[index] = event.target.files[0];
-    this.question.answers[index] = event.target.files[0].name;
+    console.log(event.target.files[0].type);
+    if(this.isPicture(event.target.files[0].type)){
+      this.question.uploadingFiles[index] = event.target.files[0];
+      this.question.answers[index] = event.target.files[0].name;
       this.isButtonDisable = false;
-    console.log(this.question.answers);
+    }
+   else {
+
+    }
+  }
+
+  private isPicture(fileType: string) {
+    return fileType.substr(0,5) === "image";
   }
 
   deletePhoto(index:number){
