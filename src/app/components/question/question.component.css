@@ -33,8 +33,8 @@
   left: 50%;
   margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
 }
-#userQuestion{
-
+#pictureAnswer{
+  max-width:600px;
 }
 #deleteVariant{
   font-size: 10px;

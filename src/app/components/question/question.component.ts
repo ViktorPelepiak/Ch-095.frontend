@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Question} from "../models/question";
+import {Question} from "../../models/question";
+import {SaveSurveyService} from "../../services/save-survey.service";
+declare function require(path: string);
 
 @Component({
   selector: 'app-question',
@@ -10,8 +12,11 @@ export class QuestionComponent implements OnInit {
  @Input() public question: Question;
   isButtonDisable:boolean = true;
   isTypeSet:boolean = false;
+  previewUrls:any[] = [];
 
-  constructor() {
+
+  constructor(private saveSurveyService: SaveSurveyService) {
+    this.previewUrls.push(null);
   }
 
   ngOnInit() {
@@ -40,7 +45,7 @@ export class QuestionComponent implements OnInit {
 
   deleteVariant(variantOfAnswerIndex:number){
    this.question.answers.splice(variantOfAnswerIndex,1);
-   if(this.question.answers.length === 0)  this.question.type = 'not set'
+   if(this.question.answers.length === 0)  this.question.type = 'not set';
    console.log(this.question.answers);
   }
 
@@ -54,26 +59,36 @@ export class QuestionComponent implements OnInit {
     this.isButtonDisable = false;
   }
 
-  //////////UPLOADING PHOTO///////////////
-  uploadPhoto(event,index){
-    console.log(event.target.files[0].type);
-    if(this.isPicture(event.target.files[0].type)){
+  //////////UPLOADING Picture///////////////
+
+  uploadPicture(event,index){
+    if(QuestionComponent.isPicture(event.target.files[0].type)){
       this.question.uploadingFiles[index] = event.target.files[0];
       this.question.answers[index] = event.target.files[0].name;
       this.isButtonDisable = false;
+      this.preview(index);
     }
    else {
 
     }
   }
 
-  private isPicture(fileType: string) {
+  preview(index) {
+    let reader = new FileReader();
+    reader.readAsDataURL(this.question.uploadingFiles[index]);
+    reader.onload = (_event) => {
+      this.previewUrls[index] = reader.result;
+    }
+  }
+
+  private static isPicture(fileType: string) {
     return fileType.substr(0,5) === "image";
   }
 
-  deletePhoto(index:number){
+  deletePicture(index:number){
     this.question.answers.splice(index,1);
     this.question.uploadingFiles.splice(index,1);
+    this.previewUrls.splice(index,1);
     if(this.question.answers.length === 0) this.question.type = 'not set'
   }
 }
