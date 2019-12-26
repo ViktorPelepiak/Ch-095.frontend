@@ -1,0 +1,17 @@
+<div>
+  <p id="question">Question: {{question}}</p>
+  <canvas baseChart
+          *ngIf="typeQuestions=='RADIOBUTTON' || typeQuestions=='CHECKBOX'"
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [chartType]="typeQuestions=='RADIOBUTTON'?'pie':'bar'"
+  >
+  </canvas>
+
+  <ul *ngIf="typeQuestions=='TEXTAREA'" class="list-group">
+    <li class="list-group-item" *ngFor="let answer of answers">{{answer}}</li>
+  </ul>`
+
+  <p id="number">Number of voters: {{numberVoters}}</p>
+</div>
+<hr>

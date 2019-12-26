@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {Question} from "../../models/question";
 import {SaveSurvey} from "../../models/SaveSurvey";
-import {SaveSurveyService} from "../../services/save-survey.service";
+ import {SaveSurveyService} from "../../services/save-survey.service";
 
 @Component({
   selector: 'app-form-constructor',

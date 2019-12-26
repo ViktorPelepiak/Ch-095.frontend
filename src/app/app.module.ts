@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
@@ -21,7 +20,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SendFormComponent} from "./pages/sendForm/sendForm.component";
-import {BarChartComponent} from './components/statistic/bar-chart-component/bar-chart-component.component';
+import {QuestionStatisticComponent} from './components/statistic/question-component/question-statistic.component';
 import {ChartsModule} from 'ng2-charts';
 import {StatisticComponent} from './components/statistic/statistic.component';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
@@ -37,12 +36,13 @@ import {OneQuestionComponent} from './pages/questions-page/one-question/one-ques
     DashboardComponent,
     AuthorizationComponent,
     FormConstructorComponent,
+    QuestionStatisticComponent,
     QuestionComponent,
     CheckOpportunityComponent,
     SurveysComponent,
     SurveySkltnComponent,
     SendFormComponent,
-    BarChartComponent,
+    QuestionStatisticComponent,
     StatisticComponent,
     SurveyTopButtonsComponent,
     CheckOpportunityComponent,

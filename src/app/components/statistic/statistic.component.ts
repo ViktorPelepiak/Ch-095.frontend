@@ -1,15 +1,15 @@
 import {Component, ComponentFactoryResolver, ViewContainerRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {BarChartComponent} from "./bar-chart-component/bar-chart-component.component";
+import {QuestionStatisticComponent} from "./question-component/question-statistic.component";
 import {StatisticService} from "../../services/statistic.service";
-import {QuestionStatistic} from "../../models/questionStatistic";
+import {StatisticModel} from "../../models/StatisticModel";
 
 
 @Component({
   selector: 'app-statistic',
   templateUrl: './statistic.component.html',
   styleUrls: ['./statistic.component.css'],
-  entryComponents: [BarChartComponent]
+  entryComponents: [QuestionStatisticComponent]
 })
 export class StatisticComponent implements OnInit {
 
@@ -24,54 +24,59 @@ export class StatisticComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initializeStatisticComponent()
+    let surveyId = this.route.snapshot.queryParams["surveyId"];
+
+    this.statisticService.createMap(surveyId,
+      (data)=> this.initializeStatisticComponent(data));
   }
 
-  initializeNewChart(barChartComponentRef, data: number[], labels: string[],
-                     question: string){
-    (<BarChartComponent>barChartComponentRef.instance).barChartData = [
-      {data: data}
-    ];
-
-    (<BarChartComponent>barChartComponentRef.instance)
-      .barChartLabels = labels;
-
-    (<BarChartComponent>barChartComponentRef.instance)
+  initializeNewQuestion(barChartComponentRef, numberVoters: number,
+                        question: string, typeQuestion: string) {
+    (<QuestionStatisticComponent>barChartComponentRef.instance)
       .question = question;
 
-    (<BarChartComponent>barChartComponentRef.instance)
-      .barChartType = 'pie';
+    (<QuestionStatisticComponent>barChartComponentRef.instance)
+      .typeQuestions = typeQuestion;
 
-    let numberVoters = 0;
-    data.forEach(value => {numberVoters += value});
-    (<BarChartComponent>barChartComponentRef.instance)
+
+    (<QuestionStatisticComponent>barChartComponentRef.instance)
       .numberVoters = numberVoters;
-
-
   }
 
-  createBarChartComponents(dataQuestions: QuestionStatistic[]){
-    let barChart = this.componentFactoryResolver.resolveComponentFactory(BarChartComponent);
-    dataQuestions.sort((a, b) => a.index - b.index)
-    dataQuestions.forEach(question => {
-      let barChartComponentRef = this.questionViewRef.createComponent(barChart);
-      this.statisticService.getAnswers(question.id)
-        .toPromise().then(dataAnswers => {
-        this.initializeNewChart(barChartComponentRef,
-          dataAnswers["data"],dataAnswers["labels"]
-          ,question.question);
-      });
+  getDataChart(answers: string[], choiceAnswers: string[]):number[] {
+    let map = new Map();
+    choiceAnswers.forEach(value => map.set(value, 0));
+    answers.forEach(value => map.set(value,1 + map.get(value)));
+    return [...map.values()];
+  }
+
+  initializeStatisticComponent(data: StatisticModel) {
+    this.title = data.title;
+    let barChart = this.componentFactoryResolver.resolveComponentFactory(QuestionStatisticComponent);
+    data.questionDTOS.sort((a, b) => a.index - b.index);
+    data.questionDTOS.forEach(question => {
+      if(question.type == "RADIOBUTTON" ||
+            question.type == "CHECKBOX") {
+        let barChartComponentRef = this.questionViewRef.createComponent(barChart);
+        this.initializeNewQuestion(barChartComponentRef,question.answers.length
+          , question.question,question.type);
+        (<QuestionStatisticComponent>barChartComponentRef.instance).barChartData = [
+          {data: this.getDataChart(question.answers,question.choiceAnswers),label: ''}
+        ];
+
+        (<QuestionStatisticComponent>barChartComponentRef.instance)
+          .barChartLabels = question.choiceAnswers;
+
+      }
+      else if(question.type == "TEXTAREA"){
+        let barChartComponentRef = this.questionViewRef.createComponent(barChart);
+        this.initializeNewQuestion(barChartComponentRef,question.answers.length
+          , question.question,question.type);
+        (<QuestionStatisticComponent>barChartComponentRef.instance)
+          .answers = question.answers;
+      }
     });
   }
 
-  initializeStatisticComponent() {
-      let surveyId = this.route.snapshot.queryParams["surveyId"]
-      this.statisticService.getTitleSurvey(surveyId)
-        .toPromise().then(value => this.title = value["title"]);
-      this.statisticService.getQuestions(surveyId).toPromise().then((
-        dataQuestions: QuestionStatistic[]) => {
-        this.createBarChartComponents(dataQuestions);
-      })
-  }
 
 }

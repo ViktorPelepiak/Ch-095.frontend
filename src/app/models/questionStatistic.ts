@@ -1,6 +1,7 @@
 export class QuestionStatistic {
-  id: bigint;
+  type: string;
   question: string;
+  choiceAnswers: string[];
   answers: string[];
   index: number;
 }
