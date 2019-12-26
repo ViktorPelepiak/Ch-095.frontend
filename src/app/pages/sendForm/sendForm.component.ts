@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EmailService} from "../../services/send-email.service";
 import {Email} from "../../models/email";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Title} from "@angular/platform-browser";
 
@@ -11,67 +11,64 @@ import {Title} from "@angular/platform-browser";
   styleUrls: ['./sendForm.component.css']
 })
 export class SendFormComponent implements OnInit {
-  sendForm: FormGroup;
-  isShown: boolean = true;
-  isShownRemoveSign: boolean = false;
-  isShown2: boolean = false;
 
+  isShown: boolean = true;
+  isShownRemoveSign: boolean = true;
+  isShown2: boolean = false;
   public emails: any[] = [''];
 
-  constructor(private emailService: EmailService) {
+  dynamicForm: FormGroup;
+  submitted = false;
+
+  constructor(private emailService: EmailService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
+    this.dynamicForm = this.formBuilder.group({
+      numberOfTickets: ['', Validators.required],
+      tickets: new FormArray([])
+    });
   }
 
-  // surveyTitle() {
-  //   this.emailService.getTitleSurvey('1');
-  //   console.log(this.emailService.getTitleSurvey('1'));
-  //   // don't works
-  // }
+  // convenience getters for easy access to form fields
+  get f() {
+    return this.dynamicForm.controls;
+  }
+
+  get t() {
+    return this.f.tickets as FormArray;
+  }
 
   toggleShow() {
     this.isShown = !this.isShown;
     this.isShown2 = !this.isShown2;
   }
 
-  addEmail() {
-    this.isShownRemoveSign = true;
-    if (this.emails.length < 20) {
-      this.emails.push('');
-    }
-  }
-
   removeEmail(i: number) {
-    if (i == 1) {
-      this.isShownRemoveSign = false;
-    }
+    // if (i == 1) {
+    //   this.isShownRemoveSign = false;
+    // }
     this.emails.splice(i, 1);
   }
 
-  userEmails = new FormGroup({
-    primaryEmail: new FormControl('', [
-      Validators.required,
-      Validators.pattern("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")]),
-    primaryEmails: new FormControl('', [
-      Validators.required,
-      Validators.pattern("^((\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*)\\s*[,]{0,1}\\s*)+$")]),
-  });
-
-  get primEmail() {
-      return this.userEmails.get('primaryEmail')
-  }
-
-  isControlInvalid(controlName: string): boolean {
-    if (controlName != null) {
-      const control = this.userEmails.controls[controlName];
-      return control.invalid && control.touched;
+  onChangeTickets(e) {
+    const numberOfTickets = e.target.value || 0;
+    if (this.t.length < numberOfTickets) {
+      for (let i = this.t.length; i < numberOfTickets; i++) {
+        this.t.push(this.formBuilder.group({
+          email: ['', [Validators.required, Validators.email]]
+        }));
+      }
+    } else {
+      for (let i = this.t.length; i >= numberOfTickets; i--) {
+        this.t.removeAt(i);
+      }
     }
   }
 
   sendEmails() {
-    const email = new Email(this.userEmails.value, '1', '1');
-    console.log(this.userEmails.value);
+    const email = new Email(this.dynamicForm.value, '1', '1');
+    console.log(this.dynamicForm.value);
     console.log(this.emailService.postEmailArray(email));
     this.emailService
       .postEmailArray(email)
@@ -79,14 +76,22 @@ export class SendFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const controls = this.userEmails.controls;
-    if (this.userEmails.invalid) {
-      Object.keys(controls)
-        .forEach(controlName => controls[controlName].markAsTouched());
+    this.submitted = true;
+
+    if (this.dynamicForm.invalid) {
       return;
     }
-    this.sendEmails();
-    console.log(this.userEmails.value);
+    this.sendEmails()
+  }
+
+  onReset() {
+    this.submitted = false;
+    this.dynamicForm.reset();
+    this.t.clear();
+  }
+
+  onClear() {
+    this.submitted = false;
+    this.t.reset();
   }
 }
-
