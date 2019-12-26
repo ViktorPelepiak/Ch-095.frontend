@@ -26,6 +26,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
+import { SocialComponent } from './pages/social/social.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {OneQuestionComponent} from './pages/questions-page/one-question/one-ques
     CheckOpportunityComponent,
     QuestionsPageComponent,
     OneQuestionComponent,
+    SocialComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import {CheckOpportunityComponent} from './pages/check-opportunity/check-opportu
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
+import {SocialComponent} from "./pages/social/social.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
@@ -18,7 +19,9 @@ const routes: Routes = [
   {path: 'statistic', component: StatisticComponent},
   {path: 'checkOpportunity', component: CheckOpportunityComponent},
   {path: 'test/:token', component: CheckOpportunityComponent},
-  {path: '**', redirectTo: '/'},
+  {path: 'oauth_login', component: SocialComponent},
+  {path: 'oauth2/authorize-client/**', redirectTo: 'http://localhost:4200/oauth2/authorize-client/**'},
+  // {path: '**', redirectTo: '/'}
 
 ];
 

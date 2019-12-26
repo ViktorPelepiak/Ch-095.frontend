@@ -49,7 +49,7 @@ export class CheckOpportunityComponent implements OnInit {
       .toPromise()
       .then(data => {
         this.wrongEmail = false;
-        window.location.href = this.config.frontBaseUrl + "/question?surveyId=" + data.surveyId + "&&contactEmail=" + data.email;
+        window.location.href = this.config.frontBaseUrl + "/questions?surveyId=" + data.surveyId + "&&contactEmail=" + data.email;
       })
       .catch(data => {
         this.wrongEmail = true;
