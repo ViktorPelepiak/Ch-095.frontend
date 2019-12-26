@@ -36,10 +36,9 @@ export class SurveysComponent implements OnInit {
   }
 
   surveyUpdateTitle() {
-    console.log(this.tempSurvey)
     this.service.surveyUpdateTitle(this.tempSurvey, this.title.value)
       .toPromise()
-      .then(e => this.surveys[this.tempSurvey].title = this.title.value)
+      .then(() => this.surveys[this.surveys.findIndex(s => s.id === this.tempSurvey)].title = this.title.value)
       .catch(e => console.error(e));
   }
 
@@ -54,18 +53,20 @@ export class SurveysComponent implements OnInit {
     this.service.cloneSurvey(this.tempSurvey, this.isCloneContacts)
       .toPromise()
       .then(e => {
+        e.countContacts = 0
+        e.countAnswers = 0
         this.surveys.push(e);
         console.log(e)
       })
       .catch(e => console.error(e));
   }
 
-  deleteSurvey(id: number) {
-    this.service.deleteSurvey(id)
+  deleteSurvey() {
+    this.service.deleteSurvey(this.tempSurvey)
       .toPromise()
       .then(e => {
         if (e === 'OK') {
-          this.surveys.splice(this.surveys.findIndex(i => i.id === id), 1)
+          this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1)
           console.log(e)
         }
       })
