@@ -61,8 +61,7 @@ import {OneQuestionComponent} from './pages/questions-page/one-question/one-ques
   exports:[
     // ChartsModule,
     ReactiveFormsModule,
-    FormsModule,
-    ReactiveFormsModule
+    FormsModule
   ],
   providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig},
               QuestionsFormService],

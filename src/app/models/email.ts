@@ -8,4 +8,5 @@ export class Email {
   emails: string;
   userId: string;
   surveyId: string;
+  title: string;
 }

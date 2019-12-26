@@ -17,4 +17,8 @@ export class EmailService {
     return this.http.post<string>(this.config.backBaseUrl + '/sendEmails', email, {responseType: 'text'});
   }
 
+  getTitleSurvey(surveyId: string){
+    return this.http.get(this.config.backBaseUrl + this.config.surveyTitleUrl2 + surveyId);
+  }
+
 }
