@@ -51,17 +51,26 @@ export class FormConstructorComponent implements OnInit {
     let saveSurvey: SaveSurvey = new SaveSurvey();
     saveSurvey.surveyPhotoName = this.surveyPhotoName;
     saveSurvey.title = this.surveyName;
-    console.log(saveSurvey.title);
     saveSurvey.questions = this.questions;
     if (this.isValidSurvey(saveSurvey) == true) {
-      this.savePhoto();
+      this.savePhoto(saveSurvey);
       this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
     }
   }
 
 
-  savePhoto() {
+  savePhoto(saveSurvey: SaveSurvey) {
     if (this.surveyPhoto) this.uploadingPhoto.push(this.surveyPhoto);
+    saveSurvey.questions.forEach(function (x,questionIndex) {
+      saveSurvey.questions[questionIndex].answers.forEach( function (y,answerIndex) {
+        saveSurvey.questions[questionIndex].answers[answerIndex] =
+          saveSurvey.title+ "_" + questionIndex + "_" + answerIndex +"_"+ answerIndex +
+          questionIndex * answerIndex + "_" + saveSurvey.questions[questionIndex].answers[answerIndex];
+        }
+      )
+    });
+
+    saveSurvey.questions.forEach(x => console.log(x.answers));
     this.questions.forEach(x => x.uploadingFiles.forEach(y => this.uploadingPhoto.push(y)));
     this.saveSurveyService.savePictures(this.uploadingPhoto).subscribe();
   }
@@ -89,8 +98,13 @@ export class FormConstructorComponent implements OnInit {
   }
 
   private isSurveyHasQuestions(questionsQuantity: number) {
-    this.errorValidation += "Add minimum 1 question. "
-    return questionsQuantity > 0;
+    if(questionsQuantity > 0) {
+      return true;
+    }
+    else{
+      this.errorValidation += "Add minimum 1 question. "
+      return false;
+    }
   }
 
   private isAllQuestionsInput(questions: Question[]) {
