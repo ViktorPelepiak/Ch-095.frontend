@@ -16,17 +16,18 @@ import {UserService} from './services/user.service';
 
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
+import {CookieService} from "ngx-cookie-service";
 
-import { BarChartComponent } from './components/statistic/bar-chart-component/bar-chart-component.component';
-import { ChartsModule } from 'ng2-charts';
-import { StatisticComponent } from './components/statistic/statistic.component';
+import {BarChartComponent} from './components/statistic/bar-chart-component/bar-chart-component.component';
+import {ChartsModule} from 'ng2-charts';
+import {StatisticComponent} from './components/statistic/statistic.component';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
 import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-top-buttons.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
-import { SocialComponent } from './pages/social/social.component';
+import {SocialComponent} from './pages/social/social.component';
 
 @NgModule({
   declarations: [
@@ -54,14 +55,18 @@ import { SocialComponent } from './pages/social/social.component';
     NgxSkltnModule.forRoot(),
     ChartsModule,
   ],
-  exports:[
+  exports: [
     ChartsModule,
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig},
-              QuestionsFormService],
+  providers: [
+    UserService,
+    {provide: APP_CONFIG, useValue: AppConfig},
+    QuestionsFormService,
+    CookieService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

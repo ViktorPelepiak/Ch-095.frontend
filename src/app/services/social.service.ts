@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {APP_CONFIG, IAppConfig} from "../app.config";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,8 @@ export class SocialService {
   }
 
   public test(): Observable<string>{
-    return this.http.get(this.config.backBaseUrl + '/test', {responseType: 'text'});
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('userToken', localStorage.getItem("userToken"));
+    return this.http.get(this.config.backBaseUrl + '/test', {responseType: 'text', headers});
   }
 }
