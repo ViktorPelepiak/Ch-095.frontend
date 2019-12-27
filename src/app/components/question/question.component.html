@@ -53,7 +53,7 @@
     </div>
 
     <div *ngIf="question.type === 'TEXTBOX'" class="answer">
-      <p *ngFor="let answer of question.answers; index as i">
+      <p >
         <input type="text" name="userQuestion" class="form-control" [disabled]=true placeholder="Textbox for answer">
       </p>
     </div>

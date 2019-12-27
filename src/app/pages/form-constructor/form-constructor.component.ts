@@ -2,7 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Question} from "../../models/question";
 import {SaveSurvey} from "../../models/SaveSurvey";
 import {SaveSurveyService} from "../../services/save-survey.service";
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {EditSurvey} from "../../models/EditSurvey";
+import {switchMap} from "rxjs/operators";
+import {SurveyService} from "../../services/survey.service";
 
 @Component({
   selector: 'app-form-constructor',
@@ -10,6 +13,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./form-constructor.component.css']
 })
 export class FormConstructorComponent implements OnInit {
+  surveyId: string;
   @Input() surveyName: string;
   questionCounter;
   questions: Question[];
@@ -18,7 +22,7 @@ export class FormConstructorComponent implements OnInit {
   surveyPhotoName: string;
   errorValidation: string;
 
-  constructor(private saveSurveyService: SaveSurveyService, private router: Router) {
+  constructor(private surveyService: SurveyService, private saveSurveyService: SaveSurveyService, private router: Router, private route: ActivatedRoute) {
     this.surveyName = '';
     this.questionCounter = 0;
     this.questions = [];
@@ -26,6 +30,18 @@ export class FormConstructorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.surveyId = this.route.snapshot.paramMap.get('id');
+    if (this.surveyId !== null) {
+      this.surveyService.editSurvey(this.surveyId)
+        .toPromise()
+        .then(data => {
+          this.questions = data.questions;
+          this.surveyName = data.title;
+          this.surveyPhotoName = data.surveyPhotoName;
+        });
+      this.questionCounter = this.questions.length + 1;
+    }
+
   }
 
   addNewQuestion() {
@@ -48,40 +64,51 @@ export class FormConstructorComponent implements OnInit {
 
 
   sendSurvey() {
-    let saveSurvey: SaveSurvey = new SaveSurvey();
-    saveSurvey.surveyPhotoName = this.surveyPhotoName;
-    saveSurvey.title = this.surveyName;
-    saveSurvey.questions = this.questions;
-    if (this.isValidSurvey(saveSurvey) == true) {
-      this.savePhoto(saveSurvey);
-      this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
+    if (this.surveyId) {
+      let editSurvey: EditSurvey = new EditSurvey();
+      editSurvey.surveyPhotoName = this.surveyPhotoName;
+      editSurvey.title = this.surveyName;
+      editSurvey.questions = this.questions;
+      editSurvey.surveyId = this.surveyId;
+      if (this.isValidSurvey(editSurvey) == true) {
+        this.surveyService.saveEditedSurvey(editSurvey);
+      }
+    } else {
+      let saveSurvey: SaveSurvey = new SaveSurvey();
+      saveSurvey.surveyPhotoName = this.surveyPhotoName;
+      saveSurvey.title = this.surveyName;
+      saveSurvey.questions = this.questions;
+      if (this.isValidSurvey(saveSurvey) == true) {
+        this.savePhoto(saveSurvey);
+        this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
+      }
     }
+
   }
 
 
   savePhoto(saveSurvey: SaveSurvey) {
     if (this.surveyPhoto) this.uploadingPhoto.push(this.surveyPhoto);
-    saveSurvey.questions.forEach(function (x,questionIndex) {
-      saveSurvey.questions[questionIndex].answers.forEach( function (y,answerIndex) {
-        saveSurvey.questions[questionIndex].answers[answerIndex] =
-          saveSurvey.title+ "_" + questionIndex + "_" + answerIndex +"_"+ answerIndex +
-          questionIndex * answerIndex + "_" + saveSurvey.questions[questionIndex].answers[answerIndex];
+    saveSurvey.questions.forEach(function (x, questionIndex) {
+      saveSurvey.questions[questionIndex].answers.forEach(function (y, answerIndex) {
+          saveSurvey.questions[questionIndex].answers[answerIndex] =
+            saveSurvey.title + "_" + questionIndex + "_" + answerIndex + "_" + answerIndex +
+            questionIndex * answerIndex + "_" + saveSurvey.questions[questionIndex].answers[answerIndex];
         }
       )
     });
 
-    saveSurvey.questions.forEach(x => console.log(x.answers));
     this.questions.forEach(x => x.uploadingFiles.forEach(y => this.uploadingPhoto.push(y)));
     this.saveSurveyService.savePictures(this.uploadingPhoto).subscribe();
   }
 
 
   isValidSurvey(saveSurvey: SaveSurvey) {
-    let isValidSurvey:boolean = true;
-    if(! this.isValidSurveyName(saveSurvey.title)) isValidSurvey = false;
-    if(! this.isSurveyHasQuestions(saveSurvey.questions.length)) isValidSurvey = false;
-    if(! this.isAllQuestionsInput(saveSurvey.questions)) isValidSurvey = false;
-    if(! this.isInAllQuestionsUserChooseType(saveSurvey.questions)) isValidSurvey = false;
+    let isValidSurvey: boolean = true;
+    if (!this.isValidSurveyName(saveSurvey.title)) isValidSurvey = false;
+    if (!this.isSurveyHasQuestions(saveSurvey.questions.length)) isValidSurvey = false;
+    if (!this.isAllQuestionsInput(saveSurvey.questions)) isValidSurvey = false;
+    if (!this.isInAllQuestionsUserChooseType(saveSurvey.questions)) isValidSurvey = false;
     return isValidSurvey;
   }
 
@@ -98,14 +125,14 @@ export class FormConstructorComponent implements OnInit {
   }
 
   private isSurveyHasQuestions(questionsQuantity: number) {
-    if(questionsQuantity > 0) {
+    if (questionsQuantity > 0) {
       return true;
-    }
-    else{
+    } else {
       this.errorValidation += "Add minimum 1 question. "
       return false;
     }
   }
+
 
   private isAllQuestionsInput(questions: Question[]) {
     let isValidSurvey = true;
@@ -126,7 +153,7 @@ export class FormConstructorComponent implements OnInit {
         isValidSurvey = false;
       }
     }
-    if(atLeastOneQuestionAbsent) this.errorValidation += ". ";
+    if (atLeastOneQuestionAbsent) this.errorValidation += ". ";
     return isValidSurvey;
   }
 

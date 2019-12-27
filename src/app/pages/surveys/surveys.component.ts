@@ -72,6 +72,8 @@ export class SurveysComponent implements OnInit {
       .catch(e => console.error(e));
   }
 
+
+
   changeTempSurvey(survey: Survey): void {
     this.tempSurvey = survey.id;
     this.title.setValue(survey.title);
