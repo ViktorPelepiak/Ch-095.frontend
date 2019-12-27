@@ -10,10 +10,15 @@ import {AuthGuardService} from './services/auth-guard.service';
 import {SendFormComponent} from "./pages/sendForm/sendForm.component";
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
+import {LoginComponent} from "./components/login-registration/login";
+import {RegisterComponent} from "./components/login-registration/registration";
 
 const routes: Routes = [
-  {path: '', component: DashboardComponent},
-  {path: 'login', component: AuthorizationComponent, canActivate: [AuthGuardService]},
+  {path: '', component: DashboardComponent },
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'logout', component: DashboardComponent},
+  //{path: 'login', component: AuthorizationComponent, canActivate: [AuthGuardService]},
   {path: 'surveys', component: SurveysComponent},
   {path: 'sendForm', component: SendFormComponent},
   {path: 'questions', component: QuestionsPageComponent},

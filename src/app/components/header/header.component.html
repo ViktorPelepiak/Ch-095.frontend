@@ -1,6 +1,24 @@
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    Survey&#60;X&#62;
-  </a>
-</nav>
+<!--<nav class="navbar navbar-light bg-light">-->
+<!--  <a class="navbar-brand" href="#">-->
+<!--    Survey&#60;X&#62;-->
+<!--  </a>-->
+<!--</nav>-->
 
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div>
+      <a class="navbar-brand" href="#">Survey&#60;X&#62;</a>
+    </div>
+    <ul class="navbar-nav navbar-collapse justify-content-end">
+       <li>
+          <a *ngIf="!isLoggedIn" class="nav-link" href="/register">Sign Up</a>
+      </li>
+      <li>
+        <a *ngIf="!isLoggedIn" class="nav-link" href="/login">Sign In</a>
+      </li>
+      <li>
+        <a *ngIf="isLoggedIn" class="nav-link" href="/logout" (click)=handleLogout()>Logout</a>
+      </li>
+    </ul>
+  </nav>
+</header>

@@ -20,4 +20,7 @@ export class UserService {
     return this.http.post<User>(this.config.backBaseUrl + '/user', user);
   }
 
+  public register(user: User): Observable<User> {
+    return this.http.post<User>(`${this.config.backBaseUrl}/Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/registration`, user);
+  }
 }
