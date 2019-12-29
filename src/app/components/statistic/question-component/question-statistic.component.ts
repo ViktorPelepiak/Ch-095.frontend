@@ -15,7 +15,7 @@ export class QuestionStatisticComponent implements OnInit {
   public question : string ;
   public barChartData: any[] = [{data :[]}] ;
   public barChartLabels: string[] = [] ;
-  public answers: string[];
+  public answers: string[][];
   public typeQuestions = '';
   public numberVoters: number;
 

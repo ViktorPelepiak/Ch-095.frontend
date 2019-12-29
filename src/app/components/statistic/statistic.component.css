@@ -40,4 +40,14 @@ hr{
   margin-left: 20px;
 }
 
+#questionStatistic{
+  background: inherit;
+  display: none;
+}
+
+#eachQuestion{
+  background: inherit;
+}
+
+
 

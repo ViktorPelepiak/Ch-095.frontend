@@ -3,10 +3,20 @@
   <a id="back" [routerLink]="['/surveys']">&larr; Back</a>
   <p id="title">{{title}}</p>
   <div class="content">
-    <button id="button_left" class="btn btn-light" >Statistic of all data</button>
-    <button id="button_right"  class="btn btn-light" >statistics of each of them separately</button>
+    <button id="button_left" class="btn btn-light" (click)="onClickStatisticButton()">
+      General statistic
+    </button>
+    <button id="button_right"  class="btn btn-light" (click)="onClickEachButton()">
+      statistics of each of them separately
+    </button>
     <hr>
 
-    <ng-template #question></ng-template>
+    <div id="questionStatistic" [style.display]="whichShow=='questionStatistic'?'block':'none'">
+    <ng-template #questionStatistic></ng-template>
+    </div>
+
+    <div id="eachQuestion" [style.display]="whichShow=='eachQuestion'?'block':'none'">
+    <ng-template #eachQuestion></ng-template>
+    </div>
   </div>
 </div>
