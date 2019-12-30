@@ -37,12 +37,14 @@ export class SurveyService {
     });
   }
 
-  public saveEditedSurvey(editSurvey:EditSurvey){
-     this.http.put<EditSurvey>(this.config.backBaseUrl + '/survey/edit?surveyId='+editSurvey.surveyId,editSurvey);
+  public saveEditedSurvey(editSurvey:EditSurvey): Observable<SaveSurvey>{
+    console.log(JSON.stringify(editSurvey));
+    console.log("edit", editSurvey);
+    return  this.http.post<EditSurvey>(this.config.backBaseUrl + '/survey/update/'+editSurvey.surveyId,editSurvey);
   }
 
   public editSurvey(id:string){
-   return  this.http.post<string>(this.config.backBaseUrl + '/survey/edit',id);
+   return this.http.get<EditSurvey>(this.config.backBaseUrl + '/survey/edit/' + id);
   }
 
 

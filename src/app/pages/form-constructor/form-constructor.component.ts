@@ -4,7 +4,6 @@ import {SaveSurvey} from "../../models/SaveSurvey";
 import {SaveSurveyService} from "../../services/save-survey.service";
 import {ActivatedRoute, Router} from '@angular/router';
 import {EditSurvey} from "../../models/EditSurvey";
-import {switchMap} from "rxjs/operators";
 import {SurveyService} from "../../services/survey.service";
 
 @Component({
@@ -36,15 +35,19 @@ export class FormConstructorComponent implements OnInit {
         .toPromise()
         .then(data => {
           this.questions = data.questions;
+          console.log("edit", this.questions);
           this.surveyName = data.title;
           this.surveyPhotoName = data.surveyPhotoName;
+          this.questionCounter = data.questions.length;
         });
-      this.questionCounter = this.questions.length + 1;
     }
+
+    console.log(this.questionCounter);
 
   }
 
   addNewQuestion() {
+ this.questions.forEach(x=> console.log(x.answers));
     this.questionCounter = this.questionCounter + 1;
     let question = new Question();
     question.index = this.questionCounter;
@@ -70,15 +73,15 @@ export class FormConstructorComponent implements OnInit {
       editSurvey.title = this.surveyName;
       editSurvey.questions = this.questions;
       editSurvey.surveyId = this.surveyId;
-      if (this.isValidSurvey(editSurvey) == true) {
-        this.surveyService.saveEditedSurvey(editSurvey);
+      if (this.isValidSurvey(editSurvey)) {
+        this.surveyService.saveEditedSurvey(editSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
       }
     } else {
       let saveSurvey: SaveSurvey = new SaveSurvey();
       saveSurvey.surveyPhotoName = this.surveyPhotoName;
       saveSurvey.title = this.surveyName;
       saveSurvey.questions = this.questions;
-      if (this.isValidSurvey(saveSurvey) == true) {
+      if (this.isValidSurvey(saveSurvey)) {
         this.savePhoto(saveSurvey);
         this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
       }
@@ -89,15 +92,18 @@ export class FormConstructorComponent implements OnInit {
 
   savePhoto(saveSurvey: SaveSurvey) {
     if (this.surveyPhoto) this.uploadingPhoto.push(this.surveyPhoto);
-    saveSurvey.questions.forEach(function (x, questionIndex) {
-      saveSurvey.questions[questionIndex].answers.forEach(function (y, answerIndex) {
-          saveSurvey.questions[questionIndex].answers[answerIndex] =
-            saveSurvey.title + "_" + questionIndex + "_" + answerIndex + "_" + answerIndex +
-            questionIndex * answerIndex + "_" + saveSurvey.questions[questionIndex].answers[answerIndex];
-        }
-      )
-    });
-
+    console.log("hi");
+    // saveSurvey.questions.forEach(function (x, questionIndex) {
+    //   if(saveSurvey.questions[questionIndex].type === ('RADIO_PICTURE') ||
+    //     saveSurvey.questions[questionIndex].type === ('CHECKBOX_PICTURE')) {
+    //     saveSurvey.questions[questionIndex].answers.forEach(function (y, answerIndex) {
+    //         saveSurvey.questions[questionIndex].answers[answerIndex] =
+    //           saveSurvey.title + "_" + questionIndex + "_" + answerIndex + "_" + answerIndex +
+    //           questionIndex * answerIndex + "_" + saveSurvey.questions[questionIndex].answers[answerIndex];
+    //       }
+    //     )
+    //   }
+    // });
     this.questions.forEach(x => x.uploadingFiles.forEach(y => this.uploadingPhoto.push(y)));
     this.saveSurveyService.savePictures(this.uploadingPhoto).subscribe();
   }
