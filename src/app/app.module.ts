@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
@@ -28,6 +28,7 @@ import {QuestionsPageComponent} from './pages/questions-page/questions-page.comp
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
 import {SocialComponent} from './pages/social/social.component';
+import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
 
 @NgModule({
   declarations: [
@@ -61,12 +62,13 @@ import {SocialComponent} from './pages/social/social.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [
-    UserService,
-    {provide: APP_CONFIG, useValue: AppConfig},
-    QuestionsFormService,
-    CookieService,
-  ],
+  providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig},
+    QuestionsFormService, CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

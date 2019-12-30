@@ -30,6 +30,7 @@ test: string = "start";
       .catch(
         data => {
           console.log(data);
+
           this.test = "false";
         });
   }
