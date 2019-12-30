@@ -11,9 +11,7 @@ import {ContactSurveyDto} from '../entities/contact-survey-dto';
 })
 export class CheckOpportunityService {
 
-  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private http: HttpClient) {
-  }
-
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private http: HttpClient) {}
 
   public test(token: string): Observable<string> {
     return this.http.get(this.config.backBaseUrl + '/testAccess/' + token, {responseType: 'text'});

@@ -10,6 +10,7 @@ import {AuthGuardService} from './services/auth-guard.service';
 import {SendFormComponent} from "./pages/sendForm/sendForm.component";
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
+import {SocialComponent} from "./pages/social/social.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
@@ -22,7 +23,9 @@ const routes: Routes = [
   {path: 'surveys/add', component: FormConstructorComponent},
   {path: 'checkOpportunity', component: CheckOpportunityComponent},
   {path: 'test/:token', component: CheckOpportunityComponent},
-  {path: '**', redirectTo: '/'},
+  {path: 'oauth_login', component: SocialComponent},
+  {path: 'oauth2/authorize-client/**', redirectTo: 'http://localhost:4200/oauth2/authorize-client/**'},
+  // {path: '**', redirectTo: '/'}
 
 ];
 

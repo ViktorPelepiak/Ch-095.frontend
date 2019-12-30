@@ -7,16 +7,22 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    //'Access-Control-Allow-Origin' header in the response must not be the wildcard '*'
     request = request.clone({
       withCredentials: true,
     });
-    request = request.clone({
+    /*request = request.clone({
+      // headers: request.headers
+      //   .append('userToken', localStorage.getItem("userToken"))
+      //   .append('Header1', "header1")
+
       headers: request.headers
-        .append('Access-Control-Allow-Origin','null')
-        // .append('Access-Control-Allow-Methods','*')
-        // .append('Access-Control-Allow-Origin','origin-list'),
-    });
+        .set('Cookie', 'JSESSIONID=34E9FFEF2EBEC41627F6DECDE53FF7A7;')
+        // .append('Header1', "header1")
+
+      // headers: request.headers
+      //   .set('JSESSIONID','EE62EE3D6E3150B887952342A75199ED')
+      //   .append('userToken', localStorage.getItem("userToken"))
+    });*/
     return next.handle(request);
   }
 }

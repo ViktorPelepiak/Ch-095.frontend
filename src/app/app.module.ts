@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
@@ -19,6 +19,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
+import {CookieService} from "ngx-cookie-service";
+
+import {BarChartComponent} from './components/statistic/bar-chart-component/bar-chart-component.component';
+import {ChartsModule} from 'ng2-charts';
+import {StatisticComponent} from './components/statistic/statistic.component';
 import {SendFormComponent} from "./pages/sendForm/sendForm.component";
 import {BarChartComponent} from './components/statistic/bar-chart-component/bar-chart-component.component';
 import {ChartsModule} from 'ng2-charts';
@@ -28,6 +33,8 @@ import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
+import {SocialComponent} from './pages/social/social.component';
+import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
 
 @NgModule({
   declarations: [
@@ -47,6 +54,7 @@ import {OneQuestionComponent} from './pages/questions-page/one-question/one-ques
     CheckOpportunityComponent,
     QuestionsPageComponent,
     OneQuestionComponent,
+    SocialComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,14 +65,19 @@ import {OneQuestionComponent} from './pages/questions-page/one-question/one-ques
     NgxSkltnModule.forRoot(),
     ChartsModule,
   ],
-  exports:[
+  exports: [
     ChartsModule,
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule
   ],
   providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig},
-              QuestionsFormService],
+    QuestionsFormService, CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
