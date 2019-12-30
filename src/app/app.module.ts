@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
@@ -28,6 +28,7 @@ import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
+import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
 
 @NgModule({
   declarations: [
@@ -64,7 +65,11 @@ import {OneQuestionComponent} from './pages/questions-page/one-question/one-ques
     ReactiveFormsModule
   ],
   providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig},
-              QuestionsFormService],
+              QuestionsFormService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
