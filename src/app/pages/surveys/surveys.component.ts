@@ -25,6 +25,10 @@ export class SurveysComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getSurveys()
+  }
+
+  getSurveys() {
     this.service.getSurveys(this.buildRequestParams())
       .toPromise()
       .then(e => {
@@ -32,7 +36,9 @@ export class SurveysComponent implements OnInit {
         this.surveys = e.items
         this.pageable = e.pageable
       })
-      .catch(e => console.error(e));
+      .catch(e => {
+        console.error(e)
+      });
   }
 
   surveyUpdateTitle() {
@@ -109,7 +115,7 @@ export class SurveysComponent implements OnInit {
     let currentPage = Number(this.route.snapshot.queryParamMap.get('page'));
     let size = +this.route.snapshot.queryParamMap.get('size');
     let direction = this.route.snapshot.queryParamMap.get('direction');
-    let fields = this.route.snapshot.queryParamMap.getAll('sort');
+    let sort = this.route.snapshot.queryParamMap.get('sort');
     let status = this.route.snapshot.queryParamMap.get('status');
     if (currentPage !== null && currentPage > 0) {
       params = params.append('page', String(currentPage - 1));
@@ -120,8 +126,8 @@ export class SurveysComponent implements OnInit {
     if (direction !== null) {
       params = params.append('direction', direction);
     }
-    if (fields.length > 0) {
-      params = params.append('sort', fields.join(','));
+    if (sort !== null) {
+      params = params.append('sort', sort);
     }
     if (status !== null) {
       params = params.append('status', status);
