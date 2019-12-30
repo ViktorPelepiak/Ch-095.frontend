@@ -22,8 +22,9 @@
                   <td class="text-center">
                     <label>
               <textarea
-                rows="4" cols="120" class="form-control" formControlName="primaryEmails" name="email" ngModel=""
+                rows="4" cols="120" class="form-control" formControlName="primaryEmails" name="primaryEmails" ngModel=""
                 placeholder="email@gmail.com,email2@gmail.com,..."></textarea>
+
                     </label></td>
                 </tr>
                 <p>Please separate multiple addresses with commas</p>
@@ -35,31 +36,31 @@
               <div class="form-row">
                 <div class="form-group">
                   <label>Number of Emails</label>
-                  <select formControlName="numberOfTickets" class="form-control" (change)="onChangeTickets($event)"
-                          [ngClass]="{ 'is-invalid': submitted && f.numberOfTickets.errors }">
+                  <select formControlName="numberOfEmails" class="form-control" (change)="onChangeEmails($event)"
+                          [ngClass]="{ 'is-invalid': submitted && f.numberOfEmails.errors }">
                     <option value=""></option>
                     <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
                   </select>
-                  <div *ngIf="submitted && f.numberOfTickets.errors" class="invalid-feedback">
-                    <div *ngIf="f.numberOfTickets.errors.required">Number of emails is required</div>
+                  <div *ngIf="submitted && f.numberOfEmails.errors" class="invalid-feedback">
+                    <div *ngIf="f.numberOfEmails.errors.required">Number of emails is required</div>
                   </div>
                 </div>
               </div>
             </div>
             <label>Email</label>
-            <div *ngFor="let ticket of t.controls; let i = index" class="list-group list-group-flush">
+            <div *ngFor="let emailsArray of t.controls; let i = index" class="list-group list-group-flush">
               <div class="list-group-item">
-                <div [formGroup]="ticket" class="form-row">
+                <div [formGroup]="emailsArray" class="form-row">
                   <div *ngIf="isShownRemoveSign" class="container panel panel-footer">
                     <button type="button" class="close" (click)="removeEmail(i)"><span aria-hidden="true">×</span>
                     </button>
                   </div>
                   <div class="form-group col-6">
                     <input type="text" formControlName="email" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && ticket.controls.email.errors }"/>
-                    <div *ngIf="submitted && ticket.controls.email.errors" class="invalid-feedback">
-                      <div *ngIf="ticket.controls.email.errors.required">Email is required</div>
-                      <div *ngIf="ticket.controls.email.errors.email">Email must be a valid email address</div>
+                           [ngClass]="{ 'is-invalid': submitted && emailsArray.controls.email.errors }"/>
+                    <div *ngIf="submitted && emailsArray.controls.email.errors" class="invalid-feedback">
+                      <div *ngIf="emailsArray.controls.email.errors.required">Email is required</div>
+                      <div *ngIf="emailsArray.controls.email.errors.email">Email must be a valid email address</div>
                     </div>
                   </div>
                 </div>

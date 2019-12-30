@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {EmailService} from "../../services/send-email.service";
 import {Email} from "../../models/email";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -16,6 +16,7 @@ export class SendFormComponent implements OnInit {
   isShownRemoveSign: boolean = true;
   isShown2: boolean = false;
   public emails: any[] = [''];
+  public primaryEmails: string = "";
 
   dynamicForm: FormGroup;
   submitted = false;
@@ -25,8 +26,8 @@ export class SendFormComponent implements OnInit {
 
   ngOnInit() {
     this.dynamicForm = this.formBuilder.group({
-      numberOfTickets: ['', Validators.required],
-      tickets: new FormArray([])
+      numberOfEmails: ['', Validators.required],
+      emailsArray: new FormArray([])
     });
   }
 
@@ -36,8 +37,17 @@ export class SendFormComponent implements OnInit {
   }
 
   get t() {
-    return this.f.tickets as FormArray;
+    return this.f.emailsArray as FormArray;
   }
+
+  // someSplit() {
+  //   this.emails = this.dynamicForm.value.primaryEmails.split(",");
+  //   for (let i = 0; i < 5; i++) {
+  //     this.t.push(this.formBuilder.group({
+  //       emails: ['', [Validators.required, Validators.email]]
+  //     }));
+  //   }
+  // }
 
   toggleShow() {
     this.isShown = !this.isShown;
@@ -51,24 +61,24 @@ export class SendFormComponent implements OnInit {
     this.emails.splice(i, 1);
   }
 
-  onChangeTickets(e) {
-    const numberOfTickets = e.target.value || 0;
-    if (this.t.length < numberOfTickets) {
-      for (let i = this.t.length; i < numberOfTickets; i++) {
+  onChangeEmails(e) {
+    const numberOfEmails = e.target.value || 0;
+    if (this.t.length < numberOfEmails) {
+      for (let i = this.t.length; i < numberOfEmails; i++) {
         this.t.push(this.formBuilder.group({
           email: ['', [Validators.required, Validators.email]]
         }));
       }
     } else {
-      for (let i = this.t.length; i >= numberOfTickets; i--) {
+      for (let i = this.t.length; i >= numberOfEmails; i--) {
         this.t.removeAt(i);
       }
     }
   }
 
   sendEmails() {
-    const email = new Email(this.dynamicForm.value, '1', '1');
-    console.log(this.dynamicForm.value);
+    const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), '1', '1');
+    console.log(this.dynamicForm.value.emails);
     console.log(this.emailService.postEmailArray(email));
     this.emailService
       .postEmailArray(email)

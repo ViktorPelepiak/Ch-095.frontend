@@ -1,12 +1,12 @@
 export class Email {
-  constructor(emails: string, userId: string, surveyId: string) {
-    this.emails = emails;
+  constructor(emailsArray: string[], userId: string, surveyId: string) {
+    this.emailsArray = emailsArray;
     this.userId = userId;
     this.surveyId = surveyId;
   }
 
-  emails: string;
+  emailsArray: string[];
   userId: string;
   surveyId: string;
-  title: string;
+  // title: string;
 }
