@@ -3,5 +3,5 @@ export class QuestionforContactDTO {
   public type: string;
   public choiceAnswers: string[];
   public index: number;
-  public answer: string;
+  public answer: string[];
 }

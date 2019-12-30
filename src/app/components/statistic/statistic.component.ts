@@ -63,8 +63,6 @@ export class StatisticComponent implements OnInit {
     let map = new Map();
     choiceAnswers.forEach(value => map.set(value, 0));
     answer.forEach(value => map.set(value, 1 + map.get(value)));
-    console.log(answer)
-    console.log([...map.values()])
     return [...map.values()];
   }
 
@@ -97,14 +95,15 @@ export class StatisticComponent implements OnInit {
   }
 
   private initializeforEachStatistic(questionsContacts: QuestionContactDTO[]) {
-
     let questionStatistic = this.componentFactoryResolver.resolveComponentFactory(EachQuestionComponent);
     questionsContacts.forEach(value => {
       let eachQuestionComponentRef = this.questionViewRef.createComponent(questionStatistic);
       (<EachQuestionComponent>eachQuestionComponentRef.instance)
         .email = value.email;
+      value.questionDTOS.sort((a, b) => a.index-b.index);
       (<EachQuestionComponent>eachQuestionComponentRef.instance)
         .models = value.questionDTOS;
+
     })
   }
 
