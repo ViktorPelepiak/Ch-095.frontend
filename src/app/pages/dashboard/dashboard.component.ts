@@ -17,9 +17,9 @@ test: string = "start";
   constructor(@Inject(APP_CONFIG) private config: IAppConfig, private http: HttpClient, private socialService: SocialService, private cookieService: CookieService) { }
 
   ngOnInit() {
-    localStorage.setItem("userToken", this.cookieService.get("userToken"));
-
-    console.log(localStorage.getItem("userToken"));
+    // localStorage.setItem("userToken", this.cookieService.get("userToken"));
+    //
+    // console.log(localStorage.getItem("userToken"));
 
     this.socialService.test()
       .toPromise()

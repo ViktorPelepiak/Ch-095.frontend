@@ -8,7 +8,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     request = request.clone({
-      withCredentials: true,
+      withCredentials: true
+      // withCredentials: false
     });
     /*request = request.clone({
       // headers: request.headers
