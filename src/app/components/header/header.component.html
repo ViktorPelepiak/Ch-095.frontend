@@ -11,11 +11,14 @@
     </div>
     <ul class="navbar-nav navbar-collapse justify-content-end">
        <li>
-          <a *ngIf="!isLoggedIn" class="nav-link" href="/register">Sign Up</a>
+          <a *ngIf="!isLoggedIn" class="nav-link" href="/register">Sign up</a>
       </li>
       <li>
-        <a *ngIf="!isLoggedIn" class="nav-link" href="/login">Sign In</a>
+        <a *ngIf="!isLoggedIn" class="nav-link" href="/login">Log in</a>
       </li>
+<!--      <li>-->
+<!--        <a *ngIf="!isLoggedIn" class="nav-link" href="/confirm">Confirm</a>-->
+<!--      </li>-->
       <li>
         <a *ngIf="isLoggedIn" class="nav-link" href="/logout" (click)=handleLogout()>Logout</a>
       </li>

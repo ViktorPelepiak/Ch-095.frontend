@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { AlertService} from "../../../services/alert.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -19,12 +19,13 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private toast: ToastrService,
     private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required,Validators.minLength(4) ]]
     });
 
     // reset login status
@@ -46,15 +47,17 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
+          this.toast.success("You successful Log in.");
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error;
           this.loading = false;
+          this.toast.error("Email or password wrong.")
+          this.router.navigate(['login']);
         });
   }
 }

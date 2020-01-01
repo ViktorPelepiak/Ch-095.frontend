@@ -12,12 +12,14 @@ import {QuestionsPageComponent} from './pages/questions-page/questions-page.comp
 import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
 import {LoginComponent} from "./components/login-registration/login";
 import {RegisterComponent} from "./components/login-registration/registration";
+import {ConfirmComponent} from "./components/login-registration/confirm-account/confirm.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent },
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'logout', component: DashboardComponent},
+  {path: 'confirm', component: ConfirmComponent},
   //{path: 'login', component: AuthorizationComponent, canActivate: [AuthGuardService]},
   {path: 'surveys', component: SurveysComponent},
   {path: 'sendForm', component: SendFormComponent},

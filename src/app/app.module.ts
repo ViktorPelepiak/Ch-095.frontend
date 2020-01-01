@@ -15,7 +15,10 @@ import {FormConstructorComponent} from './pages/form-constructor/form-constructo
 import {QuestionComponent} from './question/question.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LoginComponent } from "./components/login-registration/login";
+import {ConfirmComponent} from "./components/login-registration/confirm-account/confirm.component";
 import {BasicInterceptorService} from './services/basicInterceptor.service';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastrModule, ToastrService} from 'ngx-toastr';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SendFormComponent} from "./pages/sendForm/sendForm.component";
@@ -28,6 +31,7 @@ import {QuestionsPageComponent} from './pages/questions-page/questions-page.comp
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
 import {RegisterComponent} from "./components/login-registration/registration/registration.component";
+import {HttpErrorInterceptor} from "./services/http-error.interceptor";
 
 
 @NgModule({
@@ -40,6 +44,7 @@ import {RegisterComponent} from "./components/login-registration/registration/re
     QuestionComponent,
     LoginComponent,
     RegisterComponent,
+    ConfirmComponent,
     CheckOpportunityComponent,
     SurveysComponent,
     SurveySkltnComponent,
@@ -57,7 +62,13 @@ import {RegisterComponent} from "./components/login-registration/registration/re
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxSkltnModule.forRoot(),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-center',
+      enableHtml: true
+    }),
+    NgxSkltnModule,
     ChartsModule,
   ],
   exports:[
@@ -67,8 +78,10 @@ import {RegisterComponent} from "./components/login-registration/registration/re
     ReactiveFormsModule
   ],
   providers: [UserService,
+    ToastrService,
     {provide: APP_CONFIG, useValue: AppConfig},
     {provide: HTTP_INTERCEPTORS, useClass: BasicInterceptorService, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
               QuestionsFormService],
   bootstrap: [AppComponent]
 })

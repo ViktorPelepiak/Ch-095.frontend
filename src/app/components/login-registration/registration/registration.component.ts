@@ -5,7 +5,26 @@ import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../../services/authentication.service';
 import { UserService} from '../../../services/user.service';
-import { AlertService} from '../../../services/alert.service';
+import {ToastrService} from "ngx-toastr";
+
+export function MustMatch(controlName: string, matchingControlName: string) {
+  return (formGroup: FormGroup) => {
+    const control = formGroup.controls[controlName];
+    const matchingControl = formGroup.controls[matchingControlName];
+
+    if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+      // return if another validator has already found an error on the matchingControl
+      return;
+    }
+    // set error on matchingControl if validation fails
+    if (control.value !== matchingControl.value) {
+      matchingControl.setErrors({ mustMatch: true });
+    } else {
+      matchingControl.setErrors(null);
+    }
+  }
+}
+
 
 @Component({
   selector: 'app-registration',
@@ -20,7 +39,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private userService: UserService,
-    private alertService: AlertService
+    private toast: ToastrService
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.isUserLoggedIn()) {
@@ -30,10 +49,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      // firstName: ['', Validators.required],
-      // lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(4)]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
+      confirmPassword: ['', Validators.required]
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
     });
   }
 
@@ -44,7 +64,7 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
 
     // reset alerts on submit
-    this.alertService.clear();
+    // this.alertService.clear();
 
     // stop here if form is invalid
     if (this.registerForm.invalid) {
@@ -56,13 +76,10 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          //this.alertService.success('Please confirm registration.We send message to your email', true);
-          alert('Thank you for registration.We send message to your email');
-          this.router.navigate(['/login']);
+          this.toast.success("Please check your email and confrim registration");
+          this.router.navigate(['/']);
         },
         error => {
-          //this.alertService.error(error);
-          alert(error);
           this.loading = false;
           this.router.navigate(['/']);
 
