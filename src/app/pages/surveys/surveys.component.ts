@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Survey} from '../../models/survey';
 import {SurveyService} from '../../services/survey.service';
 import {Pageable} from '../../models/pageable';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormControl} from "@angular/forms";
 import {RedirectUtil} from "../../util/redirect-util";
 import {HttpParams} from "@angular/common/http";
@@ -19,9 +19,11 @@ export class SurveysComponent implements OnInit {
   isCloneContacts: boolean;
   pageable: Pageable;
   title = new FormControl('');
+  private redirects: RedirectUtil;
 
   constructor(private service: SurveyService, private router: Router, private route: ActivatedRoute) {
     this.tempSurvey = 0;
+    this.redirects = new RedirectUtil(router, route);
   }
 
   ngOnInit() {
@@ -32,7 +34,6 @@ export class SurveysComponent implements OnInit {
     this.service.getSurveys(this.buildRequestParams())
       .toPromise()
       .then(e => {
-        console.log(e);
         this.surveys = e.items
         this.pageable = e.pageable
       })
@@ -94,20 +95,24 @@ export class SurveysComponent implements OnInit {
 
   previousPage(): void {
     if (this.pageable.currentPage > 1) {
-      RedirectUtil.setParam('page', String(this.pageable.currentPage - 1));
+      this.refreshPageWithParam('page', --this.pageable.currentPage);
     }
   }
 
   setPage(page: number) {
     if (page >= 1 && page <= this.pageable.lastPage) {
-      RedirectUtil.setParam('page', String(page));
+      this.refreshPageWithParam('page', page);
     }
   }
 
   nextPage(): void {
     if (this.pageable.currentPage < this.pageable.lastPage) {
-      RedirectUtil.setParam('page', String(this.pageable.currentPage + 1));
+      this.refreshPageWithParam('page', ++this.pageable.currentPage);
     }
+  }
+
+  refreshPageWithParam(key: string, value: any): void {
+    this.redirects.setParam(key, value,['surveys']);
   }
 
   private buildRequestParams(): HttpParams {

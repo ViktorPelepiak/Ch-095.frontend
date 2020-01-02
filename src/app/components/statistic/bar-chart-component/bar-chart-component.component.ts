@@ -1,7 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-
-import {HttpClient} from "@angular/common/http";
-import {ChartOptions} from "chart.js";
+import {Component, OnInit} from '@angular/core';
 
 
 @Component({

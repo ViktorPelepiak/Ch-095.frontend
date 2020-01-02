@@ -1,4 +1,4 @@
-import { ContactSurveyDto } from './contact-survey-dto';
+import {ContactSurveyDto} from './contact-survey-dto';
 
 describe('ContactSurveyDto', () => {
   it('should create an instance', () => {

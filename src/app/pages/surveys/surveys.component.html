@@ -1,4 +1,3 @@
-<app-header></app-header>
 <div class="container">
   <app-survey-top-buttons></app-survey-top-buttons>
   <div *ngIf="surveys; else notSurveys" class="row">
@@ -138,7 +137,7 @@
     </div>
   </div>
 </div>
-<div class="menu-button no--select sticky">
+<div class="menu-button no--select">
   <em class="material-icons">add</em>
   <a [routerLink]="['/surveys/add']"><em class="material-icons">add_circle</em></a>
   <a href="#"><em class="material-icons">dashboard</em></a>
