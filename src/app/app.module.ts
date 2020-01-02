@@ -20,7 +20,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SendFormComponent} from "./pages/sendForm/sendForm.component";
-import {BarChartComponent} from './components/statistic/bar-chart-component/bar-chart-component.component';
+import {QuestionGeneralStatisticComponent} from './components/statistic/question-component/question-general-statistic.component';
 import {ChartsModule} from 'ng2-charts';
 import {StatisticComponent} from './components/statistic/statistic.component';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
@@ -29,6 +29,7 @@ import {QuestionsPageComponent} from './pages/questions-page/questions-page.comp
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
 import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
+import { QuestionSeparatelyStatisticComponent } from './components/statistic/each-question/question-separately.component';
 
 @NgModule({
   declarations: [
@@ -37,17 +38,19 @@ import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
     DashboardComponent,
     AuthorizationComponent,
     FormConstructorComponent,
+    QuestionGeneralStatisticComponent,
     QuestionComponent,
     CheckOpportunityComponent,
     SurveysComponent,
     SurveySkltnComponent,
     SendFormComponent,
-    BarChartComponent,
+    QuestionGeneralStatisticComponent,
     StatisticComponent,
     SurveyTopButtonsComponent,
     CheckOpportunityComponent,
     QuestionsPageComponent,
     OneQuestionComponent,
+    QuestionSeparatelyStatisticComponent,
   ],
   imports: [
     BrowserModule,

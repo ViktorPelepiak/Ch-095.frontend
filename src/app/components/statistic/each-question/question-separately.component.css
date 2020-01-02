@@ -1,0 +1,23 @@
+
+#email{
+  font-size: large;
+  margin: auto;
+  width: 70%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+ul{
+  margin: auto;
+  width: 70%;
+}
+#question{
+  margin-bottom: 20px;
+}
+li{
+ padding-left: 40px;
+}
+img{
+display: block;
+  margin-left: 50px;
+}
