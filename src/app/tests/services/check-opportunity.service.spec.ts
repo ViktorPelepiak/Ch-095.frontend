@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { CheckOpportunityService } from '../../services/check-opportunity.service';
+import {CheckOpportunityService} from '../../services/check-opportunity.service';
 
 describe('CheckOpportunityService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

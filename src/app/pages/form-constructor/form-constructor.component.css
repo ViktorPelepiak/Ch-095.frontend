@@ -1,12 +1,29 @@
 
-.formConstructor{
-  /*border: 2px dotted black;*/
+.formConstructor {
   margin-left: 30%;
   margin-top: 5%;
   width: 40%;
 }
+#surveyNameAndPhoto{
+  border: 2px dotted black;
+
+}
+input-disabled{
+  background-color:#FFF !important;
+}
+.image-upload{
+  position: absolute;
+  margin-left: 38%;
+  margin-top: 1%;
+  margin-bottom: 300px;
+}
+.image-upload>input {
+  display: none;
+}
 #surveyName{
   color: #000000;
+  height: 90%;
+  width: 95%;
   font-size: 36px;
   text-align: center;
 }

@@ -14,7 +14,7 @@ import {APP_CONFIG, AppConfig} from './app.config';
 
 import {UserService} from './services/user.service';
 import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
-import {QuestionComponent} from './question/question.component';
+import {QuestionComponent} from './components/question/question.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {SurveysComponent} from './pages/surveys/surveys.component';
