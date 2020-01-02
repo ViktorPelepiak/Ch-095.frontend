@@ -19,7 +19,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule, ToastrService} from 'ngx-toastr';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
-import {SendFormComponent} from "./pages/sendForm/sendForm.component";
+import {SendFormComponent} from './pages/sendForm/sendForm.component';
+import {BarChartComponent} from './components/statistic/bar-chart-component/bar-chart-component.component';
+import {QuestionComponent} from './components/question/question.component';
 import {QuestionGeneralStatisticComponent} from './components/statistic/question-component/question-general-statistic.component';
 import {ChartsModule} from 'ng2-charts';
 import {StatisticComponent} from './components/statistic/statistic.component';
@@ -73,7 +75,7 @@ import { QuestionSeparatelyStatisticComponent } from './components/statistic/eac
     NgxSkltnModule,
     ChartsModule,
   ],
-  exports:[
+  exports: [
     ChartsModule,
     ReactiveFormsModule,
     FormsModule,
