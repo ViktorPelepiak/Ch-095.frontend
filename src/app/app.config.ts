@@ -14,6 +14,6 @@ export const AppConfig: IAppConfig = {
   backBaseUrl: 'http://localhost:8080',
   frontBaseUrl: 'http://localhost:4200',
   surveyGeneralStatisticUrl: '/statistic/general?surveyId=',
-  surveyEachStatisticUrl: '/statistic/each?surveyId='
+  surveyEachStatisticUrl: '/statistic/separately?surveyId='
 
 };
