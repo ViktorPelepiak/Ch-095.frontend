@@ -1,8 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {QuestionsFormService} from '../../services/questions-form.service';
-import {FormArray, FormBuilder, FormControl, FormGroup, NgForm} from '@angular/forms';
-import {SaveAnswer} from '../../models/SaveAnswer';
-import {HttpParams} from '@angular/common/http';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-questions-page',
@@ -12,13 +11,16 @@ import {HttpParams} from '@angular/common/http';
 
 export class QuestionsPageComponent implements OnInit {
 
+  constructor(private questionsFormService: QuestionsFormService, private router: Router) {
+  }
+
   quest: [];
   surveyId;
   contactEmail;
   questionForm = new FormGroup({
     surveyId: new FormControl(),
     contactEmail: new FormControl(),
-    // answers: new FormArray([])
+    answers: new FormArray([])
   });
 
   submitted = false;
@@ -39,18 +41,16 @@ export class QuestionsPageComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log('result', this.questionForm.value);
-    return false;
-    this.questionsFormService.saveAnswers(this.questionForm)
+    // console.log('result', JSON.stringify(this.questionForm.value));
+    // return false;
+
+    this.questionsFormService.saveAnswers(this.questionForm.value)
       .subscribe(
         response => console.log('Success', response),
         // tslint:disable-next-line:no-shadowed-variable
         error => console.error('Error', error)
       );
-  }
-
-  constructor(private questionsFormService: QuestionsFormService, private formBuilder: FormBuilder) {
-
+    this.router.navigate(['/home']);
   }
 
   ngOnInit() {

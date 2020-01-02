@@ -2,7 +2,7 @@
   <form>
     <h4 id="inputQuestion">Question {{question.index}}</h4>
     <div class="form-group">
-      <input type="text" name="userQuestion" class="form-control" placeholder="Input your question">
+      <input type="text" name="userQuestion" class="form-control" placeholder="Input your question" [(ngModel)]="question.question">
     </div>
 
 

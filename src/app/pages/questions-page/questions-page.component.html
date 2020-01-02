@@ -1,19 +1,18 @@
 <div class="formConstructor">
-  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
-    <h2 class="font-weight-normal">Hello, you logged in as</h2>
-    <h2 class="font-weight-normal">{{contactEmail}}</h2>
+  <form [formGroup]="questionForm">
+    <span><h2 class="font-weight-normal">Hello, you logged in as <b>{{contactEmail}}</b></h2></span>
+    <h2 class="font-weight-normal"></h2>
     <br>
     <br>
-    <p>{{contactEmail}} {{surveyId}}
-      <input formControlName="contactEmail" class="form-control" ngModel="{{contactEmail}}">
-      <input  formControlName="surveyId" class="form-control" ngModel="{{surveyId}}">
+    <p>
+      <input formControlName="contactEmail" type="hidden" class="form-control" ngModel="{{contactEmail}}">
+      <input formControlName="surveyId" type="hidden" class="form-control" ngModel="{{surveyId}}">
       <app-one-question
-        *ngFor="let question of quest; let i = index"
+        *ngFor="let question of quest"
         [oneQuestion] = question
-        [parentForm] =  "questionForm"
+        [parentForm] = "questionForm.controls.answers"
       ></app-one-question>
     </p>
     <h4><button type="submit" class="btn btn-success" (click)="onSubmit()">Submit</button></h4>
   </form>
 </div>
-
