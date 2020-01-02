@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
@@ -14,7 +14,7 @@ import {APP_CONFIG, AppConfig} from './app.config';
 
 import {UserService} from './services/user.service';
 import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
-import {QuestionComponent} from './question/question.component';
+import {QuestionComponent} from './components/question/question.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {SurveysComponent} from './pages/surveys/surveys.component';
@@ -28,6 +28,7 @@ import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
+import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
 import { QuestionSeparatelyStatisticComponent } from './components/statistic/each-question/question-separately.component';
 
 @NgModule({
@@ -67,7 +68,11 @@ import { QuestionSeparatelyStatisticComponent } from './components/statistic/eac
     ReactiveFormsModule
   ],
   providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig},
-              QuestionsFormService],
+              QuestionsFormService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

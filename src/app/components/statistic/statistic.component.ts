@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, ViewContainerRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {QuestionGeneralStatisticComponent} from "./question-component/question-general-statistic.component";
 import {StatisticService} from "../../services/statistic.service";

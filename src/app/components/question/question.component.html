@@ -1,0 +1,98 @@
+<div class="question" id="question{{question.index}}" xmlns:C="http://www.w3.org/1999/xhtml">
+    <div id="questionBox">
+      <div id="questionNumber">
+        <h4 id="inputQuestion">Question {{question.index}}</h4>
+      </div>
+      <div id="isRequired" title="is required question?">
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="question.required">
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group" id="userQuestion">
+      <input type="text" name="userQuestion" class="form-control" placeholder="Input your question"
+             [(ngModel)]="question.question" id="UserQuestion{{question.index}}">
+    </div>
+
+  <form>
+    <select (change)="setType($event)"  [hidden]="question.type !='not set' " class="custom-select" id="selectTypeOfAnswer">
+      <option disabled>SELECT ANSWER TYPE</option>
+      <option value="TEXTBOX">TEXTBOX</option>
+      <option value="RADIOBUTTON">RADIOBUTTON</option>
+      <option value="CHECKBOX">CHECKBOX</option>
+      <option value="RADIO_PICTURE">RADIO PICTURE</option>
+      <option value="CHECKBOX_PICTURE">CHECKBOX PICTURE</option>
+      <option value="TEXTAREA">TEXTAREA</option>
+    </select>
+
+
+    <div *ngIf="question.type === 'CHECKBOX'" class="answer">
+      <p *ngFor="let answer of question.answers; index as i">
+        <img src="https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png">
+
+        <input class="checkboxAnswer" #VariantAnswer (change)="setAnswerVariant(i, VariantAnswer.value)" name="answer{{question.index}}" [value]="answer">
+
+        <button type="button" class="btn btn-secondary" class="deleteVariant" (click)="deleteVariant(i)">x</button>
+      </p>
+      <button type="button" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+        VARIANT
+      </button>
+    </div>
+    <div *ngIf="question.type === 'RADIOBUTTON'" class="answer">
+      <p *ngFor="let answer of question.answers; index as i">
+        <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
+        <input class="radiobuttonAnswer" value="{{answer}}" #variantOfAnswer
+               (change)="setAnswerVariant(i,variantOfAnswer.value)">
+        <button type="button"  class="deleteVariant" (click)="deleteVariant(i)">x</button>
+      </p>
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+        VARIANT
+      </button>
+    </div>
+
+    <div *ngIf="question.type === 'TEXTBOX'" class="answer">
+      <p *ngFor="let answer of question.answers; index as i">
+        <input type="text" name="userQuestion" class="form-control" [disabled]=true placeholder="Textbox for answer">
+      </p>
+    </div>
+
+    <div *ngIf="question.type === 'RADIO_PICTURE'" class="answer">
+      <p *ngFor="let answer of question.answers; index as i">
+        <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
+        <img *ngIf="previewUrls[i]" [src]="previewUrls[i]" style="max-width:300px;width:auto;max-height: 300px;height:auto">
+        <input type="file" id="fileRadio" (change)="uploadPicture($event,i)" style="color:transparent; width: 100px" />
+        <button type="button"  class="deleteVariant" (click)="deletePicture(i)">x</button>
+      </p>
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+        VARIANT
+      </button>
+    </div>
+
+     <div *ngIf="question.type === 'CHECKBOX_PICTURE'" class="answer">
+      <p *ngFor="let answer of question.answers; index as i">
+        <img src="https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png">
+        <img *ngIf="previewUrls[i]" [src]="previewUrls[i]" style="max-width:300px;width:auto;max-height: 300px;height:auto">
+        <input type="file" id="fileCheckbox" (change)="uploadPicture($event,i)" style="color:transparent; width: 100px" />
+        <button type="button"  class="deleteVariant" (click)="deletePicture(i)">x</button>
+      </p>
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+        VARIANT
+      </button>
+    </div>
+
+
+
+    <div *ngIf="question.type === 'TEXTAREA'" class="answer">
+        <div style="float:left;width:95%;">
+          <textarea style="width:100%;"  placeholder="Textarea for answer" disabled="true" ></textarea>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+  </form>
+</div>
+
+
+
