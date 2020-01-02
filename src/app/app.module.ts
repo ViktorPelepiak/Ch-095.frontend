@@ -20,7 +20,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SendFormComponent} from "./pages/sendForm/sendForm.component";
-import {QuestionStatisticComponent} from './components/statistic/question-component/question-statistic.component';
+import {QuestionGeneralStatisticComponent} from './components/statistic/question-component/question-general-statistic.component';
 import {ChartsModule} from 'ng2-charts';
 import {StatisticComponent} from './components/statistic/statistic.component';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
@@ -28,7 +28,7 @@ import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
-import { EachQuestionComponent } from './components/statistic/each-question/each-question.component';
+import { QuestionSeparatelyStatisticComponent } from './components/statistic/each-question/question-separately.component';
 
 @NgModule({
   declarations: [
@@ -37,19 +37,19 @@ import { EachQuestionComponent } from './components/statistic/each-question/each
     DashboardComponent,
     AuthorizationComponent,
     FormConstructorComponent,
-    QuestionStatisticComponent,
+    QuestionGeneralStatisticComponent,
     QuestionComponent,
     CheckOpportunityComponent,
     SurveysComponent,
     SurveySkltnComponent,
     SendFormComponent,
-    QuestionStatisticComponent,
+    QuestionGeneralStatisticComponent,
     StatisticComponent,
     SurveyTopButtonsComponent,
     CheckOpportunityComponent,
     QuestionsPageComponent,
     OneQuestionComponent,
-    EachQuestionComponent,
+    QuestionSeparatelyStatisticComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-export class QuestionStatistic {
+export class OneQuestionGeneralStatistic {
   type: string;
   question: string;
   choiceAnswers: string[];

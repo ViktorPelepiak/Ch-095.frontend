@@ -1,33 +1,29 @@
 import {Component, ComponentFactoryResolver, ViewContainerRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {QuestionStatisticComponent} from "./question-component/question-statistic.component";
+import {QuestionGeneralStatisticComponent} from "./question-component/question-general-statistic.component";
 import {StatisticService} from "../../services/statistic.service";
-import {StatisticModel} from "../../models/StatisticModel";
-import {EachQuestionComponent} from "./each-question/each-question.component";
-import {QuestionforContactDTO} from "../../models/QuestionforContactDTO";
-import {QuestionContactDTO} from "../../models/QuestionContactDTO";
+import {QuestionsGeneralStatistic} from "../../models/QuestionsGeneralStatistic";
+import {QuestionSeparatelyStatisticComponent} from "./each-question/question-separately.component";
+import {QuestionsSeparatelyStatistic} from "../../models/QuestionsSeparatelyStatistic";
 
 
 @Component({
   selector: 'app-statistic',
   templateUrl: './statistic.component.html',
   styleUrls: ['./statistic.component.css'],
-  entryComponents: [QuestionStatisticComponent, EachQuestionComponent]
+  entryComponents: [QuestionGeneralStatisticComponent, QuestionSeparatelyStatisticComponent]
 })
 export class StatisticComponent implements OnInit {
 
-  @ViewChild("questionStatistic", {static: true, read: ViewContainerRef})
-  questionStatisticViewRef: ViewContainerRef;
 
-  @ViewChild("eachQuestion", {static: true, read: ViewContainerRef})
-  questionViewRef: ViewContainerRef;
+  questionsSeparately: QuestionSeparatelyStatisticComponent[] = [];
+  questionsGeneral: QuestionGeneralStatisticComponent[] = [];
 
   private title: string;
 
-  private questionStatisticShow = "questionStatistic";
-  private eachQuestionShow = "eachQuestion";
-  private whichShow: string = this.questionStatisticShow;
-
+  private generalStatisticShow = "generalStatistic";
+  private separatelyStatisticShow = "separatelyStatistic";
+  private whichShow: string = this.generalStatisticShow;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private statisticService: StatisticService,
@@ -37,26 +33,56 @@ export class StatisticComponent implements OnInit {
   ngOnInit() {
     let surveyId = this.route.snapshot.queryParams["surveyId"];
 
-    this.statisticService.getGeneralStatisticDTO(surveyId,
-      (data) => this.initializeforGeneralStatistic(data));
-
     this.statisticService.getEachStatisticDTO(surveyId,
-      (data) => this.initializeforEachStatistic(data));
+      (data) => {
+        this.initializeSeparatelyStatistic(data)
+      });
+
+
+    this.statisticService.getGeneralStatisticDTO(surveyId,
+      (data) => {
+        this.initializeGeneralStatistic(data)
+      });
+
   }
 
-  initializeNewQuestion(barChartComponentRef, numberVoters: number,
-                        question: string, typeQuestion: string) {
-    (<QuestionStatisticComponent>barChartComponentRef.instance)
-      .question = question;
-
-    (<QuestionStatisticComponent>barChartComponentRef.instance)
-      .typeQuestions = typeQuestion;
-
-
-    (<QuestionStatisticComponent>barChartComponentRef.instance)
-      .numberVoters = numberVoters;
+  initializeSeparatelyStatistic(data: QuestionsSeparatelyStatistic[]) {
+    data.forEach((value, index) => {
+      this.questionsSeparately[index] = new QuestionSeparatelyStatisticComponent();
+      this.questionsSeparately[index].email = value.email;
+      value.questionDTOS.sort(
+        (a, b) => a.index - b.index)
+      this.questionsSeparately[index].models = value.questionDTOS;
+    })
   }
 
+  initializeGeneralStatistic(data: QuestionsGeneralStatistic) {
+    this.title = data.title;
+    data.questionDTOS.sort((a, b) => a.index - b.index);
+    data.questionDTOS.forEach((value, index) => {
+      this.questionsGeneral[index] = new QuestionGeneralStatisticComponent();
+      this.questionsGeneral[index].answers = value.answers;
+      this.questionsGeneral[index].numberVoters = value.answers.length;
+      this.questionsGeneral[index].question = value.question;
+      this.questionsGeneral[index].typeQuestions = value.type;
+      this.questionsGeneral[index].barChartData = [{
+        data: this.getDataChart(value.answers, value.choiceAnswers),
+        label: ""
+      }];
+      if (value.type == "CHECKBOX_PICTURE" || value.type == "RADIO_PICTURE") {
+        let labels = [];
+        value.choiceAnswers.forEach((value1, index1) => {
+          labels[index1] = index1+1;
+        })
+        console.log(labels)
+        this.questionsGeneral[index].barChartLabels = labels;
+        this.questionsGeneral[index].images = value.choiceAnswers;
+      } else {
+        this.questionsGeneral[index].barChartLabels = value.choiceAnswers;
+      }
+
+    });
+  }
 
   getDataChart(answers: string[][], choiceAnswers: string[]): number[] {
     let answer = [].concat(...answers);
@@ -66,53 +92,12 @@ export class StatisticComponent implements OnInit {
     return [...map.values()];
   }
 
-  initializeforGeneralStatistic(data: StatisticModel) {
-    this.title = data.title;
-    let questionStatistic = this.componentFactoryResolver.resolveComponentFactory(QuestionStatisticComponent);
-    data.questionDTOS.sort((a, b) => a.index - b.index);
-    data.questionDTOS.forEach(question => {
-      if (question.type == "RADIOBUTTON" ||
-        question.type == "CHECKBOX") {
-        let barChartComponentRef = this.questionStatisticViewRef.createComponent(questionStatistic);
-        this.initializeNewQuestion(barChartComponentRef, question.answers.length
-          , question.question, question.type);
-        (<QuestionStatisticComponent>barChartComponentRef.instance).barChartData = [
-          {data: this.getDataChart(question.answers, question.choiceAnswers), label: ''}
-        ];
-
-        (<QuestionStatisticComponent>barChartComponentRef.instance)
-          .barChartLabels = question.choiceAnswers;
-
-      } else if (question.type == "TEXTAREA") {
-        let barChartComponentRef = this.questionStatisticViewRef.createComponent(questionStatistic);
-        this.initializeNewQuestion(barChartComponentRef, question.answers.length
-          , question.question, question.type);
-        (<QuestionStatisticComponent>barChartComponentRef.instance)
-          .answers = question.answers;
-      }
-
-    });
+  onClickGeneralStatistic() {
+    this.whichShow = this.generalStatisticShow;
   }
 
-  private initializeforEachStatistic(questionsContacts: QuestionContactDTO[]) {
-    let questionStatistic = this.componentFactoryResolver.resolveComponentFactory(EachQuestionComponent);
-    questionsContacts.forEach(value => {
-      let eachQuestionComponentRef = this.questionViewRef.createComponent(questionStatistic);
-      (<EachQuestionComponent>eachQuestionComponentRef.instance)
-        .email = value.email;
-      value.questionDTOS.sort((a, b) => a.index-b.index);
-      (<EachQuestionComponent>eachQuestionComponentRef.instance)
-        .models = value.questionDTOS;
-
-    })
-  }
-
-  onClickStatisticButton(){
-    this.whichShow = this.questionStatisticShow;
-  }
-
-  onClickEachButton(){
-    this.whichShow = this.eachQuestionShow;
+  onClickSeparatelyStatistic() {
+    this.whichShow = this.separatelyStatisticShow;
   }
 
 }

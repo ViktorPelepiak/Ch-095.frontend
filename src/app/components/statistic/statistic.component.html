@@ -2,21 +2,35 @@
   <app-dashboard></app-dashboard>
   <a id="back" [routerLink]="['/surveys']">&larr; Back</a>
   <p id="title">{{title}}</p>
-  <div class="content">
-    <button id="button_left" class="btn btn-light" (click)="onClickStatisticButton()">
+  <div class="content shadow-sm p-3 mb-5 bg-white rounded">
+    <button id="button_general" class="btn btn-light " (click)="onClickGeneralStatistic()">
       General statistic
     </button>
-    <button id="button_right"  class="btn btn-light" (click)="onClickEachButton()">
+    <button id="button_separately"  class="btn btn-light " (click)="onClickSeparatelyStatistic()">
       statistics of each of them separately
     </button>
-    <hr>
 
-    <div id="questionStatistic" [style.display]="whichShow=='questionStatistic'?'block':'none'">
-    <ng-template #questionStatistic></ng-template>
+    <div id="generalStatistic" [style.display]="whichShow=='generalStatistic'?'block':'none'">
+      <questionGeneralStatistic
+        *ngFor="let question of questionsGeneral"
+      [answers]="question.answers"
+      [barChartData]="question.barChartData"
+      [numberVoters]="question.numberVoters"
+      [typeQuestions]="question.typeQuestions"
+      [question]="question.question"
+      [barChartLabels]="question.barChartLabels"
+      [images]="question.images">
+      </questionGeneralStatistic>
     </div>
 
-    <div id="eachQuestion" [style.display]="whichShow=='eachQuestion'?'block':'none'">
-    <ng-template #eachQuestion></ng-template>
+    <div id="separatelyStatistic" [style.display]="whichShow=='separatelyStatistic'?'block':'none'">
+      <questionSeparatelyStatistic
+        *ngFor="let question of questionsSeparately"
+        [email]="question.email"
+        [models]="question.models"
+      >
+
+      </questionSeparatelyStatistic>
     </div>
   </div>
 </div>

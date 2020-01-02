@@ -1,8 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {APP_CONFIG, IAppConfig} from "../app.config";
-import {StatisticModel} from "../models/StatisticModel";
-import {QuestionContactDTO} from "../models/QuestionContactDTO";
+import {QuestionsGeneralStatistic} from "../models/QuestionsGeneralStatistic";
+import {QuestionsSeparatelyStatistic} from "../models/QuestionsSeparatelyStatistic";
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +15,16 @@ export class StatisticService {
   }
 
 
-  getGeneralStatisticDTO(surveyId: bigint, func: (data: StatisticModel) => void) {
+  getGeneralStatisticDTO(surveyId: bigint, func: (data: QuestionsGeneralStatistic) => void) {
     this.http.get(this.config.backBaseUrl + this.config.surveyGeneralStatisticUrl + surveyId)
-      .toPromise().then((data: StatisticModel) => {
+      .toPromise().then((data: QuestionsGeneralStatistic) => {
       func(data)
     });
   }
 
-  getEachStatisticDTO(surveyId: bigint, func: (data: QuestionContactDTO[]) => void) {
+  getEachStatisticDTO(surveyId: bigint, func: (data: QuestionsSeparatelyStatistic[]) => void) {
     this.http.get(this.config.backBaseUrl + this.config.surveyEachStatisticUrl + surveyId)
-      .toPromise().then((data: QuestionContactDTO[]) => {
+      .toPromise().then((data: QuestionsSeparatelyStatistic[]) => {
       func(data)
     })
 

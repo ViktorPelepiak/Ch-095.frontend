@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuestionStatisticComponent } from './question-statistic.component';
+import { QuestionGeneralStatisticComponent } from './question-general-statistic.component';
 
 describe('BarChartComponentComponent', () => {
-  let component: QuestionStatisticComponent;
-  let fixture: ComponentFixture<QuestionStatisticComponent>;
+  let component: QuestionGeneralStatisticComponent;
+  let fixture: ComponentFixture<QuestionGeneralStatisticComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuestionStatisticComponent ]
+      declarations: [ QuestionGeneralStatisticComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QuestionStatisticComponent);
+    fixture = TestBed.createComponent(QuestionGeneralStatisticComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,16 +1,27 @@
 <div>
   <p id="question">Question: {{question}}</p>
-  <canvas baseChart
-          *ngIf="typeQuestions=='RADIOBUTTON' || typeQuestions=='CHECKBOX'"
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [chartType]="typeQuestions=='RADIOBUTTON'?'pie':'bar'"
-  >
-  </canvas>
+  <div *ngIf="typeQuestions=='RADIOBUTTON'
+          || typeQuestions=='CHECKBOX'
+          || typeQuestions=='CHECKBOX_PICTURE'
+          || typeQuestions=='RADIO_PICTURE'">
+    <div *ngFor="let image of images; let i = index">
+      <p>{{i+1}}</p>
+      <img *ngIf="typeQuestions=='CHECKBOX_PICTURE'
+         || typeQuestions=='RADIO_PICTURE'" src="{{image}}" alt="">
+    </div>
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [chartType]="typeQuestions==
+            'RADIOBUTTON || RADIO_PICTURE'?'pie':'bar'"
+    >
+    </canvas>
+  </div>
 
   <ul *ngIf="typeQuestions=='TEXTAREA'" class="list-group">
     <li class="list-group-item" *ngFor="let answer of answers">{{answer}}</li>
-  </ul>`
+  </ul>
+  `
 
   <p id="number">Number of voters: {{numberVoters}}</p>
 </div>

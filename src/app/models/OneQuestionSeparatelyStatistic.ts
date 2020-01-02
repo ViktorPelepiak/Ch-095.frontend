@@ -1,4 +1,4 @@
-export class QuestionforContactDTO {
+export class OneQuestionSeparatelyStatistic {
   public question:string;
   public type: string;
   public choiceAnswers: string[];
