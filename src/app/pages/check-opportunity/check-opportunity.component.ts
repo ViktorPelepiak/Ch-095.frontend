@@ -17,7 +17,7 @@ export class CheckOpportunityComponent implements OnInit {
   token: string;
   email: string;
   isExist: boolean;
-  wrongEmail = false;
+  wrongEmail: boolean = false;
   errorMessage: string;
 
   constructor(@Inject(APP_CONFIG) private config: IAppConfig, private route: ActivatedRoute, private checkOpportunityService: CheckOpportunityService) {
