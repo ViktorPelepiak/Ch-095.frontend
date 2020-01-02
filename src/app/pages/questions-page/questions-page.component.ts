@@ -11,8 +11,7 @@ import {Router} from '@angular/router';
 
 export class QuestionsPageComponent implements OnInit {
 
-  constructor(private questionsFormService: QuestionsFormService, private router: Router) {
-  }
+  constructor(private questionsFormService: QuestionsFormService, private router: Router) {}
 
   quest: [];
   surveyId;
@@ -22,7 +21,6 @@ export class QuestionsPageComponent implements OnInit {
     contactEmail: new FormControl(),
     answers: new FormArray([])
   });
-
   submitted = false;
 
   getQuestions() {
@@ -37,13 +35,10 @@ export class QuestionsPageComponent implements OnInit {
         item.answers = (item.answers.length > 0) ? JSON.parse(item.answers) : [];
       });
     });
-}
+  }
 
   onSubmit() {
     this.submitted = true;
-    // console.log('result', JSON.stringify(this.questionForm.value));
-    // return false;
-
     this.questionsFormService.saveAnswers(this.questionForm.value)
       .subscribe(
         response => console.log('Success', response),

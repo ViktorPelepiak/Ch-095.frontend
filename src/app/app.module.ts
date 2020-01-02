@@ -28,7 +28,6 @@ import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
-import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +47,6 @@ import { HomeComponent } from './pages/home/home.component';
     CheckOpportunityComponent,
     QuestionsPageComponent,
     OneQuestionComponent,
-    HomeComponent,
   ],
   imports: [
     BrowserModule,
