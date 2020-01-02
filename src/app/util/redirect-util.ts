@@ -1,32 +1,33 @@
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 export class RedirectUtil {
 
-  constructor() {
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
-  public static setParam(name: string, value: string): void {
-    const params = (new URL(document.location.href)).searchParams;
-    params.set(name, value);
-    location.search = '?' + params.toString();
+  public setParam(key: string, value: any, link: any[]): void {
+    let queryParams = JSON.parse(JSON.stringify(this.route.snapshot.queryParams));
+    queryParams[key] = value;
+    this.routeToLink(link,queryParams);
   }
 
-  public static deleteParam(name: string): void {
-    const params = (new URL(document.location.href)).searchParams;
-    params.delete(name);
-    location.search = '?' + params.toString();
+  public deleteParam(name: string, link: any[]): void {
+    let queryParams = JSON.parse(JSON.stringify(this.route.snapshot.queryParams));
+    delete queryParams[name];
+    this.routeToLink(link,queryParams);
   }
 
-  public static setParam2(name: string, value: string, name2: string, value2: string): void {
-    const params = (new URL(document.location.href)).searchParams;
-    params.set(name, value);
-    params.set(name2, value2);
-    location.search = '?' + params.toString();
+  public setParam2(key1: string, value1: string, key2: string, value2: string, link: any[]): void {
+    let queryParams = JSON.parse(JSON.stringify(this.route.snapshot.queryParams));
+    queryParams[key1] = value1;
+    queryParams[key2] = value2;
+    this.routeToLink(link,queryParams);
   }
 
-  public static appendParam(name: string, value: string): void {
-    const params = (new URL(document.location.href)).searchParams;
-    params.set(name, value);
-    location.search = '?' + params.toString();
+  private routeToLink(link: any[], queryParams: Params){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+      this.router.navigate(link, {queryParams})
+    );
   }
 
 }
