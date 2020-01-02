@@ -70,7 +70,7 @@ import { QuestionSeparatelyStatisticComponent } from './components/statistic/eac
       positionClass: 'toast-top-center',
       enableHtml: true
     }),
-    NgxSkltnModule,
+    NgxSkltnModule.forRoot(),
     ChartsModule,
   ],
   exports:[
