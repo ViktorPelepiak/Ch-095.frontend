@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
@@ -15,7 +14,7 @@ import {APP_CONFIG, AppConfig} from './app.config';
 
 import {UserService} from './services/user.service';
 import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
-import {QuestionComponent} from './question/question.component';
+import {QuestionComponent} from './components/question/question.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {SurveysComponent} from './pages/surveys/surveys.component';
