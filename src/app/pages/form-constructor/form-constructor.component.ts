@@ -68,11 +68,11 @@ export class FormConstructorComponent implements OnInit {
 
 
   isValidSurvey(saveSurvey: SaveSurvey) {
-    let isValidSurvey:boolean = true;
-    if(! this.isValidSurveyName(saveSurvey.title)) isValidSurvey = false;
-    if(! this.isSurveyHasQuestions(saveSurvey.questions.length)) isValidSurvey = false;
-    if(! this.isAllQuestionsInput(saveSurvey.questions)) isValidSurvey = false;
-    if(! this.isInAllQuestionsUserChooseType(saveSurvey.questions)) isValidSurvey = false;
+    let isValidSurvey: boolean = true;
+    if (!this.isValidSurveyName(saveSurvey.title)) isValidSurvey = false;
+    if (!this.isSurveyHasQuestions(saveSurvey.questions.length)) isValidSurvey = false;
+    if (!this.isAllQuestionsInput(saveSurvey.questions)) isValidSurvey = false;
+    if (!this.isInAllQuestionsUserChooseType(saveSurvey.questions)) isValidSurvey = false;
     return isValidSurvey;
   }
 
@@ -89,7 +89,9 @@ export class FormConstructorComponent implements OnInit {
   }
 
   private isSurveyHasQuestions(questionsQuantity: number) {
-    this.errorValidation += "Add minimum 1 question. "
+    if (questionsQuantity > 0) {
+      this.errorValidation += "Add minimum 1 question. "
+    }
     return questionsQuantity > 0;
   }
 
@@ -112,7 +114,7 @@ export class FormConstructorComponent implements OnInit {
         isValidSurvey = false;
       }
     }
-    if(atLeastOneQuestionAbsent) this.errorValidation += ". ";
+    if (atLeastOneQuestionAbsent) this.errorValidation += ". ";
     return isValidSurvey;
   }
 
