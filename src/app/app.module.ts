@@ -20,7 +20,7 @@ import {ToastrModule, ToastrService} from 'ngx-toastr';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SendFormComponent} from "./pages/sendForm/sendForm.component";
-import {BarChartComponent} from './components/statistic/bar-chart-component/bar-chart-component.component';
+import {QuestionGeneralStatisticComponent} from './components/statistic/question-component/question-general-statistic.component';
 import {ChartsModule} from 'ng2-charts';
 import {StatisticComponent} from './components/statistic/statistic.component';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
@@ -31,6 +31,7 @@ import {OneQuestionComponent} from './pages/questions-page/one-question/one-ques
 import {RegisterComponent} from "./components/login-registration/registration/registration.component";
 import {HttpErrorInterceptor} from "./services/http-error.interceptor";
 import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
+import { QuestionSeparatelyStatisticComponent } from './components/statistic/each-question/question-separately.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
     DashboardComponent,
     AuthorizationComponent,
     FormConstructorComponent,
+    QuestionGeneralStatisticComponent,
     QuestionComponent,
     LoginComponent,
     RegisterComponent,
@@ -47,13 +49,14 @@ import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
     SurveysComponent,
     SurveySkltnComponent,
     SendFormComponent,
-    BarChartComponent,
+    QuestionGeneralStatisticComponent,
     StatisticComponent,
     SurveyTopButtonsComponent,
     CheckOpportunityComponent,
     QuestionsPageComponent,
     AuthorizationComponent,
     OneQuestionComponent,
+    QuestionSeparatelyStatisticComponent,
   ],
   imports: [
     BrowserModule,
