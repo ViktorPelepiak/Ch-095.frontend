@@ -24,6 +24,8 @@ export class QuestionsPageComponent implements OnInit {
   submitted = false;
 
   getQuestions() {
+    console.log(window.location)
+    console.log(new URLSearchParams(window.location.href))
   this.questionsFormService.getSurvey()
     .toPromise()
     .then((data: any) => {

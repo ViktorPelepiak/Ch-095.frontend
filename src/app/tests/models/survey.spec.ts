@@ -1,4 +1,4 @@
-import { Survey } from '../../models/survey';
+import {Survey} from '../../models/survey';
 
 describe('Survey', () => {
   it('should create an instance', () => {

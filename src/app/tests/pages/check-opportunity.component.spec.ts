@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CheckOpportunityComponent } from '../../pages/check-opportunity/check-opportunity.component';
+import {CheckOpportunityComponent} from '../../pages/check-opportunity/check-opportunity.component';
 
 describe('CheckOpportunityComponent', () => {
   let component: CheckOpportunityComponent;
