@@ -18,8 +18,7 @@ export class SurveyService {
 
   public getSurveys(params: HttpParams): Observable<Page<Survey>> {
     let headers = new HttpHeaders();
-    // headers.set('Access-Control-Allow-Origin','null');
-    return this.http.get<Page<Survey>>(this.config.backBaseUrl + '/survey', {params, headers, withCredentials: true });
+    return this.http.get<Page<Survey>>(this.config.backBaseUrl + '/survey', {params, headers, withCredentials: true});
   }
 
   public surveyUpdateTitle(id: number, title: string) {

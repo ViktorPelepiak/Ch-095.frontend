@@ -15,11 +15,6 @@
   cursor: pointer;
 }
 
-.sticky{
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-}
-
 .text--blue{
   color: #4f5fc1 !important;
 }
@@ -189,7 +184,7 @@
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
   transition: 0.4s;
-  position: sticky;
+  position: fixed;
   margin-left: auto;
   right: 2vw;
   bottom: 2vh;
