@@ -6,11 +6,8 @@ import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AuthorizationComponent} from './pages/authorization/authorization.component';
 import {CheckOpportunityComponent} from './pages/check-opportunity/check-opportunity.component';
-
 import {AppRoutingModule} from './app-routing.module';
-
 import {APP_CONFIG, AppConfig} from './app.config';
-
 import {UserService} from './services/user.service';
 import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
 import {QuestionComponent} from './question/question.component';
@@ -33,7 +30,6 @@ import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
 import {RegisterComponent} from "./components/login-registration/registration/registration.component";
 import {HttpErrorInterceptor} from "./services/http-error.interceptor";
-
 import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
 
 @NgModule({
@@ -56,6 +52,7 @@ import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
     SurveyTopButtonsComponent,
     CheckOpportunityComponent,
     QuestionsPageComponent,
+    AuthorizationComponent,
     OneQuestionComponent,
   ],
   imports: [
@@ -84,13 +81,9 @@ import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
     {provide: APP_CONFIG, useValue: AppConfig},
     {provide: HTTP_INTERCEPTORS, useClass: BasicInterceptorService, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
-              QuestionsFormService],
-  providers: [UserService, {provide: APP_CONFIG, useValue: AppConfig},
-              QuestionsFormService, {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    }],
+     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    QuestionsFormService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule {

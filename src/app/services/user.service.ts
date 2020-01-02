@@ -21,6 +21,7 @@ export class UserService {
   }
 
   public register(user: User): Observable<User> {
+    console.log("register");
     return this.http.post<User>(`${this.config.backBaseUrl}/Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/registration`, user);
   }
  public confirmRegistration(token: string): Observable<string> {
