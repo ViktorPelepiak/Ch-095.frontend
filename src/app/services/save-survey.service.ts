@@ -30,4 +30,5 @@ export class SaveSurveyService {
     formData.append('file', uploadingPhoto);
     return this.http.post<File[]>(this.config.backBaseUrl + '/fileupload', formData);
   }
+
 }
