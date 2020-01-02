@@ -8,8 +8,6 @@ export interface IAppConfig {
   questionUrl: string;
   answerUrl: string
   surveyTitleUrl: string;
-  surveyTitleUrl2: string;
-
 }
 
 export const AppConfig: IAppConfig = {
@@ -18,6 +16,4 @@ export const AppConfig: IAppConfig = {
   questionUrl: '/statistic/questions?surveyId=',
   answerUrl : '/statistic/answers?questionId=',
   surveyTitleUrl : '/statistic/surveyTitle?surveyId=',
-  surveyTitleUrl2 : '/sendForm/surveyTitle'
-
 };

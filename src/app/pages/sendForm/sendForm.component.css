@@ -14,11 +14,11 @@ textarea {
   height: 100%;
 }
 
-.inputsize{
+.inputsize {
   width: 400px;
 }
 
-.requirement{
+.requirement {
   font-weight: bold;
   color: #117a8b;
 }
@@ -40,7 +40,7 @@ textarea {
   height: 570px;
 }
 
-.modal-dialog{
+.modal-dialog {
   background: #b9b9b9;
   width: 654px;
   height: 570px;
@@ -56,20 +56,42 @@ textarea {
 
 .box button {
   color: darkseagreen;
-  display: inline-block;
+  /*display: inline-block;*/
+  font-weight: bold;
+  /*border-bottom: 2px solid darkseagreen;*/
+  /*padding-bottom: 0px;*/
 }
 
-.error{
+.box1 {
+  font-weight: bold;
+
+}
+
+.error {
   color: red;
   font-weight: bold;
 }
 
 /* Important part */
-.modal-dialog{
+.modal-dialog {
   overflow-y: initial !important
 }
-.modal-body{
+
+.modal-body {
   height: 250px;
   width: 652px;
   overflow-y: auto;
 }
+
+.form-row {
+  margin-bottom: -20px;
+  margin-top: -5px;
+}
+
+/*.modal-footer {*/
+/*  position: fixed;*/
+/*  left: 0;*/
+/*  bottom: 0px;*/
+/*  width: 30%;*/
+/*  text-align: right;*/
+/*}*/

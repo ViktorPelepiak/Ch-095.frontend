@@ -6,12 +6,14 @@
     <div class="modal-dialog modal-custom" role="document">
       <div class="modal-content modal-content-custom">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Sending survey "titleOfSurvey"</h4>
+          <h4 id="title">Sending survey {{title}}</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
+
+
           <div *ngIf="isShown2" class="container panel panel-footer">
             <div class="form-group">
               <table class="table">
@@ -22,20 +24,31 @@
                   <td class="text-center">
                     <label>
               <textarea
-                rows="4" cols="120" class="form-control" formControlName="primaryEmails" name="primaryEmails" ngModel=""
+                [class.is-invalid]="dynamicForm.get('primaryEmails').invalid && dynamicForm.get('primaryEmails').touched"
+                rows="4" cols="120" class="form-control" formControlName="primaryEmails" name="email"
                 placeholder="email@gmail.com,email2@gmail.com,..."></textarea>
-
+                      <div class="error" *ngIf="isControlInvalid('primaryEmails')">
+                        Emails is invalid
+                      </div>
                     </label></td>
                 </tr>
                 <p>Please separate multiple addresses with commas</p>
               </table>
             </div>
           </div>
+
+
           <div *ngIf="isShown" class="container panel panel-footer">
             <div class="card-body">
               <div class="form-row">
                 <div class="form-group">
-                  <label>Number of Emails</label>
+                   <span class="box">
+                          <label class="box1">Select number of emails  </label>
+              or
+                    <button type="button" (click)="toggleShow()" type="checkbox" class="btn btn-default">
+                      add many at once
+                    </button>
+            </span>
                   <select formControlName="numberOfEmails" class="form-control" (change)="onChangeEmails($event)"
                           [ngClass]="{ 'is-invalid': submitted && f.numberOfEmails.errors }">
                     <option value=""></option>
@@ -51,10 +64,10 @@
             <div *ngFor="let emailsArray of t.controls; let i = index" class="list-group list-group-flush">
               <div class="list-group-item">
                 <div [formGroup]="emailsArray" class="form-row">
-                  <div *ngIf="isShownRemoveSign" class="container panel panel-footer">
-                    <button type="button" class="close" (click)="removeEmail(i)"><span aria-hidden="true">×</span>
-                    </button>
-                  </div>
+                  <!--                  <div *ngIf="isShownRemoveSign" class="container panel panel-footer">-->
+                  <!--                    <button type="button" class="close" (click)="removeEmail(i)"><span aria-hidden="true">×</span>-->
+                  <!--                    </button>-->
+                  <!--                  </div>-->
                   <div class="form-group col-6">
                     <input type="text" formControlName="email" class="form-control"
                            [ngClass]="{ 'is-invalid': submitted && emailsArray.controls.email.errors }"/>
@@ -66,18 +79,14 @@
                 </div>
               </div>
             </div>
-            <span class="box">
-                    <button type="button" (click)="toggleShow()" type="checkbox" class="btn btn-default">
-                      add many at once
-                    </button>
-            </span>
+
           </div>
         </div>
         <div class="modal-footer">
           <div *ngIf="isShown2" class="container panel panel-footer">
             <button (click)="toggleShow()" type="checkbox">Back</button>
           </div>
-          <button class="btn btn-primary mr-1">Send E-mail</button>
+          <button [disabled]="dynamicForm.invalid"  (click)="onSubmit()" class="btn btn-primary mr-1" >Send E-mail</button>
           <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
           <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
         </div>

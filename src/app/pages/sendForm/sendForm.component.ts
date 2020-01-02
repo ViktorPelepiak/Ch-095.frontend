@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Directive, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {EmailService} from "../../services/send-email.service";
 import {Email} from "../../models/email";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Title} from "@angular/platform-browser";
+import {QuestionStatistic} from "../../models/questionStatistic";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-sendForm',
@@ -17,18 +19,24 @@ export class SendFormComponent implements OnInit {
   isShown2: boolean = false;
   public emails: any[] = [''];
   public primaryEmails: string = "";
-
+  public title: string;
   dynamicForm: FormGroup;
   submitted = false;
 
-  constructor(private emailService: EmailService, private formBuilder: FormBuilder) {
+  constructor(private emailService: EmailService,
+              private formBuilder: FormBuilder,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.dynamicForm = this.formBuilder.group({
       numberOfEmails: ['', Validators.required],
-      emailsArray: new FormArray([])
+      emailsArray: new FormArray([]),
+      primaryEmails: new FormControl('', [
+        Validators.required,
+        Validators.pattern("^((\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*)\\s*[,]{0,1}\\s*)+$")])
     });
+    this.getTitle();
   }
 
   // convenience getters for easy access to form fields
@@ -40,15 +48,6 @@ export class SendFormComponent implements OnInit {
     return this.f.emailsArray as FormArray;
   }
 
-  // someSplit() {
-  //   this.emails = this.dynamicForm.value.primaryEmails.split(",");
-  //   for (let i = 0; i < 5; i++) {
-  //     this.t.push(this.formBuilder.group({
-  //       emails: ['', [Validators.required, Validators.email]]
-  //     }));
-  //   }
-  // }
-
   toggleShow() {
     this.isShown = !this.isShown;
     this.isShown2 = !this.isShown2;
@@ -59,6 +58,11 @@ export class SendFormComponent implements OnInit {
     //   this.isShownRemoveSign = false;
     // }
     this.emails.splice(i, 1);
+  }
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.dynamicForm.controls[controlName];
+    return control.invalid && control.touched;
   }
 
   onChangeEmails(e) {
@@ -76,7 +80,14 @@ export class SendFormComponent implements OnInit {
     }
   }
 
+  getTitle() {
+    let surveyId = this.route.snapshot.queryParams["surveyId"]
+    this.emailService.getTitleSurvey(surveyId)
+      .toPromise().then(value => this.title = value["title"]);
+  }
+
   sendEmails() {
+    // const email = new Email(this.dynamicForm.value.emails1.split(",").map(e => e.email), '1', '1');
     const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), '1', '1');
     console.log(this.dynamicForm.value.emails);
     console.log(this.emailService.postEmailArray(email));
@@ -87,7 +98,6 @@ export class SendFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     if (this.dynamicForm.invalid) {
       return;
     }
