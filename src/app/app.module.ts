@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
@@ -28,10 +28,11 @@ import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
-import {RegisterComponent} from './components/login-registration/registration/registration.component';
-import {HttpErrorInterceptor} from './services/http-error.interceptor';
-import {AuthInterceptor} from './interceptor/auth-interceptor.interceptor';
-import { QuestionSeparatelyStatisticComponent } from './components/statistic/each-question/question-separately.component';
+import {RegisterComponent} from "./components/login-registration/registration/registration.component";
+import {HttpErrorInterceptor} from "./services/http-error.interceptor";
+import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
+import {QuestionSeparatelyStatisticComponent} from './components/statistic/each-question/question-separately.component';
+import {FooterComponent} from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { QuestionSeparatelyStatisticComponent } from './components/statistic/eac
     AuthorizationComponent,
     OneQuestionComponent,
     QuestionSeparatelyStatisticComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
