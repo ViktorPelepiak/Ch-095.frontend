@@ -5,7 +5,7 @@
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input formControlName="questionId" type="hidden" ngModel="{{oneQuestion.id}}" value="{{oneQuestion.id}}"/>
     </h4>
-    <p *ngFor="let answer of oneQuestion.answers">
+    <p *ngFor="let answer of oneQuestion.choiceAnswers">
       <input type="checkbox" [value]="answer" (change)="onCheckChange($event)">{{answer}}
     </p>
   </div>
@@ -15,7 +15,7 @@
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input formControlName="questionId" type="hidden" ngModel="{{oneQuestion.id}}" value="{{oneQuestion.id}}"/>
     </h4>
-    <p *ngFor="let answer of oneQuestion.answers" >
+    <p *ngFor="let answer of oneQuestion.choiceAnswers" >
       <input formControlName="answers" type="radio" ngModel="{{answer}}" value="{{answer}}">{{answer}}
     </p>
   </div>
@@ -45,7 +45,7 @@
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input formControlName="answers"type="hidden" value="{{oneQuestion.id}}"/>
     </h4>
-    <p *ngFor="let answer of oneQuestion.answers">
+    <p *ngFor="let answer of oneQuestion.choiceAnswers">
       <input type="checkbox" [value]="answer" (change)="onCheckChange($event)">
       <img style="max-width: 200px; height: auto;" src="{{answer}}" alt="">
     </p>
@@ -56,7 +56,7 @@
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input formControlName="questionId" type="hidden" ngModel="{{oneQuestion.id}}" value="{{oneQuestion.id}}"/>
     </h4>
-    <p *ngFor="let answer of oneQuestion.answers">
+    <p *ngFor="let answer of oneQuestion.choiceAnswers">
       <input formControlName="answers" type="radio" ngModel="{{answer}}" value="{{answer}}">
       <img style="max-width: 200px; height: auto;" src="{{answer}}" alt="">
     </p>

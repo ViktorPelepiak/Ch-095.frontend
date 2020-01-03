@@ -11,11 +11,11 @@ import {APP_CONFIG, AppConfig} from './app.config';
 import {UserService} from './services/user.service';
 import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
 import {QuestionComponent} from './components/question/question.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {LoginComponent } from "./components/login-registration/login";
-import {ConfirmComponent} from "./components/login-registration/confirm-account/confirm.component";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {LoginComponent } from './components/login-registration/login';
+import {ConfirmComponent} from './components/login-registration/confirm-account/confirm.component';
 import {BasicInterceptorService} from './services/basicInterceptor.service';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule, ToastrService} from 'ngx-toastr';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
@@ -28,9 +28,9 @@ import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
-import {RegisterComponent} from "./components/login-registration/registration/registration.component";
-import {HttpErrorInterceptor} from "./services/http-error.interceptor";
-import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
+import {RegisterComponent} from './components/login-registration/registration/registration.component';
+import {HttpErrorInterceptor} from './services/http-error.interceptor';
+import {AuthInterceptor} from './interceptor/auth-interceptor.interceptor';
 import { QuestionSeparatelyStatisticComponent } from './components/statistic/each-question/question-separately.component';
 
 @NgModule({
