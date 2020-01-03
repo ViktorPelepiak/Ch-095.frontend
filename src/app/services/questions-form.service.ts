@@ -20,7 +20,7 @@ export class QuestionsFormService {
   }
 
   getSurvey(): Observable<any> {
-    return this.httpClient.get<any>(this.config.backBaseUrl + '/question?surveyId=' + this.surveyId + '&&contactEmail=' + this.contactEmail);
+    return this.httpClient.get<any>(this.config.backBaseUrl + '/question?surveyId=' + this.surveyId + '&contactEmail=' + this.contactEmail);
   }
 
   saveAnswers(dataAnswer): Observable<any> {

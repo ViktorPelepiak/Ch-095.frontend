@@ -21,7 +21,8 @@
                 <a class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
                    data-target="#cloneModal">Clone</a>
                 <a class="dropdown-item" href="#">Add contacts</a> <!-- other page -->
-                <a class="dropdown-item" [routerLink]="['/statistic']" [queryParams]="{surveyId:item.id}">Statistics</a> <!-- other page -->
+                <a class="dropdown-item" [routerLink]="['/statistic']" [queryParams]="{surveyId:item.id}">Statistics</a>
+                <!-- other page -->
                 <a *ngIf="item.status === 'ACTIVE'; else notActive" class="dropdown-item"
                    (click)="surveyStatusDone(item.id)">Close</a>
                 <ng-template #notActive>
@@ -42,7 +43,7 @@
   </div>
   <div *ngIf="surveys && surveys.length > 0" class="row">
     <div class="d-flex col-12">
-      <nav aria-label="Page navigation example">
+      <nav *ngIf="pageable.lastPage !== 1">
         <ul class="pagination">
           <li class="page-item" [ngClass]="{disabled:pageable.currentPage === 1}">
             <a class="page-link" (click)="previousPage()">Previous</a>
@@ -57,8 +58,8 @@
       </nav>
     </div>
   </div>
-  <div *ngIf="surveys && surveys.length === 0" class="row h-100 p-relative">
-    <div class="col-12 text-center p-absolute top-30" style="margin-top: revert">
+  <div *ngIf="surveys && surveys.length === 0; else surveysNotEmpty" class="row">
+    <div class="col-12 text-center mt-5">
       <h1>Activity is not observed. It's time to create a survey!</h1>
       <button type="submit" class="btn btn-submit" [routerLink]="['/surveys/add']">Create survey</button>
     </div>
