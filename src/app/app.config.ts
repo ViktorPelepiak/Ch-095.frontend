@@ -7,7 +7,6 @@ export interface IAppConfig {
   frontBaseUrl: string;
   surveyGeneralStatisticUrl: string;
   surveyEachStatisticUrl: string;
-
 }
 
 export const AppConfig: IAppConfig = {
@@ -15,5 +14,4 @@ export const AppConfig: IAppConfig = {
   frontBaseUrl: 'http://localhost:4200',
   surveyGeneralStatisticUrl: '/statistic/general?surveyId=',
   surveyEachStatisticUrl: '/statistic/separately?surveyId='
-
 };
