@@ -2,9 +2,6 @@ import {Component, Directive, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {EmailService} from "../../services/send-email.service";
 import {Email} from "../../models/email";
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Title} from "@angular/platform-browser";
-import {QuestionStatistic} from "../../models/questionStatistic";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -14,6 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SendFormComponent implements OnInit {
 
+  wrongEmails: string = null;
   isShown: boolean = true;
   isShownRemoveSign: boolean = true;
   isShown2: boolean = false;
@@ -87,20 +85,22 @@ export class SendFormComponent implements OnInit {
   }
 
   sendEmails() {
+    console.log('hello');
     // const email = new Email(this.dynamicForm.value.emails1.split(",").map(e => e.email), '1', '1');
     const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), '1', '1');
     console.log(this.dynamicForm.value.emails);
     console.log(this.emailService.postEmailArray(email));
-    this.emailService
-      .postEmailArray(email)
-      .subscribe(e => console.log(e));
+    this.emailService.postEmailArray(email).toPromise().then(data =>
+      this.wrongEmails = null).catch(e => this.wrongEmails = e.error
+    );
+
   }
 
   onSubmit() {
     this.submitted = true;
-    if (this.dynamicForm.invalid) {
-      return;
-    }
+    //   if (this.dynamicForm.invalid) {
+//      return;
+    //   }
     this.sendEmails()
   }
 

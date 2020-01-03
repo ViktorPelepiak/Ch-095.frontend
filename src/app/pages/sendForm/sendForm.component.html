@@ -1,3 +1,5 @@
+
+
 <a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#basicModal">
   Add Contacts
 </a>
@@ -79,14 +81,14 @@
                 </div>
               </div>
             </div>
-
+            <div *ngIf="wrongEmails != null">these emails are wrong : {{wrongEmails}}</div>
           </div>
         </div>
         <div class="modal-footer">
           <div *ngIf="isShown2" class="container panel panel-footer">
             <button (click)="toggleShow()" type="checkbox">Back</button>
           </div>
-          <button [disabled]="dynamicForm.invalid"  (click)="onSubmit()" class="btn btn-primary mr-1" >Send E-mail</button>
+          <button class="btn btn-primary mr-1" >Send E-mail</button>
           <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
           <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
         </div>
@@ -97,6 +99,5 @@
 
 
 
-
-
+<!--[disabled]="dynamicForm.invalid"   (click)="onSubmit()"-->
 
