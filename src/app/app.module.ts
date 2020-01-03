@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
@@ -12,7 +12,7 @@ import {UserService} from './services/user.service';
 import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
 import {QuestionComponent} from './components/question/question.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {LoginComponent } from "./components/login-registration/login";
+import {LoginComponent} from "./components/login-registration/login";
 import {ConfirmComponent} from "./components/login-registration/confirm-account/confirm.component";
 import {BasicInterceptorService} from './services/basicInterceptor.service';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -20,8 +20,6 @@ import {ToastrModule, ToastrService} from 'ngx-toastr';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SendFormComponent} from './pages/sendForm/sendForm.component';
-import {BarChartComponent} from './components/statistic/bar-chart-component/bar-chart-component.component';
-import {QuestionComponent} from './components/question/question.component';
 import {QuestionGeneralStatisticComponent} from './components/statistic/question-component/question-general-statistic.component';
 import {ChartsModule} from 'ng2-charts';
 import {StatisticComponent} from './components/statistic/statistic.component';
@@ -33,7 +31,8 @@ import {OneQuestionComponent} from './pages/questions-page/one-question/one-ques
 import {RegisterComponent} from "./components/login-registration/registration/registration.component";
 import {HttpErrorInterceptor} from "./services/http-error.interceptor";
 import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
-import { QuestionSeparatelyStatisticComponent } from './components/statistic/each-question/question-separately.component';
+import {QuestionSeparatelyStatisticComponent} from './components/statistic/each-question/question-separately.component';
+import {FooterComponent} from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +58,7 @@ import { QuestionSeparatelyStatisticComponent } from './components/statistic/eac
     AuthorizationComponent,
     OneQuestionComponent,
     QuestionSeparatelyStatisticComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

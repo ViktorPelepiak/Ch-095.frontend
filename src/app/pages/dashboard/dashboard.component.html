@@ -4,9 +4,9 @@
       <h2 class="top-title">Get the answers you need</h2>
       <h3 class="title">Survey&#60;X&#62;</h3>
       <h4 class="sub-title">Create amazing surveys with us!</h4>
-      <button *ngIf="true; else surveys" type="submit" class="btn btn-submit" [routerLink]="['surveys']">Register Now</button>
+      <button *ngIf="authenticationService.isUserLoggedIn(); else surveys" type="submit" class="btn btn-submit" [routerLink]="['surveys']">My surveys</button>
       <ng-template #surveys>
-        <button type="submit" class="btn btn-submit" [routerLink]="['surveys']">My surveys</button>
+        <button type="submit" class="btn btn-submit" [routerLink]="['register']">Register Now</button>
       </ng-template>
     </div>
   </div>
@@ -94,13 +94,3 @@
     </div>
   </div>
 </section>
-
-<footer class="" id="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-7 footer-copyright">
-        © Survey X - All rights reserved
-      </div>
-    </div>
-  </div>
-</footer>

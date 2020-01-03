@@ -244,32 +244,6 @@ h3.txt-tl {
 
 /****/
 
-#footer {
-  background-color: #191919;
-  padding: 20px 0px;
-}
-
-.footer-copyright {
-  color: #fff;
-  line-height: 32px;
-  text-align: left;
-}
-
-.footer-social {
-  float: right;
-}
-
-.footer-social a {
-  font-size: 18px;
-  color: #666;
-}
-
-.link-dec, .link-dec:hover {
-  color: #000;
-}
-
-/****/
-
 .pya-2 a{
   padding: 0 16px 0 16px;
 }
