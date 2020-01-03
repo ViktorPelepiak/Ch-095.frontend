@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Question} from "../../models/question";
 import {SaveSurvey} from "../../models/SaveSurvey";
+// @ts-ignore
 import {SaveSurveyService} from "../../services/save-survey.service";
 import {Router} from '@angular/router';
 
