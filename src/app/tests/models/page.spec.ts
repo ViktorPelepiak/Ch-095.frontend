@@ -1,4 +1,4 @@
-import { Page } from '../../models/page';
+import {Page} from '../../models/page';
 
 describe('Page', () => {
   it('should create an instance', () => {

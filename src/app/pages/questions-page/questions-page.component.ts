@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionsFormService} from '../../services/questions-form.service';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-questions-page',
@@ -9,13 +11,21 @@ import {QuestionsFormService} from '../../services/questions-form.service';
 
 export class QuestionsPageComponent implements OnInit {
 
+  constructor(private questionsFormService: QuestionsFormService, private router: Router) {}
+
   quest: [];
   surveyId;
   contactEmail;
-
+  questionForm = new FormGroup({
+    surveyId: new FormControl(),
+    contactEmail: new FormControl(),
+    answers: new FormArray([])
+  });
   submitted = false;
 
   getQuestions() {
+    console.log(window.location)
+    console.log(new URLSearchParams(window.location.href))
   this.questionsFormService.getSurvey()
     .toPromise()
     .then((data: any) => {
@@ -27,14 +37,20 @@ export class QuestionsPageComponent implements OnInit {
         item.answers = (item.answers.length > 0) ? JSON.parse(item.answers) : [];
       });
     });
-}
+  }
 
-  onSubmit() { this.submitted = true; }
-
-  constructor(private questionsFormService: QuestionsFormService) {
+  onSubmit() {
+    this.submitted = true;
+    this.questionsFormService.saveAnswers(this.questionForm.value)
+      .subscribe(
+        response => console.log('Success', response),
+        // tslint:disable-next-line:no-shadowed-variable
+        error => console.error('Error', error)
+      );
+    this.router.navigate(['/home']);
   }
 
   ngOnInit() {
-  this.getQuestions();
+    this.getQuestions();
   }
 }
