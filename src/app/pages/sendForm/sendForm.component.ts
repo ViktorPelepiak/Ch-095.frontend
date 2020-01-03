@@ -10,7 +10,6 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./sendForm.component.css']
 })
 export class SendFormComponent implements OnInit {
-
   wrongEmails: string = null;
   isShown: boolean = true;
   isShownRemoveSign: boolean = true;
