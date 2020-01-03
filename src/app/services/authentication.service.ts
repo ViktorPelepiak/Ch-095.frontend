@@ -13,7 +13,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string) {
-    return this.http.get<any>(`${AppConfig.backBaseUrl}/Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/login`,
+    return this.http.get<any>(`${AppConfig.backBaseUrl}/login`,
       { headers: { authorization : this.createBasicAuthToken(email, password) } }).pipe(map((res) => {
       this.email = email;
       this.password = password;

@@ -1,38 +1,99 @@
-<div *ngIf="isShown" style="width: 900px" class="container panel panel-footer">
-  <form #email="ngForm" (ngSubmit)="sendEmails(email.value)">
-    <table class="table">
-      <tr>
-        <th class="text-center">Enter multiple email addresses</th>
-      </tr>
-      <tr valign="top">
-        <td class="text-center">
-          <label>
-          <textarea rows="4" cols="100" name="email" ngModel="" placeholder="email@gmail.com,email2@gmail.com,..."></textarea>
-        </label></td>
-      </tr>
-      <p><font size="2">Please separate multiple addresses with commas</font></p>
-      <button (click)="toggleShow()" type="checkbox" >Back</button>
-      <input type="submit" value="Send E-mails"/>
-    </table>
-  </form>
-</div>
+<a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#basicModal">
+  Add Contacts
+</a>
+<div class="modal fade" id="basicModal" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+    <div class="modal-dialog modal-custom" role="document">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header">
+          <!--            <h4 id="title">Sending survey {{title}}</h4>-->
+          <h4 id="title">Sending survey </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
 
-<div *ngIf="isShown2" style="width: 900px" class="container panel panel-footer">
-  <form #email="ngForm" (ngSubmit)="sendEmails(email.value)">
-    <table class="table">
-      <tr>
-        <th class="col-sm text-center">To</th>
-        <th class="col-sm text-center"></th>
-      </tr>
-      <tr *ngFor="let email of emails; let i = index;" valign="top">
-        <td class="text-center"><input type="text" name="email" size="40" ngModel="" placeholder="email@gmail.com"/></td>
-        <td class="text-center">
-          <button type="button" (click)="removeEmail(i)"><i class="c-icon c-icon--times" type="times">x</i></button>
-        </td>
-      </tr>
-      <button type="button" (click)="addEmail()">Add another</button>
-      <button (click)="toggleShow()" type="checkbox">Add many at once</button>
-      <input type="submit" value="Send E-mail"/>
-    </table>
+
+          <div *ngIf="isShown2" class="container panel panel-footer">
+            <div class="form-group">
+              <table class="table">
+                <tr>
+                  <th class="text-left">Enter multiple email addresses</th>
+                </tr>
+                <tr valign="top">
+                  <td class="text-center">
+                    <label>
+              <textarea
+                [class.is-invalid]="dynamicForm.get('primaryEmails').invalid && dynamicForm.get('primaryEmails').touched"
+                rows="4" cols="120" class="form-control" formControlName="primaryEmails" name="email"
+                placeholder="email@gmail.com,email2@gmail.com,..."></textarea>
+                      <div class="error" *ngIf="isControlInvalid('primaryEmails')">
+                        Emails is invalid
+                      </div>
+                    </label></td>
+                </tr>
+                <p>Please separate multiple addresses with commas</p>
+              </table>
+            </div>
+          </div>
+
+
+          <div *ngIf="isShown" class="container panel panel-footer">
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group">
+                   <span class="box">
+                          <label class="box1">Select number of emails  </label>
+              or
+                    <button type="button" (click)="toggleShow()" type="checkbox" class="btn btn-default">
+                      add many at once
+                    </button>
+            </span>
+                  <select formControlName="numberOfEmails" class="form-control" (change)="onChangeEmails($event)"
+                          [ngClass]="{ 'is-invalid': submitted && f.numberOfEmails.errors }">
+                    <option value=""></option>
+                    <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
+                  </select>
+                  <div *ngIf="submitted && f.numberOfEmails.errors" class="invalid-feedback">
+                    <div *ngIf="f.numberOfEmails.errors.required">Number of emails is required</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <label>Email</label>
+            <div *ngFor="let emailsArray of t.controls; let i = index" class="list-group list-group-flush">
+              <div class="list-group-item">
+                <div [formGroup]="emailsArray" class="form-row">
+                  <!--                  <div *ngIf="isShownRemoveSign" class="container panel panel-footer">-->
+                  <!--                    <button type="button" class="close" (click)="removeEmail(i)"><span aria-hidden="true">×</span>-->
+                  <!--                    </button>-->
+                  <!--                  </div>-->
+                  <div class="form-group col-6">
+                    <input type="text" formControlName="email" class="form-control"
+                           [ngClass]="{ 'is-invalid': submitted && emailsArray.controls.email.errors }"/>
+                    <div *ngIf="submitted && emailsArray.controls.email.errors" class="invalid-feedback">
+                      <div *ngIf="emailsArray.controls.email.errors.required">Email is required</div>
+                      <div *ngIf="emailsArray.controls.email.errors.email">Email must be a valid email address</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="wrongEmails != null">these emails are wrong : {{wrongEmails}}</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div *ngIf="isShown2" class="container panel panel-footer">
+            <button (click)="toggleShow()" type="checkbox">Back</button>
+          </div>
+          <button class="btn btn-primary mr-1">Send E-mail</button>
+          <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
+          <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
+        </div>
+      </div>
+    </div>
   </form>
 </div>
+<!--[disabled]="dynamicForm.invalid"   (click)="onSubmit()"-->
+
