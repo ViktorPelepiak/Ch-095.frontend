@@ -35,25 +35,25 @@ export class FormConstructorComponent implements OnInit {
         .toPromise()
         .then(data => {
           this.questions = data.questions;
-          console.log("edit", this.questions);
+          console.log(this.questions);
+
           this.surveyName = data.title;
           this.surveyPhotoName = data.surveyPhotoName;
           this.questionCounter = data.questions.length;
         });
     }
-
     console.log(this.questionCounter);
-
   }
 
+
   addNewQuestion() {
- this.questions.forEach(x=> console.log(x.answers));
+ this.questions.forEach(x=> console.log(x.choiceAnswers));
     this.questionCounter = this.questionCounter + 1;
     let question = new Question();
     question.index = this.questionCounter;
     question.question = '';
     question.type = "not set";
-    question.answers = [];
+    question.choiceAnswers = [];
     question.required = false;
     console.log(question);
     this.questions.push(question);
@@ -92,7 +92,6 @@ export class FormConstructorComponent implements OnInit {
 
   savePhoto(saveSurvey: SaveSurvey) {
     if (this.surveyPhoto) this.uploadingPhoto.push(this.surveyPhoto);
-    console.log("hi");
     // saveSurvey.questions.forEach(function (x, questionIndex) {
     //   if(saveSurvey.questions[questionIndex].type === ('RADIO_PICTURE') ||
     //     saveSurvey.questions[questionIndex].type === ('CHECKBOX_PICTURE')) {
