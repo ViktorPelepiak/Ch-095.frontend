@@ -25,10 +25,6 @@ import {BarChartComponent} from './components/statistic/bar-chart-component/bar-
 import {ChartsModule} from 'ng2-charts';
 import {StatisticComponent} from './components/statistic/statistic.component';
 import {SendFormComponent} from "./pages/sendForm/sendForm.component";
-import {BarChartComponent} from './components/statistic/bar-chart-component/bar-chart-component.component';
-import {ChartsModule} from 'ng2-charts';
-import {StatisticComponent} from './components/statistic/statistic.component';
-import {SendFormComponent} from "./pages/sendForm/sendForm.component";
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
 import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-top-buttons.component';
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
