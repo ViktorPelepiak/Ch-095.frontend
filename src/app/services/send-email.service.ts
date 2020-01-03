@@ -18,23 +18,13 @@ export class EmailService {
   }
 
   public postEmailArray(email: Email): Observable<string> {
-    console.error(email.emailsArray)
+    console.log(email.emailsArray)
     // @ts-ignore
     return this.http.post<string>(this.config.backBaseUrl + '/sendEmails', email, {responseType: 'text'});
   }
 
-  getTitleSurvey(surveyId: string){
-    return this.http.get(this.config.backBaseUrl + '/surveyTitle' + surveyId);
-  }
-
-  // notice the <T>, making the method generic
-  // get<T>(url, params): Observable<T> {
-  //   return this.httpClient
-  //     .get("data-url")
-  //     .catch((err: HttpErrorResponse) => {
-  //       // simple logging, but you can do a lot more, see below
-  //       console.error('An error occurred:', err.error);
-  //     });
+  // getTitleSurvey(surveyId: string){
+  //   return this.http.get(this.config.backBaseUrl + '/surveyTitle' + surveyId);
   // }
 
 }
