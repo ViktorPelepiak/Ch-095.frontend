@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'questionGeneralStatistic',
-  templateUrl: './question..component.html',
-  styleUrls: ['./question-general-statistic.component.css'],
+  templateUrl: './general-statistic.component.html',
+  styleUrls: ['./general-statistic.component.css'],
 
 })
-export class QuestionGeneralStatisticComponent implements OnInit {
+export class GeneralStatisticComponent implements OnInit {
 
   constructor(){
   }

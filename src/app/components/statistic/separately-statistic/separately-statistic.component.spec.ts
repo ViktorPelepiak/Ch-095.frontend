@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuestionSeparatelyComponent } from './question-separately.component';
+import { QuestionSeparatelyComponent } from './separately-statistic.component';
 
 describe('EachQuestionComponent', () => {
   let component: QuestionSeparatelyComponent;

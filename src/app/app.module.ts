@@ -20,7 +20,6 @@ import {ToastrModule, ToastrService} from 'ngx-toastr';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SendFormComponent} from './pages/sendForm/sendForm.component';
-import {QuestionGeneralStatisticComponent} from './components/statistic/question-component/question-general-statistic.component';
 import {ChartsModule} from 'ng2-charts';
 import {StatisticComponent} from './components/statistic/statistic.component';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
@@ -28,19 +27,21 @@ import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
-import {RegisterComponent} from "./components/login-registration/registration/registration.component";
+import {RegisterComponent} from "./components/login-registration/registration";
 import {HttpErrorInterceptor} from "./services/http-error.interceptor";
 import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
-import { QuestionSeparatelyStatisticComponent } from './components/statistic/each-question/question-separately.component';
+import {GeneralStatisticComponent} from "./components/statistic/general-statistic/general-statistic.component";
+import {SeparatelyStatisticComponent} from "./components/statistic/separately-statistic/separately-statistic.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    GeneralStatisticComponent,
+    SeparatelyStatisticComponent,
     HeaderComponent,
     DashboardComponent,
     AuthorizationComponent,
     FormConstructorComponent,
-    QuestionGeneralStatisticComponent,
     QuestionComponent,
     LoginComponent,
     RegisterComponent,
@@ -49,14 +50,12 @@ import { QuestionSeparatelyStatisticComponent } from './components/statistic/eac
     SurveysComponent,
     SurveySkltnComponent,
     SendFormComponent,
-    QuestionGeneralStatisticComponent,
     StatisticComponent,
     SurveyTopButtonsComponent,
     CheckOpportunityComponent,
     QuestionsPageComponent,
     AuthorizationComponent,
     OneQuestionComponent,
-    QuestionSeparatelyStatisticComponent,
   ],
   imports: [
     BrowserModule,
