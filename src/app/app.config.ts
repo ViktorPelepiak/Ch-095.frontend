@@ -5,16 +5,13 @@ export let APP_CONFIG = new InjectionToken<IAppConfig>('app.config');
 export interface IAppConfig {
   backBaseUrl: string;
   frontBaseUrl: string;
-  questionUrl: string;
-  answerUrl: string
-  surveyTitleUrl: string;
-
+  surveyGeneralStatisticUrl: string;
+  surveyEachStatisticUrl: string;
 }
 
 export const AppConfig: IAppConfig = {
-  backBaseUrl: 'http://localhost:8081',
+  backBaseUrl: 'http://localhost:8080',
   frontBaseUrl: 'http://localhost:4200',
-  questionUrl: '/statistic/questions?surveyId=',
-  answerUrl : '/statistic/answers?questionId=',
-  surveyTitleUrl : '/statistic/surveyTitle?surveyId='
+  surveyGeneralStatisticUrl: '/statistic/general?surveyId=',
+  surveyEachStatisticUrl: '/statistic/separately?surveyId='
 };

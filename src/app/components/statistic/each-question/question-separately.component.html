@@ -1,0 +1,46 @@
+<div>
+    <p id="email">Email: {{email}}</p>
+    <ul class="list-group">
+      <li *ngFor="let model of models" class="list-group-item">
+        <p id="question">Question: {{model.question}}</p>
+
+        <div *ngIf="model.type=='CHECKBOX'" class="checkBox">
+          <p *ngFor="let choiceAnswer of model.choiceAnswers">
+            <input type="checkbox" *ngIf="model.type=='CHECKBOX'"
+                   onclick='window.event.returnValue=false'
+                   [checked]="model.answer.includes(choiceAnswer)">{{choiceAnswer}}<Br>
+          </p>
+        </div>
+
+        <div *ngIf="model.type=='RADIOBUTTON'" class="radioButton">
+          <p *ngFor="let choiceAnswer of model.choiceAnswers">
+            <input type="radio" *ngIf="model.type=='RADIOBUTTON'"
+                   onclick='window.event.returnValue=false'
+                   [checked]="model.answer.includes(choiceAnswer)">{{choiceAnswer}}<Br>
+        </div>
+
+        <div *ngIf="model.type=='CHECKBOX_PICTURE'" class="checkBox_picture">
+          <p *ngFor="let choiceAnswer of model.choiceAnswers">
+            <input type="checkbox" *ngIf="model.type=='CHECKBOX_PICTURE'"
+                   onclick='window.event.returnValue=false'
+                   [checked]="model.answer.includes(choiceAnswer)">
+            <img [src]="choiceAnswer"><Br>
+          </p>
+        </div>
+
+        <div *ngIf="model.type=='RADIO_PICTURE'" class="radio_picture">
+          <p *ngFor="let choiceAnswer of model.choiceAnswers">
+            <input type="radio" *ngIf="model.type=='RADIO_PICTURE'"
+                   onclick='window.event.returnValue=false'
+                   [checked]="model.answer.includes(choiceAnswer)">
+            <img [src]="choiceAnswer"><Br>
+        </div>
+
+        <textarea *ngIf="model.type=='TEXTAREA'" readonly class="textArea"
+                  [textContent]="model.answer">
+          </textarea>
+      </li>
+    </ul>
+  <hr>
+</div>
+

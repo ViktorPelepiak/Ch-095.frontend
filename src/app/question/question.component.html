@@ -1,0 +1,47 @@
+<div class="question">
+  <form>
+    <h4 id="inputQuestion">Question {{question.index}}</h4>
+    <div class="form-group">
+      <input type="text" name="userQuestion" class="form-control" placeholder="Input your question" [(ngModel)]="question.question">
+    </div>
+
+
+
+    <select (change)="setType($event)" [hidden]="isTypeSet" class="custom-select" id="selectTypeOfAnswer">
+      <option disabled>SELECT ANSWER TYPE</option>
+      <option value="TEXTBOX">TEXTBOX</option>
+      <option value="RADIOBUTTON">RADIOBUTTON</option>
+      <option value="CHECKBOX">CHECKBOX</option>
+    </select>
+
+
+    <div *ngIf="question.type === 'CHECKBOX'" class="answer">
+      <p *ngFor="let answer of question.answers; index as i">
+        <img src="https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png">
+        <input class="checkboxAnswer" value="{{answer}}" #variantOfAnswer
+               (change)="setAnswerVariant(i,variantOfAnswer.value)"><br>
+      </p>
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+        VARIANT
+      </button>
+    </div>
+    <div *ngIf="question.type === 'RADIOBUTTON'" class="answer">
+      <p *ngFor="let answer of question.answers; index as i">
+        <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
+        <input class="radiobuttonAnswer" value="{{answer}}" #variantOfAnswer
+               (change)="setAnswerVariant(i,variantOfAnswer.value)"><br>
+      </p>
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+        VARIANT
+      </button>
+    </div>
+    <div *ngIf="question.type === 'TEXTBOX'" class="answer">
+      <p *ngFor="let answer of question.answers; index as i">
+        <input type="text" name="userQuestion" class="form-control" [disabled]=true placeholder="Textbox for answer">
+      </p>
+    </div>
+  </form>
+</div>
+
+
+

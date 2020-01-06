@@ -24,4 +24,11 @@ export class SaveSurveyService {
     }
     return this.http.post<File[]>(this.config.backBaseUrl + '/fileupload', formData);
   }
+
+  public savePicture(uploadingPhoto: File) {
+    let formData: FormData = new FormData();
+    formData.append('file', uploadingPhoto);
+    return this.http.post<File[]>(this.config.backBaseUrl + '/fileupload', formData);
+  }
+
 }

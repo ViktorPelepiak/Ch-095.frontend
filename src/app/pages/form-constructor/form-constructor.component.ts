@@ -45,7 +45,6 @@ export class FormConstructorComponent implements OnInit {
     console.log(this.questionCounter);
   }
 
-
   addNewQuestion() {
  this.questions.forEach(x=> console.log(x.choiceAnswers));
     this.questionCounter = this.questionCounter + 1;
@@ -87,7 +86,6 @@ export class FormConstructorComponent implements OnInit {
       }
     }
 
-  }
 
 
   savePhoto(saveSurvey: SaveSurvey) {
@@ -138,7 +136,6 @@ export class FormConstructorComponent implements OnInit {
     }
   }
 
-
   private isAllQuestionsInput(questions: Question[]) {
     let isValidSurvey = true;
     let atLeastOneQuestionAbsent = false;
@@ -158,7 +155,7 @@ export class FormConstructorComponent implements OnInit {
         isValidSurvey = false;
       }
     }
-    if (atLeastOneQuestionAbsent) this.errorValidation += ". ";
+    if(atLeastOneQuestionAbsent) this.errorValidation += ". ";
     return isValidSurvey;
   }
 

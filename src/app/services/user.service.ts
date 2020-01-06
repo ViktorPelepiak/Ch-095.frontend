@@ -20,4 +20,14 @@ export class UserService {
     return this.http.post<User>(this.config.backBaseUrl + '/user', user);
   }
 
+  public register(user: User): Observable<User> {
+    return this.http.post<User>(`${this.config.backBaseUrl}/registration`, user);
+  }
+ public confirmRegistration(token: string): Observable<string> {
+    return this.http.get(`${this.config.backBaseUrl}/registrationConfirm?token=` + token, {responseType: 'text'});
+ }
+
+  public resendConfirmationToken(token: string): Observable<string> {
+    return this.http.get(`${this.config.backBaseUrl}/resendRegistrationToken?token=` + token, {responseType: 'text'});
+  }
 }
