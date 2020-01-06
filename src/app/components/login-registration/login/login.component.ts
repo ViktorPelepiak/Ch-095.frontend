@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../../../services/authentication.service';
 import {ToastrService} from "ngx-toastr";
+import {SocialService} from "../../../services/social.service";
+import {APP_CONFIG, IAppConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-login',
@@ -14,22 +16,49 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: 'surveys';
   error = '';
+  facebookLink: string = "";
+  googleLink: string = "";
 
   constructor(
+    @Inject(APP_CONFIG) private config: IAppConfig,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private toast: ToastrService,
-    private authenticationService: AuthenticationService) {}
+    private authenticationService: AuthenticationService,
+    private socialService: SocialService) {}
 
   ngOnInit() {
+    this.socialService.test()
+      .toPromise()
+      .then( email =>{
+        console.log(email);
+        if (email != "" && email != null){
+          this.authenticationService.registerSuccessfulLogin(email);
+          this.router.navigate([this.returnUrl]);
+        }
+      })
+      .catch(email => {
+        console.log(email);
+      });
+
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required,Validators.minLength(4) ]]
     });
 
+    this.socialService.get()
+      .toPromise()
+      .then(data => {
+        this.facebookLink = data['Facebook'];
+        this.googleLink = data['Google'];
+      })
+      .catch(data => {
+        console.log(data);
+      });
+
     // reset login status
-    this.authenticationService.logout();
+    // this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';

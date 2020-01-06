@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -6,6 +6,8 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { UserService} from '../../../services/user.service';
 import {ToastrService} from "ngx-toastr";
+import {APP_CONFIG, IAppConfig} from "../../../app.config";
+import {SocialService} from "../../../services/social.service";
 
 export function MustMatch(controlName: string, matchingControlName: string) {
   return (formGroup: FormGroup) => {
@@ -33,14 +35,17 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  facebookLink: string = "";
+  googleLink: string = "";
 
   constructor(
+    @Inject(APP_CONFIG) private config: IAppConfig,
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
     private userService: UserService,
-    private toast: ToastrService
-  ) {
+    private toast: ToastrService,
+    private socialService: SocialService) {
     // redirect to home if already logged in
     if (this.authenticationService.isUserLoggedIn()) {
       this.router.navigate(['survey']);
@@ -55,6 +60,16 @@ export class RegisterComponent implements OnInit {
     }, {
       validator: MustMatch('password', 'confirmPassword')
     });
+
+    this.socialService.get()
+      .toPromise()
+      .then(data => {
+        this.facebookLink = data['Facebook'];
+        this.googleLink = data['Google'];
+      })
+      .catch(data => {
+        console.log(data);
+      });
   }
 
   // convenience getter for easy access to form fields

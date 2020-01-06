@@ -16,15 +16,15 @@ export class SocialService {
   }
 
   public test(): Observable<string>{
-    let headers: HttpHeaders = new HttpHeaders();
+    // let headers: HttpHeaders = new HttpHeaders();
 
-    headers = headers.append('userToken', localStorage.getItem("userToken"));
-    headers = headers.append('JSESSIONID', '34E9FFEF2EBEC41627F6DECDE53FF7A7');
+    // headers = headers.append('userToken', localStorage.getItem("userToken"));
+    // headers = headers.append('JSESSIONID', '34E9FFEF2EBEC41627F6DECDE53FF7A7');
     // headers = headers.append('test', 'test');
-    headers = headers.append('Cookie', 'JSESSIONID=34E9FFEF2EBEC41627F6DECDE53FF7A7;');
+    // headers = headers.append('Cookie', 'JSESSIONID=34E9FFEF2EBEC41627F6DECDE53FF7A7;');
     // headers = headers.append("cookie", this.cookieService.get("JSESSIONID"));
     // this.cookieService.set("JSESSIONID",'34E9FFEF2EBEC41627F6DECDE53FF7A7')
 
-    return this.http.get(this.config.backBaseUrl + '/test', {responseType: 'text', headers});
+    return this.http.get(this.config.backBaseUrl + '/test', {responseType: 'text'});
   }
 }
