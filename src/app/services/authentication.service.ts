@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import {AppConfig} from "../app.config";
-
+import {AppConfig} from '../app.config';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -22,11 +21,11 @@ export class AuthenticationService {
   }
 
   createBasicAuthToken(email: String, password: String) {
-    return 'Basic ' + btoa(email + ":" + password)
+    return 'Basic ' + btoa(email + ':' + password);
   }
 
   registerSuccessfulLogin(email, password) {
-    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, email)
+    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, email);
   }
 
   logout() {
@@ -37,13 +36,7 @@ export class AuthenticationService {
 
   isUserLoggedIn() {
     let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
-    if (user === null) return false
-    return true
+    if (user === null) { return false; }
+    return true;
   }
-
-  // getLoggedInUserName() {
-  //   let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
-  //   if (user === null) return ''
-  //   return user
-  // }
 }

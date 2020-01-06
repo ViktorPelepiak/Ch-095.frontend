@@ -16,7 +16,7 @@ export class SurveysComponent implements OnInit {
 
   surveys: Survey[];
   tempSurvey: number;
-  isCloneContacts: boolean;
+  isClearContacts: boolean;
   pageable: Pageable;
   title = new FormControl('');
   private redirects: RedirectUtil;
@@ -36,6 +36,7 @@ export class SurveysComponent implements OnInit {
       .then(e => {
         this.surveys = e.items
         this.pageable = e.pageable
+        if (this.surveys.length === 0){ this.previousPage() }
       })
       .catch(e => {
         console.error(e)
@@ -57,12 +58,13 @@ export class SurveysComponent implements OnInit {
   }
 
   clone() {
-    this.service.cloneSurvey(this.tempSurvey, this.isCloneContacts)
+    this.service.cloneSurvey(this.tempSurvey, this.isClearContacts)
       .toPromise()
       .then(e => {
-        e.countContacts = 0
-        e.countAnswers = 0
+        e.countContacts = 0;
+        e.countAnswers = 0;
         this.surveys.push(e);
+        if (this.surveys.length > this.pageable.size){ ++this.pageable.lastPage }
         console.log(e)
       })
       .catch(e => console.error(e));
@@ -74,7 +76,7 @@ export class SurveysComponent implements OnInit {
       .then(e => {
         if (e === 'OK') {
           this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1)
-          console.log(e)
+          if (this.surveys.length === 0){ this.previousPage() }
         }
       })
       .catch(e => console.error(e));

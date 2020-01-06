@@ -57,13 +57,16 @@
       </nav>
     </div>
   </div>
-  <div *ngIf="surveys && surveys.length === 0" class="alert alert-danger" role="alert">
-    Empty
+  <div *ngIf="surveys && surveys.length === 0" class="row h-100 p-relative">
+    <div class="col-12 text-center p-absolute top-30" style="margin-top: revert">
+      <h1>Activity is not observed. It's time to create a survey!</h1>
+      <button type="submit" class="btn btn-submit" [routerLink]="['/surveys/add']">Create survey</button>
+    </div>
   </div>
   <ng-template #notSurveys>
     <div class="row">
       <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 p-relative"
-           *ngFor="let item of [0,1,2,3,4,5,6,7,8,9,10,11]">
+           *ngFor="let item of [0,1,2,3,4,5,6,7]">
         <app-survey-skltn></app-survey-skltn>
       </div>
     </div>
@@ -80,9 +83,9 @@
         </div>
         <div class="modal-body">
           <div class="custom-control custom-checkbox mb-3">
-            <input type="checkbox" class="custom-control-input" id="isCloneContacts" [checked]="isCloneContacts"
+            <input type="checkbox" class="custom-control-input" id="isClearContacts" [checked]="isClearContacts"
                    required>
-            <label class="custom-control-label" for="isCloneContacts">Clone all contacts</label>
+            <label class="custom-control-label" for="isClearContacts">Clear contacts</label>
           </div>
         </div>
         <div class="modal-footer">

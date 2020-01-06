@@ -24,9 +24,7 @@ export class QuestionsPageComponent implements OnInit {
   submitted = false;
 
   getQuestions() {
-    console.log(window.location)
-    console.log(new URLSearchParams(window.location.href))
-  this.questionsFormService.getSurvey()
+    this.questionsFormService.getSurvey()
     .toPromise()
     .then((data: any) => {
       this.contactEmail = data.contactEmail;
@@ -34,7 +32,7 @@ export class QuestionsPageComponent implements OnInit {
       this.quest = data.questions;
       this.quest.forEach(item => {
         // @ts-ignore
-        item.answers = (item.answers.length > 0) ? JSON.parse(item.answers) : [];
+        item.choiceAnswers = (item.choiceAnswers.length > 0) ? JSON.parse(item.choiceAnswers) : [];
       });
     });
   }
