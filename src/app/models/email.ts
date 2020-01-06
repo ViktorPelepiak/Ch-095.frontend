@@ -3,6 +3,7 @@ export class Email {
     this.emailsArray = emailsArray;
     this.userId = userId;
     this.surveyId = surveyId;
+    console.log("email : " + userId)
   }
 
   emailsArray: string[];

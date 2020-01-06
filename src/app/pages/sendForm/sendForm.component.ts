@@ -11,14 +11,16 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SendFormComponent implements OnInit {
 
+  userId: string = null;
+  successfulMessage: string = "these emails were successfully sent";
+  public surveyId = this.route.snapshot.queryParams["surveyId"];
+  public title = this.route.snapshot.queryParams["title"];
   wrongEmails: string = null;
+  errorWrongEmails: string = null;
   isShown: boolean = true;
   isShownRemoveSign: boolean = true;
   isShown2: boolean = false;
   isShown3: boolean = false;
-  public emails: any[] = [''];
-  public primaryEmails: string = "";
-  public title: string;
   dynamicForm: FormGroup;
   submitted = false;
 
@@ -30,12 +32,12 @@ export class SendFormComponent implements OnInit {
   ngOnInit() {
     this.dynamicForm = this.formBuilder.group({
       numberOfEmails: ['', Validators.required],
-      emailsArray: new FormArray([])
+      emailsArray: new FormArray([]),
+
       // primaryEmails: new FormControl('', [
       //   Validators.required,
       //   Validators.pattern("^((\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*)\\s*[,]{0,1}\\s*)+$")])
     });
-    // this.getTitle();
   }
 
   get f() {
@@ -78,19 +80,30 @@ export class SendFormComponent implements OnInit {
     }
   }
 
-  // getTitle() {
-  //   let surveyId = this.route.snapshot.queryParams["surveyId"]
-  //   this.emailService.getTitleSurvey(surveyId)
-  //     .toPromise().then(value => this.title = value["title"]);
+  // getUserId(): string {
+  //   this.emailService
+  //     .getUserId()
+  //     .toPromise()
+  //     .then(data => {
+  //       console.log(data);
+  //       return data;
+  //     })
+  //     .catch(e => {
+  //       console.error(e)
+  //       // this.userId = e.error
+  //     });
+  //   return null;
   // }
 
   sendEmails() {
-    const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), '81', '1');
-    console.log(this.dynamicForm.value.emails);
-    console.log(this.emailService.postEmailArray(email));
+    // this.userId = this.getUserId();
+    console.log(this.userId);
+    const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), null, this.surveyId);
+    console.log(email);
     this.emailService.postEmailArray(email).toPromise().then(data => {
-      console.error(data);
+      console.error("error", data);
       this.wrongEmails = data;
+      this.errorWrongEmails = data ? "these emails are wrong : " + this.wrongEmails : this.successfulMessage;
     }).catch(e => {
         console.error(e);
         this.wrongEmails = e.error
@@ -103,7 +116,8 @@ export class SendFormComponent implements OnInit {
     if (this.dynamicForm.invalid) {
       return;
     }
-    this.sendEmails()
+    this.sendEmails();
+    this.isShown3 = !this.isShown3;
   }
 
   onReset() {

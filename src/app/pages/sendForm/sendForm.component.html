@@ -2,19 +2,16 @@
   Add Contacts
 </a>
 <div class="modal fade" id="basicModal" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-  <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="dynamicForm">
     <div class="modal-dialog modal-custom" role="document">
       <div class="modal-content modal-content-custom">
         <div class="modal-header">
-          <!--            <h4 id="title">Sending survey {{title}}</h4>-->
-          <h4 id="title">Sending survey </h4>
+          <h4 id="title">Sending survey "{{title}}"</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
-
-
           <div *ngIf="isShown2" class="container panel panel-footer">
             <div class="form-group">
               <table class="table">
@@ -37,8 +34,6 @@
               </table>
             </div>
           </div>
-
-
           <div *ngIf="isShown" class="container panel panel-footer">
             <div class="card-body">
               <div class="form-row">
@@ -80,14 +75,16 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="wrongEmails != null">these emails are wrong : {{wrongEmails}}</div>
-          </div>
+            <div *ngIf="wrongEmails != null" class="errorMessage">{{errorWrongEmails}}</div>
+            <div *ngIf="wrongEmails == null" class="successMessage">{{errorWrongEmails}}</div>
+                      </div>
         </div>
         <div class="modal-footer">
           <div *ngIf="isShown2" class="container panel panel-footer">
             <button (click)="toggleShow()" type="checkbox">Back</button>
           </div>
-          <button class="btn btn-primary mr-1">Send E-mail</button>
+          <button class="btn btn-primary mr-1" [disabled]="dynamicForm.invalid" (click)="onSubmit()">Send E-mail
+          </button>
           <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
           <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
         </div>
@@ -95,5 +92,3 @@
     </div>
   </form>
 </div>
-<!--[disabled]="dynamicForm.invalid"   (click)="onSubmit()"-->
-

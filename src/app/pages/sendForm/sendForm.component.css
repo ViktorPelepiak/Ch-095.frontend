@@ -56,23 +56,18 @@ textarea {
 
 .box button {
   color: darkseagreen;
-  /*display: inline-block;*/
   font-weight: bold;
-  /*border-bottom: 2px solid darkseagreen;*/
-  /*padding-bottom: 0px;*/
 }
 
 .box1 {
   font-weight: bold;
-
 }
 
-.error {
+.errorMessage {
   color: red;
   font-weight: bold;
 }
 
-/* Important part */
 .modal-dialog {
   overflow-y: initial !important
 }
@@ -88,10 +83,7 @@ textarea {
   margin-top: -5px;
 }
 
-/*.modal-footer {*/
-/*  position: fixed;*/
-/*  left: 0;*/
-/*  bottom: 0px;*/
-/*  width: 30%;*/
-/*  text-align: right;*/
-/*}*/
+.successMessage {
+  color: #44C160;
+  font-weight: bold;
+}
