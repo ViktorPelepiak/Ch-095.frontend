@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {APP_CONFIG, IAppConfig} from '../app.config';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 
@@ -21,5 +21,10 @@ export class QuestionsFormService {
 
   getSurvey(): Observable<any> {
     return this.httpClient.get<any>(this.config.backBaseUrl + '/question?surveyId=' + this.surveyId + '&&contactEmail=' + this.contactEmail);
+  }
+
+  saveAnswers(dataAnswer): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    return this.httpClient.post<any>(this.config.backBaseUrl + '/question', JSON.stringify(dataAnswer),  {headers});
   }
 }

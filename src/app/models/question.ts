@@ -3,8 +3,11 @@ export class Question {
   question: string;
   type: string;
   answers: String[];
+  uploadingFiles:File[];
   required: boolean;
 
   constructor() {
+    this.uploadingFiles = [];
   }
 }
+

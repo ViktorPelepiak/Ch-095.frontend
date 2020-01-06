@@ -1,4 +1,4 @@
-import { Pageable } from '../../models/pageable';
+import {Pageable} from '../../models/pageable';
 
 describe('Pageable', () => {
   it('should create an instance', () => {

@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {APP_CONFIG, IAppConfig} from '../app.config';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Survey} from '../models/survey';
 import {Page} from '../models/page';
@@ -17,7 +17,8 @@ export class SurveyService {
   }
 
   public getSurveys(params: HttpParams): Observable<Page<Survey>> {
-    return this.http.get<Page<Survey>>(this.config.backBaseUrl + '/survey', {params});
+    let headers = new HttpHeaders();
+    return this.http.get<Page<Survey>>(this.config.backBaseUrl + '/survey', {params, headers, withCredentials: true});
   }
 
   public surveyUpdateTitle(id: number, title: string) {

@@ -1,10 +1,11 @@
 div{
   background: linear-gradient(to right, aliceblue, beige);
 }
-div.content{
-  width: 50%;
+div .content{
+  width: 60%;
+  height: 100%;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 60px;
   background: white;
   border: antiquewhite;
   border-radius: 10px;
@@ -12,26 +13,36 @@ div.content{
 hr{
   margin-top: 0px;
 }
-button{
-  width: 50%;
+.content button{
+  width: 49%;
   margin: auto;
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: large;
-  background-color: white;
-  color: black;
-  border: 0;
 }
-#button_left{
-  border-radius: 10px 0px 0px 0px;
+#button_general{
+  margin-right: 3px;
 }
-#button_right{
-  border-radius: 0px 10px 0px 0px;
+#button_separately{
+  margin-left: 3px;
 }
 #title{
-  margin-top: 50px;
-  font-size: x-large;
+  margin-top: 10px;
+  font-size: xx-large;
+  font-family: "Times New Roman", Georgia, Serif, serif;
   text-align: center;
 }
 
+#back{
+  font-size: x-large;
+  margin-left: 20px;
+}
 
+#generalStatistic{
+  background: inherit;
+  display: none;
+}
+
+#separatelyStatistic{
+  background: inherit;
+}

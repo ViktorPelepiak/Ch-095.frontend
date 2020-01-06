@@ -1,29 +1,33 @@
-import { Observable } from 'rxjs';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Observable} from 'rxjs';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpHeaders,
+  HttpXsrfTokenExtractor
+} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor() {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    request = request.clone({
+  headerName: string = 'X-XSRF-TOKEN';
+
+  constructor(private tokenExtractor: HttpXsrfTokenExtractor) {
+  }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let requestMethod = req.method.toLowerCase();
+    if (requestMethod && (requestMethod === 'post' || requestMethod === 'delete' || requestMethod === 'put')) {
+      let token = this.tokenExtractor.getToken();
+      if (token !== null && !req.headers.has(this.headerName)) {
+        req = req.clone({headers: req.headers.set(this.headerName, token)});
+      }
+    }
+    req = req.clone({
       withCredentials: true
-      // withCredentials: false
     });
-    /*request = request.clone({
-      // headers: request.headers
-      //   .append('userToken', localStorage.getItem("userToken"))
-      //   .append('Header1', "header1")
-
-      headers: request.headers
-        .set('Cookie', 'JSESSIONID=34E9FFEF2EBEC41627F6DECDE53FF7A7;')
-        // .append('Header1', "header1")
-
-      // headers: request.headers
-      //   .set('JSESSIONID','EE62EE3D6E3150B887952342A75199ED')
-      //   .append('userToken', localStorage.getItem("userToken"))
-    });*/
-    return next.handle(request);
+    return next.handle(req);
   }
 }

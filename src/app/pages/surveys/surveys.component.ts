@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Survey} from '../../models/survey';
 import {SurveyService} from '../../services/survey.service';
 import {Pageable} from '../../models/pageable';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormControl} from "@angular/forms";
 import {RedirectUtil} from "../../util/redirect-util";
 import {HttpParams} from "@angular/common/http";
@@ -16,12 +16,14 @@ export class SurveysComponent implements OnInit {
 
   surveys: Survey[];
   tempSurvey: number;
-  isCloneContacts: boolean;
+  isClearContacts: boolean;
   pageable: Pageable;
   title = new FormControl('');
+  private redirects: RedirectUtil;
 
   constructor(private service: SurveyService, private router: Router, private route: ActivatedRoute) {
     this.tempSurvey = 0;
+    this.redirects = new RedirectUtil(router, route);
   }
 
   ngOnInit() {
@@ -32,9 +34,9 @@ export class SurveysComponent implements OnInit {
     this.service.getSurveys(this.buildRequestParams())
       .toPromise()
       .then(e => {
-        console.log(e);
         this.surveys = e.items
         this.pageable = e.pageable
+        if (this.surveys.length === 0){ this.previousPage() }
       })
       .catch(e => {
         console.error(e)
@@ -56,12 +58,13 @@ export class SurveysComponent implements OnInit {
   }
 
   clone() {
-    this.service.cloneSurvey(this.tempSurvey, this.isCloneContacts)
+    this.service.cloneSurvey(this.tempSurvey, this.isClearContacts)
       .toPromise()
       .then(e => {
-        e.countContacts = 0
-        e.countAnswers = 0
+        e.countContacts = 0;
+        e.countAnswers = 0;
         this.surveys.push(e);
+        if (this.surveys.length > this.pageable.size){ ++this.pageable.lastPage }
         console.log(e)
       })
       .catch(e => console.error(e));
@@ -73,7 +76,7 @@ export class SurveysComponent implements OnInit {
       .then(e => {
         if (e === 'OK') {
           this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1)
-          console.log(e)
+          if (this.surveys.length === 0){ this.previousPage() }
         }
       })
       .catch(e => console.error(e));
@@ -94,20 +97,24 @@ export class SurveysComponent implements OnInit {
 
   previousPage(): void {
     if (this.pageable.currentPage > 1) {
-      RedirectUtil.setParam('page', String(this.pageable.currentPage - 1));
+      this.refreshPageWithParam('page', --this.pageable.currentPage);
     }
   }
 
   setPage(page: number) {
     if (page >= 1 && page <= this.pageable.lastPage) {
-      RedirectUtil.setParam('page', String(page));
+      this.refreshPageWithParam('page', page);
     }
   }
 
   nextPage(): void {
     if (this.pageable.currentPage < this.pageable.lastPage) {
-      RedirectUtil.setParam('page', String(this.pageable.currentPage + 1));
+      this.refreshPageWithParam('page', ++this.pageable.currentPage);
     }
+  }
+
+  refreshPageWithParam(key: string, value: any): void {
+    this.redirects.setParam(key, value,['surveys']);
   }
 
   private buildRequestParams(): HttpParams {

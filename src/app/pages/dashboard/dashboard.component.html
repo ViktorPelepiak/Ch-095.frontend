@@ -1,11 +1,13 @@
-<app-header></app-header>
 <div class="bg-color">
   <div class="container text-center">
     <div class="wrapper wow fadeInUp delay-05s">
       <h2 class="top-title">Get the answers you need</h2>
       <h3 class="title">Survey&#60;X&#62;</h3>
       <h4 class="sub-title">Create amazing surveys with us!</h4>
-      <button type="submit" class="btn btn-submit">Register Now</button>
+      <button *ngIf="authenticationService.isUserLoggedIn(); else surveys" type="submit" class="btn btn-submit" [routerLink]="['surveys']">My surveys</button>
+      <ng-template #surveys>
+        <button type="submit" class="btn btn-submit" [routerLink]="['register']">Register Now</button>
+      </ng-template>
     </div>
   </div>
 </div>
@@ -92,25 +94,3 @@
     </div>
   </div>
 </section>
-
-<footer class="" id="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-7 footer-copyright">
-        © Survey&#60;X&#62; - All rights reserved
-        <div class="credits">
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-      </div>
-      <div class="col-sm-5 footer-social">
-        <div class="pya-2 pull-right hidden-xs hidden-sm">
-          <a href="#"><i class="fa fa-facebook"></i></a>
-          <a href="#"><i class="fa fa-dribbble"></i></a>
-          <a href="#"><i class="fa fa-twitter"></i></a>
-          <a href="#"><i class="fa fa-google-plus"></i></a>
-          <a href="#"><i class="fa fa-pinterest"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
