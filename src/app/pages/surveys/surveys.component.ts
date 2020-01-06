@@ -16,7 +16,7 @@ export class SurveysComponent implements OnInit {
 
   surveys: Survey[];
   tempSurvey: number;
-  isClearContacts: boolean;
+  isClearContacts: boolean = false;
   pageable: Pageable;
   title = new FormControl('');
   private redirects: RedirectUtil;

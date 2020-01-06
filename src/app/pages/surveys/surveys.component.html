@@ -84,7 +84,7 @@
         </div>
         <div class="modal-body">
           <div class="custom-control custom-checkbox mb-3">
-            <input type="checkbox" class="custom-control-input" id="isClearContacts" [checked]="isClearContacts"
+            <input type="checkbox" class="custom-control-input" id="isClearContacts" [checked]="isClearContacts" (change)="isClearContacts = !isClearContacts"
                    required>
             <label class="custom-control-label" for="isClearContacts">Clear contacts</label>
           </div>
@@ -115,7 +115,6 @@
           <button type="button" class="btn btn-primary" (click)="surveyUpdateTitle()"
                   data-dismiss="modal">Confirm
           </button>
-          <!-- todo CHANGE TRUE-->
         </div>
       </div>
     </div>
@@ -135,7 +134,6 @@
           <button type="button" class="btn btn-primary" (click)="deleteSurvey()"
                   data-dismiss="modal">Confirm
           </button>
-          <!-- todo CHANGE TRUE-->
         </div>
       </div>
     </div>
