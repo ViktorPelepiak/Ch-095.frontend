@@ -33,6 +33,7 @@ import {HttpErrorInterceptor} from "./services/http-error.interceptor";
 import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
 import {QuestionSeparatelyStatisticComponent} from './components/statistic/each-question/question-separately.component';
 import {FooterComponent} from './components/footer/footer.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import {FooterComponent} from './components/footer/footer.component';
     }),
     NgxSkltnModule.forRoot(),
     ChartsModule,
+    FontAwesomeModule
   ],
   exports: [
     ChartsModule,
