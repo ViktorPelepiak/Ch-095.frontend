@@ -16,7 +16,7 @@ export class AuthenticationService {
       { headers: { authorization : this.createBasicAuthToken(email, password) } }).pipe(map((res) => {
       this.email = email;
       this.password = password;
-      this.registerSuccessfulLogin(email, password);
+      this.registerSuccessfulLogin(email);
     }));
   }
 
@@ -24,11 +24,12 @@ export class AuthenticationService {
     return 'Basic ' + btoa(email + ':' + password);
   }
 
-  registerSuccessfulLogin(email, password) {
+  registerSuccessfulLogin(email) {
     sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, email);
   }
 
   logout() {
+    this.http.get('http://localhost:8080/logout',{responseType: "text"}).toPromise().then();
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     this.email = null;
     this.password = null;
