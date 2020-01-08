@@ -16,7 +16,7 @@ export class SurveysComponent implements OnInit {
 
   surveys: Survey[];
   tempSurvey: number;
-  isClearContacts: boolean;
+  isClearContacts: boolean = false;
   pageable: Pageable;
   title = new FormControl('');
   private redirects: RedirectUtil;
@@ -64,7 +64,7 @@ export class SurveysComponent implements OnInit {
         e.countContacts = 0;
         e.countAnswers = 0;
         this.surveys.push(e);
-        if (this.surveys.length > this.pageable.size){ ++this.pageable.lastPage }
+        if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage){ ++this.pageable.lastPage }
         console.log(e)
       })
       .catch(e => console.error(e));

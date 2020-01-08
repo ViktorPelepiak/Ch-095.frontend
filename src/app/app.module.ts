@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
@@ -36,6 +35,7 @@ import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
 import {QuestionSeparatelyStatisticComponent} from './components/statistic/each-question/question-separately.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {SocialComponent} from './pages/social/social.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -78,6 +78,7 @@ import {SocialComponent} from './pages/social/social.component';
     }),
     NgxSkltnModule.forRoot(),
     ChartsModule,
+    FontAwesomeModule
   ],
   exports: [
     ChartsModule,
