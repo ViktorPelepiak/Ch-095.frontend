@@ -51,7 +51,12 @@ textarea {
   top: 50px;
   right: 50px;
   box-sizing: inherit;
+}
 
+.buttons {
+  position: absolute;
+  right: 0px;
+  display: inline;
 }
 
 .box button {
@@ -65,7 +70,6 @@ textarea {
 
 .errorMessage {
   color: red;
-  font-weight: bold;
 }
 
 .modal-dialog {
@@ -85,5 +89,4 @@ textarea {
 
 .successMessage {
   color: #44C160;
-  font-weight: bold;
 }
