@@ -50,6 +50,7 @@ export class SurveyService {
 
 
   public cloneSurvey(id: number, isClearContacts: boolean): Observable<Survey> {
+    console.log(isClearContacts)
     return this.http.post<Survey>(this.config.backBaseUrl + this.endPoint, {id, isClearContacts});
   }
 
