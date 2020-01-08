@@ -17,7 +17,7 @@ export class AuthenticationService {
       { headers: { authorization : this.createBasicAuthToken(email, password) } }).pipe(map((res) => {
       this.email = email;
       this.password = password;
-      this.registerSuccessfulLogin(email, password);
+      this.registerSuccessfulLogin(email);
     }));
   }
 
@@ -25,7 +25,7 @@ export class AuthenticationService {
     return 'Basic ' + btoa(email + ":" + password)
   }
 
-  registerSuccessfulLogin(email, password) {
+  registerSuccessfulLogin(email) {
     sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, email)
   }
 
@@ -40,10 +40,4 @@ export class AuthenticationService {
     if (user === null) return false
     return true
   }
-
-  // getLoggedInUserName() {
-  //   let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
-  //   if (user === null) return ''
-  //   return user
-  // }
 }
