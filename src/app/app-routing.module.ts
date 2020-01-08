@@ -21,11 +21,10 @@ const routes: Routes = [
   {path: 'confirm', component: ConfirmComponent},
   {path: 'surveys', component: SurveysComponent, canActivate: [AuthGuardService]},
   {path: 'sendForm', component: SendFormComponent, canActivate: [AuthGuardService]},
-  {path: 'questions', component: QuestionsPageComponent, canActivate: [AuthGuardService]},
+  {path: 'questions', component: QuestionsPageComponent},
   {path: 'header', component: HeaderComponent},
   {path: 'statistic', component: StatisticComponent, canActivate: [AuthGuardService]},
   {path: 'surveys/add', component: FormConstructorComponent, canActivate: [AuthGuardService]},
-  {path: 'checkOpportunity', component: CheckOpportunityComponent},
   {path: 'test/:token', component: CheckOpportunityComponent},
   {path: '**', redirectTo: '/'},
 ];
