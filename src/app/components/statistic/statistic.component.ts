@@ -1,9 +1,9 @@
-import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {QuestionGeneralStatisticComponent} from "./question-component/question-general-statistic.component";
+import {GeneralStatisticComponent} from "./general-statistic/general-statistic.component";
 import {StatisticService} from "../../services/statistic.service";
 import {QuestionsGeneralStatistic} from "../../models/QuestionsGeneralStatistic";
-import {QuestionSeparatelyStatisticComponent} from "./each-question/question-separately.component";
+import {SeparatelyStatisticComponent} from "./separately-statistic/separately-statistic.component";
 import {QuestionsSeparatelyStatistic} from "../../models/QuestionsSeparatelyStatistic";
 
 
@@ -11,13 +11,13 @@ import {QuestionsSeparatelyStatistic} from "../../models/QuestionsSeparatelyStat
   selector: 'app-statistic',
   templateUrl: './statistic.component.html',
   styleUrls: ['./statistic.component.css'],
-  entryComponents: [QuestionGeneralStatisticComponent, QuestionSeparatelyStatisticComponent]
+  entryComponents: [GeneralStatisticComponent, SeparatelyStatisticComponent]
 })
 export class StatisticComponent implements OnInit {
 
 
-  questionsSeparately: QuestionSeparatelyStatisticComponent[] = [];
-  questionsGeneral: QuestionGeneralStatisticComponent[] = [];
+  questionsSeparately: SeparatelyStatisticComponent[] = [];
+  questionsGeneral: GeneralStatisticComponent[] = [];
 
   private title: string;
 
@@ -48,10 +48,10 @@ export class StatisticComponent implements OnInit {
 
   initializeSeparatelyStatistic(data: QuestionsSeparatelyStatistic[]) {
     data.forEach((value, index) => {
-      this.questionsSeparately[index] = new QuestionSeparatelyStatisticComponent();
+      this.questionsSeparately[index] = new SeparatelyStatisticComponent();
       this.questionsSeparately[index].email = value.email;
       value.questionDTOS.sort(
-        (a, b) => a.index - b.index)
+        (a, b) => a.index - b.index);
       this.questionsSeparately[index].models = value.questionDTOS;
     })
   }
@@ -60,7 +60,7 @@ export class StatisticComponent implements OnInit {
     this.title = data.title;
     data.questionDTOS.sort((a, b) => a.index - b.index);
     data.questionDTOS.forEach((value, index) => {
-      this.questionsGeneral[index] = new QuestionGeneralStatisticComponent();
+      this.questionsGeneral[index] = new GeneralStatisticComponent();
       this.questionsGeneral[index].answers = value.answers;
       this.questionsGeneral[index].numberVoters = value.answers.length;
       this.questionsGeneral[index].question = value.question;
@@ -72,9 +72,8 @@ export class StatisticComponent implements OnInit {
       if (value.type == "CHECKBOX_PICTURE" || value.type == "RADIO_PICTURE") {
         let labels = [];
         value.choiceAnswers.forEach((value1, index1) => {
-          labels[index1] = index1+1;
-        })
-        console.log(labels)
+          labels[index1] = "Image #"+(index1+1);
+        });
         this.questionsGeneral[index].barChartLabels = labels;
         this.questionsGeneral[index].images = value.choiceAnswers;
       } else {
