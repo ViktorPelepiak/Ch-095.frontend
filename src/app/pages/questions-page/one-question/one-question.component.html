@@ -1,76 +1,65 @@
 <div class="question">
 
-<div class="answer" *ngIf="oneQuestion.type === 'CHECKBOX'">
+  <div [formGroup]="oneQuestionGroup" class="answer" *ngIf="oneQuestion.type === 'CHECKBOX'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
-      <input type="hidden" value="{{oneQuestion.id}}"/>
+      <input formControlName="questionId" type="hidden" ngModel="{{oneQuestion.id}}" value="{{oneQuestion.id}}"/>
     </h4>
-    <p *ngFor="let answer of oneQuestion.answers">
-      <input type="checkbox" value="{{answer}}">{{answer}}
+    <p *ngFor="let answer of oneQuestion.choiceAnswers">
+      <input type="checkbox" [value]="answer" (change)="onCheckChange($event)">{{answer}}
     </p>
   </div>
 
-  <div class="answer" *ngIf="oneQuestion.type === 'RADIOBUTTON'">
+  <div [formGroup]="oneQuestionGroup" class="answer" *ngIf="oneQuestion.type === 'RADIOBUTTON'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
-      <input type="hidden" value="{{oneQuestion.id}}"/>
+      <input formControlName="questionId" type="hidden" ngModel="{{oneQuestion.id}}" value="{{oneQuestion.id}}"/>
     </h4>
-    <p *ngFor="let answer of oneQuestion.answers" >
-      <input type="radio" name="radio" value="{{answer}}">{{answer}}
+    <p *ngFor="let answer of oneQuestion.choiceAnswers" >
+      <input formControlName="answers" type="radio" ngModel="{{answer}}" value="{{answer}}">{{answer}}
     </p>
   </div>
 
-  <div class="answer" *ngIf="oneQuestion.type === 'TEXTAREA'">
+  <div [formGroup]="oneQuestionGroup"  class="answer" *ngIf="oneQuestion.type === 'TEXTAREA'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
-      <input type="hidden" value="{{oneQuestion.id}}"/>
+      <input formControlName="questionId" type="hidden" ngModel="{{oneQuestion.id}}" value="{{oneQuestion.id}}"/>
     </h4>
     <p>
-      <TEXTAREA name="textarea" cols=60 rows=6></TEXTAREA>
+      <textarea formControlName="answers" name="answers" cols="60" rows="6"></textarea>
     </p>
   </div>
 
-  <div class="answer" *ngIf="oneQuestion.type === 'TEXTBOX'">
+  <div [formGroup]="oneQuestionGroup"  class="answer" *ngIf="oneQuestion.type === 'TEXTBOX'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
-      <input type="hidden" value="{{oneQuestion.id}}"/>
+      <input formControlName="questionId" type="hidden" ngModel="{{oneQuestion.id}}" value="{{oneQuestion.id}}"/>
     </h4>
     <p>
-      <input type="text" name="UserName" size=35 maxlength=50 value="">
+      <input formControlName="answers" name="answers" size=35 maxlength=50>
     </p>
   </div>
 
   <div class="answer" *ngIf="oneQuestion.type === 'CHECKBOX_PICTURE'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
-      <input type="hidden" value="{{oneQuestion.id}}"/>
+      <input formControlName="answers"type="hidden" value="{{oneQuestion.id}}"/>
     </h4>
-    <p *ngFor="let answer of oneQuestion.answers">
-      <input type="checkbox" name="">
+    <p *ngFor="let answer of oneQuestion.choiceAnswers">
+      <input type="checkbox" [value]="answer" (change)="onCheckChange($event)">
       <img style="max-width: 200px; height: auto;" src="{{answer}}" alt="">
     </p>
   </div>
 
-  <div class="answer" *ngIf="oneQuestion.type === 'RADIO_PICTURE'">
+  <div [formGroup]="oneQuestionGroup" class="answer" *ngIf="oneQuestion.type === 'RADIO_PICTURE'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
-      <input type="hidden" value="{{oneQuestion.id}}"/>
+      <input formControlName="questionId" type="hidden" ngModel="{{oneQuestion.id}}" value="{{oneQuestion.id}}"/>
     </h4>
-    <p *ngFor="let answer of oneQuestion.answers">
-      <input type="radio" name="radio_picture" value="">
+    <p *ngFor="let answer of oneQuestion.choiceAnswers">
+      <input formControlName="answers" type="radio" ngModel="{{answer}}" value="{{answer}}">
       <img style="max-width: 200px; height: auto;" src="{{answer}}" alt="">
     </p>
   </div>
-
-  <div class="answer" *ngIf="oneQuestion.type === 'PICTURE'">
-    <h4 class="font-weight-bold">
-      {{oneQuestion.index + ". " + oneQuestion.value}}
-      <input type="hidden" value="{{oneQuestion.id}}"/>
-    </h4>
-    <p *ngFor="let answer of oneQuestion.answers">
-      <input type="radio" name="radio_picture" value="">
-      <img style="max-width: 200px; height: auto;" src="{{answer}}" alt="">
-    </p>
-  </div>
-  </div>
+</div>
 

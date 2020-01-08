@@ -1,9 +1,9 @@
 
 .formConstructor{
   /*border: 2px dotted black;*/
-  margin-left: 30%;
+  margin-left: 20%;
   margin-top: 5%;
-  width: 40%;
+  width: 60%;
 }
 #surveyName{
   color: #000000;
@@ -58,30 +58,4 @@ select.form-control:focus {
 }
 #inputQuestion{
   font-family: 'Fjalla One', sans-serif;
-}
-
-.formConstructor{
-  margin-left: 30%;
-  margin-top: 5%;
-  width: 40%;
-}
-.answer{
-  text-align : left;
-}
-
-
-input[type="text"],
-select.form-control {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #000000;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border-radius: 0;
-}
-
-input[type="text"]:focus,
-select.form-control:focus {
-  -webkit-box-shadow: none;
-  box-shadow: none;
 }
