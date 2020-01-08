@@ -85,7 +85,7 @@ export class FormConstructorComponent implements OnInit {
         this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
       }
     }
-
+  }
 
 
   savePhoto(saveSurvey: SaveSurvey) {

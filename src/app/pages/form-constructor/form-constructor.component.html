@@ -8,13 +8,12 @@
      </div>
     <input type="text" [(ngModel)]="surveyName" class="form-control" id="surveyName"
            placeholder="Input name of your survey"  name="surveyName">
-   </form>
   <br>
   <app-question *ngFor="let question of questions;" [question]="question"></app-question>
   <br>
   <button type="button" class="btn btn-dark" (click)="addNewQuestion()" id="addNewQuestion">ADD NEW QUESTION</button>
-  <br>
   <h6>{{errorValidation}}</h6>
   <button type="button" class="btn btn-success" id="saveSurvey" (click)="sendSurvey()" id="saveSurvey">SAVE SURVEY
   </button>
+   </form>
 </div>
