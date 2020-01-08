@@ -13,7 +13,7 @@ export class QuestionComponent implements OnInit {
   isTypeSet: boolean = false;
   previewUrls: any[] = [];
   pictureValidation: string;
-  static readonly MAX_UPLOAD_SIZE = 1 * 1024 * 1024;
+  static readonly MAX_UPLOAD_SIZE = 2 * 1024 * 1024;
 
   constructor(private saveSurveyService: SaveSurveyService) {
     this.previewUrls.push(null);
@@ -31,13 +31,11 @@ export class QuestionComponent implements OnInit {
     this.question.type = event.target.value;
     this.isTypeSet = true;
     this.question.choiceAnswers.push('');
-    console.log(JSON.stringify(this.question));
   }
 
   deleteVariant(variantOfAnswerIndex: number) {
     this.question.choiceAnswers.splice(variantOfAnswerIndex, 1);
     if (this.question.choiceAnswers.length === 0) this.question.type = 'not set';
-    console.log(this.question.choiceAnswers);
   }
 
   addAnswerVariant() {
@@ -53,7 +51,6 @@ export class QuestionComponent implements OnInit {
   //////////UPLOADING Picture///////////////
 
   uploadPicture(event, index) {
-    console.log("sdf");
     if (this.isValidPicture(event.target.files[0])) {
       this.question.uploadingFiles[index] = event.target.files[0];
       this.question.choiceAnswers[index] = event.target.files[0].name;

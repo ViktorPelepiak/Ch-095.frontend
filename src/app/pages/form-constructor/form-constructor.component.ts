@@ -81,26 +81,15 @@ export class FormConstructorComponent implements OnInit {
       saveSurvey.title = this.surveyName;
       saveSurvey.questions = this.questions;
       if (this.isValidSurvey(saveSurvey)) {
-        this.savePhoto(saveSurvey);
+        this.savePhoto();
         this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
       }
     }
   }
 
 
-  savePhoto(saveSurvey: SaveSurvey) {
+  savePhoto() {
     if (this.surveyPhoto) this.uploadingPhoto.push(this.surveyPhoto);
-    // saveSurvey.questions.forEach(function (x, questionIndex) {
-    //   if(saveSurvey.questions[questionIndex].type === ('RADIO_PICTURE') ||
-    //     saveSurvey.questions[questionIndex].type === ('CHECKBOX_PICTURE')) {
-    //     saveSurvey.questions[questionIndex].answers.forEach(function (y, answerIndex) {
-    //         saveSurvey.questions[questionIndex].answers[answerIndex] =
-    //           saveSurvey.title + "_" + questionIndex + "_" + answerIndex + "_" + answerIndex +
-    //           questionIndex * answerIndex + "_" + saveSurvey.questions[questionIndex].answers[answerIndex];
-    //       }
-    //     )
-    //   }
-    // });
     this.questions.forEach(x => x.uploadingFiles.forEach(y => this.uploadingPhoto.push(y)));
     this.saveSurveyService.savePictures(this.uploadingPhoto).subscribe();
   }
