@@ -30,7 +30,8 @@ export function MustMatch(controlName: string, matchingControlName: string) {
 
 @Component({
   selector: 'app-registration',
-  templateUrl: 'registration.component.html' })
+  templateUrl: 'registration.component.html',
+  styleUrls: ['../social-button.css']})
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;

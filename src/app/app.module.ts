@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AuthorizationComponent} from './pages/authorization/authorization.component';
-import {CheckOpportunityComponent} from './pages/check-opportunity/check-opportunity.component';
+import {CheckPossibilityComponent} from './pages/check-possibility/check-possibility.component';
 import {AppRoutingModule} from './app-routing.module';
 import {APP_CONFIG, AppConfig} from './app.config';
 import {UserService} from './services/user.service';
@@ -48,13 +48,13 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     LoginComponent,
     RegisterComponent,
     ConfirmComponent,
-    CheckOpportunityComponent,
+    CheckPossibilityComponent,
     SurveysComponent,
     SurveySkltnComponent,
     SendFormComponent,
     StatisticComponent,
     SurveyTopButtonsComponent,
-    CheckOpportunityComponent,
+    CheckPossibilityComponent,
     QuestionsPageComponent,
     AuthorizationComponent,
     OneQuestionComponent,

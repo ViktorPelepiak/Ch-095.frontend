@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {StatisticComponent} from './components/statistic/statistic.component';
-import {CheckOpportunityComponent} from './pages/check-opportunity/check-opportunity.component';
+import {CheckPossibilityComponent} from './pages/check-possibility/check-possibility.component';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {SendFormComponent} from './pages/sendForm/sendForm.component';
@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: 'statistic', component: StatisticComponent, canActivate: [AuthGuardService]},
   {path: 'surveys/add', component: FormConstructorComponent, canActivate: [AuthGuardService]},
   {path: 'surveys/edit/:id', component: FormConstructorComponent},
-  {path: 'test/:token', component: CheckOpportunityComponent},
+  {path: 'test/:token', component: CheckPossibilityComponent},
   {path: '**', redirectTo: '/'},
 ];
 
