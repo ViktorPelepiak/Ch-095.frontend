@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Question} from "../../models/question";
 import {SaveSurvey} from "../../models/SaveSurvey";
-// @ts-ignore
 import {SaveSurveyService} from "../../services/save-survey.service";
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {EditSurvey} from "../../models/EditSurvey";
+import {SurveyService} from "../../services/survey.service";
 
 @Component({
   selector: 'app-form-constructor',
@@ -11,6 +12,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./form-constructor.component.css']
 })
 export class FormConstructorComponent implements OnInit {
+  surveyId: string;
   @Input() surveyName: string;
   questionCounter;
   questions: Question[];
@@ -19,7 +21,7 @@ export class FormConstructorComponent implements OnInit {
   surveyPhotoName: string;
   errorValidation: string;
 
-  constructor(private saveSurveyService: SaveSurveyService, private router: Router) {
+  constructor(private surveyService: SurveyService, private saveSurveyService: SaveSurveyService, private router: Router, private route: ActivatedRoute) {
     this.surveyName = '';
     this.questionCounter = 0;
     this.questions = [];
@@ -27,6 +29,18 @@ export class FormConstructorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.surveyId = this.route.snapshot.paramMap.get('id');
+    if (this.surveyId !== null) {
+      this.surveyService.editSurvey(this.surveyId)
+        .toPromise()
+        .then(data => {
+          this.questions = data.questions;
+
+          this.surveyName = data.title;
+          this.surveyPhotoName = data.surveyPhotoName;
+          this.questionCounter = data.questions.length;
+        });
+    }
   }
 
   addNewQuestion() {
@@ -35,9 +49,8 @@ export class FormConstructorComponent implements OnInit {
     question.index = this.questionCounter;
     question.question = '';
     question.type = "not set";
-    question.answers = [];
+    question.choiceAnswers = [];
     question.required = false;
-    console.log(question);
     this.questions.push(question);
   }
 
@@ -49,14 +62,24 @@ export class FormConstructorComponent implements OnInit {
 
 
   sendSurvey() {
-    let saveSurvey: SaveSurvey = new SaveSurvey();
-    saveSurvey.surveyPhotoName = this.surveyPhotoName;
-    saveSurvey.title = this.surveyName;
-    console.log(saveSurvey.title);
-    saveSurvey.questions = this.questions;
-    if (this.isValidSurvey(saveSurvey) == true) {
-      this.savePhoto();
-      this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
+    if (this.surveyId) {
+      let editSurvey: EditSurvey = new EditSurvey();
+      editSurvey.surveyPhotoName = this.surveyPhotoName;
+      editSurvey.title = this.surveyName;
+      editSurvey.questions = this.questions;
+      editSurvey.surveyId = this.surveyId;
+      if (this.isValidSurvey(editSurvey)) {
+        this.surveyService.saveEditedSurvey(editSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
+      }
+    } else {
+      let saveSurvey: SaveSurvey = new SaveSurvey();
+      saveSurvey.surveyPhotoName = this.surveyPhotoName;
+      saveSurvey.title = this.surveyName;
+      saveSurvey.questions = this.questions;
+      if (this.isValidSurvey(saveSurvey)) {
+        this.savePhoto();
+        this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
+      }
     }
   }
 
@@ -91,9 +114,11 @@ export class FormConstructorComponent implements OnInit {
 
   private isSurveyHasQuestions(questionsQuantity: number) {
     if (questionsQuantity > 0) {
+      return true;
+    } else {
       this.errorValidation += "Add minimum 1 question. "
+      return false;
     }
-    return questionsQuantity > 0;
   }
 
   private isAllQuestionsInput(questions: Question[]) {
@@ -115,7 +140,7 @@ export class FormConstructorComponent implements OnInit {
         isValidSurvey = false;
       }
     }
-    if (atLeastOneQuestionAbsent) this.errorValidation += ". ";
+    if(atLeastOneQuestionAbsent) this.errorValidation += ". ";
     return isValidSurvey;
   }
 

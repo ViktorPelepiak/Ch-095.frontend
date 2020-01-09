@@ -5,7 +5,7 @@
           || typeQuestions=='CHECKBOX_PICTURE'
           || typeQuestions=='RADIO_PICTURE'">
     <div *ngFor="let image of images; let i = index">
-      <p>{{i+1}}</p>
+      <p>Image #{{i+1}}</p>
       <img *ngIf="typeQuestions=='CHECKBOX_PICTURE'
          || typeQuestions=='RADIO_PICTURE'" src="{{image}}" alt="">
     </div>
