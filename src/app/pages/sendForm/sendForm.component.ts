@@ -19,7 +19,7 @@ export class SendFormComponent implements OnInit {
   successfulMessage: string = null;
   wrongEmails2: string = null;
   errorWrongEmails2: string = null;
-  successfulMessage2: string = "these emails were successfully sent";
+  successfulMessage2: string = null;
   dynamicForm: FormGroup;
   submitted = false;
 
@@ -81,36 +81,32 @@ export class SendFormComponent implements OnInit {
   }
 
   sendEmails() {
-    console.log(this.dynamicForm)
+    console.log(this.dynamicForm);
     if (this.isShown) {
       const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), this.surveyId);
       console.log(email);
       this.emailService.postEmailArray(email).toPromise().then(data => {
         console.error("data", data);
-        if (data) {
-          this.wrongEmails = data;
-          this.errorWrongEmails = "these emails are wrong : " + this.wrongEmails;//this.successfulMessage;
-        }
-        else {
-          this.wrongEmails = null;
-          this.successfulMessage = "these emails were successfully sent";
-        }
-
+        this.wrongEmails = null;
+        this.successfulMessage = "these emails were successfully sent";
+        // this.dynamicForm.reset(100);
       }).catch(e => {
-          console.error(e);
-          this.wrongEmails = e.error
-          this.errorWrongEmails ="these emails are wrong : " + this.wrongEmails;
+          console.error("error" + e.error);
+          this.wrongEmails = e.error;
+          this.errorWrongEmails = "these emails are wrong : " + this.wrongEmails;
         }
       );
+
     } else {
       const email = new Email(this.dynamicForm.value.emails1.split(","), this.surveyId);
       this.emailService.postEmailArray(email).toPromise().then(data => {
-        console.error("error", data);
-        this.wrongEmails2 = data;
-        this.errorWrongEmails2 = data ? "these emails are wrong : " + this.wrongEmails2 : this.successfulMessage2;
+        console.error("emails", data);
+        this.wrongEmails2 = null;
+        this.successfulMessage2 = "these emails were successfully sent";
       }).catch(e => {
-          console.error(e);
-          this.wrongEmails2 = e.error
+          console.error("error" + e.error);
+        this.wrongEmails2 = e.error;
+        this.errorWrongEmails2 = "these emails are wrong : " + this.wrongEmails2;
         }
       );
     }

@@ -33,7 +33,7 @@
                 </tr>
                 <p>Please separate multiple addresses with commas</p>
                 <div *ngIf="wrongEmails2 != null" class="errorMessage">{{errorWrongEmails2}}</div>
-                <div *ngIf="wrongEmails2 == null" class="successMessage">{{errorWrongEmails2}}</div>
+                <div *ngIf="wrongEmails2 == null" class="successMessage">{{successfulMessage2}}</div>
               </table>
             </div>
           </div>
@@ -76,6 +76,7 @@
             </div>
             <div *ngIf="wrongEmails != null" class="errorMessage">{{errorWrongEmails}}</div>
             <div *ngIf="wrongEmails == null" class="successMessage">{{successfulMessage}}</div>
+
           </div>
         </div>
         <div class="modal-footer">
