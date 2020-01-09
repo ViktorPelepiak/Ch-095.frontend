@@ -36,9 +36,9 @@ export class SurveyService {
     });
   }
 
-  public cloneSurvey(id: number, isClearContacts: boolean): Observable<Survey> {
-    console.log(isClearContacts)
-    return this.http.post<Survey>(this.config.backBaseUrl + this.endPoint, {id, isClearContacts});
+  public cloneSurvey(id: number, clearContacts: boolean): Observable<Survey> {
+    console.log(clearContacts)
+    return this.http.post<Survey>(this.config.backBaseUrl + this.endPoint, {id, clearContacts:clearContacts});
   }
 
   public deleteSurvey(id: number): Observable<string> {
