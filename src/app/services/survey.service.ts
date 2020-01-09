@@ -39,8 +39,6 @@ export class SurveyService {
   }
 
   public saveEditedSurvey(editSurvey:EditSurvey): Observable<SaveSurvey>{
-    console.log(JSON.stringify(editSurvey));
-    console.log("edit", editSurvey);
     return  this.http.post<EditSurvey>(this.config.backBaseUrl + '/survey/update/'+editSurvey.surveyId,editSurvey);
   }
 
