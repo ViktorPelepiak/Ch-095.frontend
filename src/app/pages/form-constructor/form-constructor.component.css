@@ -1,12 +1,11 @@
-
 .formConstructor {
   margin-left: 30%;
   margin-top: 5%;
   width: 40%;
+  min-height: 100%;
 }
 #surveyNameAndPhoto{
   border: 2px dotted black;
-
 }
 input-disabled{
   background-color:#FFF !important;
