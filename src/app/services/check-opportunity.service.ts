@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {CheckOpportunityDto} from "../pages/check-opportunity/check-opportunity.component";
+import {CheckPossibilityDto} from "../pages/check-possibility/check-possibility.component";
 import {Observable} from "rxjs";
 import {APP_CONFIG, IAppConfig} from "../app.config";
 // @ts-ignore
@@ -17,7 +17,7 @@ export class CheckOpportunityService {
     return this.http.get(this.config.backBaseUrl + '/testAccess/' + token, {responseType: 'text'});
   }
 
-  public checkEmail(dto: CheckOpportunityDto): Observable<ContactSurveyDto> {
+  public checkEmail(dto: CheckPossibilityDto): Observable<ContactSurveyDto> {
     return this.http.post<ContactSurveyDto>(this.config.backBaseUrl + '/testAccess/check', dto);
   }
 }

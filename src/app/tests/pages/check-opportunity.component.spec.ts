@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CheckOpportunityComponent} from '../../pages/check-opportunity/check-opportunity.component';
+import {CheckPossibilityComponent} from '../../pages/check-possibility/check-possibility.component';
 
 describe('CheckOpportunityComponent', () => {
-  let component: CheckOpportunityComponent;
-  let fixture: ComponentFixture<CheckOpportunityComponent>;
+  let component: CheckPossibilityComponent;
+  let fixture: ComponentFixture<CheckPossibilityComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CheckOpportunityComponent ]
+      declarations: [ CheckPossibilityComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CheckOpportunityComponent);
+    fixture = TestBed.createComponent(CheckPossibilityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

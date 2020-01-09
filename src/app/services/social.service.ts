@@ -14,7 +14,7 @@ export class SocialService {
     return this.http.get(this.config.backBaseUrl + '/oauth_login');
   }
 
-  public test(): Observable<string>{
-    return this.http.get(this.config.backBaseUrl + '/test', {responseType: 'text'});
+  public getAuthenticatedEmail(): Observable<string>{
+    return this.http.get(this.config.backBaseUrl + '/authenticatedEmail', {responseType: 'text'});
   }
 }

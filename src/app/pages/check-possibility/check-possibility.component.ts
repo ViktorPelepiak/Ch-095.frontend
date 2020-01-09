@@ -3,17 +3,17 @@ import {ActivatedRoute} from '@angular/router';
 import {CheckOpportunityService} from '../../services/check-opportunity.service';
 import {APP_CONFIG, IAppConfig} from '../../app.config';
 
-export interface CheckOpportunityDto {
+export interface CheckPossibilityDto {
   token: string;
   email: string;
 }
 
 @Component({
-  selector: 'app-check-opportunity',
-  templateUrl: './check-opportunity.component.html',
-  styleUrls: ['./check-opportunity.component.css']
+  selector: 'app-check-possibility',
+  templateUrl: './check-possibility.component.html',
+  styleUrls: ['./check-possibility.component.css']
 })
-export class CheckOpportunityComponent implements OnInit {
+export class CheckPossibilityComponent implements OnInit {
   token: string;
   email: string;
   isExist: boolean;
@@ -35,7 +35,7 @@ export class CheckOpportunityComponent implements OnInit {
 
           const auth_email: string = sessionStorage.getItem('authenticatedUser');
           if (auth_email !== null){
-            const dto: CheckOpportunityDto = {
+            const dto: CheckPossibilityDto = {
               token: this.token,
               email: auth_email
             };
@@ -60,7 +60,7 @@ export class CheckOpportunityComponent implements OnInit {
   }
 
   checkEmail() {
-    const dto: CheckOpportunityDto = {
+    const dto: CheckPossibilityDto = {
       token: this.token,
       email: this.email
     };

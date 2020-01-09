@@ -9,7 +9,8 @@ import {APP_CONFIG, IAppConfig} from "../../../app.config";
 
 @Component({
   selector: 'app-login',
-  templateUrl: 'login.component.html' })
+  templateUrl: 'login.component.html',
+  styleUrls: ['../social-button.css']})
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
     private socialService: SocialService) {}
 
   ngOnInit() {
-    this.socialService.test()
+    this.socialService.getAuthenticatedEmail()
       .toPromise()
       .then( email =>{
         console.log(email);
