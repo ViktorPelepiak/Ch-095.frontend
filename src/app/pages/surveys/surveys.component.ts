@@ -142,4 +142,8 @@ export class SurveysComponent implements OnInit {
     return params;
   }
 
+   private isStatusNull(): boolean {
+    return this.route.snapshot.queryParamMap.get('status') == null;
+  }
+
 }
