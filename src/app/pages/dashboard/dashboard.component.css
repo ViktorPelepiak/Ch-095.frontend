@@ -20,6 +20,10 @@ table {
   border-spacing: 0;
 }
 
+fa-icon{
+  font-size: 2.5em;
+}
+
 .section-padding {
   padding: 60px 0px;
 }
@@ -240,32 +244,6 @@ h3.txt-tl {
 
 .cta-txt p {
   color: #fff;
-}
-
-/****/
-
-#footer {
-  background-color: #191919;
-  padding: 20px 0px;
-}
-
-.footer-copyright {
-  color: #fff;
-  line-height: 32px;
-  text-align: left;
-}
-
-.footer-social {
-  float: right;
-}
-
-.footer-social a {
-  font-size: 18px;
-  color: #666;
-}
-
-.link-dec, .link-dec:hover {
-  color: #000;
 }
 
 /****/

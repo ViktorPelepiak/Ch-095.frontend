@@ -29,7 +29,7 @@
 
 
     <div *ngIf="question.type === 'CHECKBOX'" class="answer">
-      <p *ngFor="let answer of question.answers; index as i">
+      <p *ngFor="let answer of question.choiceAnswers; index as i">
         <img src="https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png">
 
         <input class="checkboxAnswer" #VariantAnswer (change)="setAnswerVariant(i, VariantAnswer.value)" name="answer{{question.index}}" [value]="answer">
@@ -41,7 +41,7 @@
       </button>
     </div>
     <div *ngIf="question.type === 'RADIOBUTTON'" class="answer">
-      <p *ngFor="let answer of question.answers; index as i">
+      <p *ngFor="let answer of question.choiceAnswers; index as i">
         <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
         <input class="radiobuttonAnswer" value="{{answer}}" #variantOfAnswer
                (change)="setAnswerVariant(i,variantOfAnswer.value)">
@@ -53,25 +53,27 @@
     </div>
 
     <div *ngIf="question.type === 'TEXTBOX'" class="answer">
-      <p *ngFor="let answer of question.answers; index as i">
+      <p >
         <input type="text" name="userQuestion" class="form-control" [disabled]=true placeholder="Textbox for answer">
       </p>
     </div>
 
     <div *ngIf="question.type === 'RADIO_PICTURE'" class="answer">
-      <p *ngFor="let answer of question.answers; index as i">
+      <p *ngFor="let answer of question.choiceAnswers; index as i">
         <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
         <img *ngIf="previewUrls[i]" [src]="previewUrls[i]" style="max-width:300px;width:auto;max-height: 300px;height:auto">
         <input type="file" id="fileRadio" (change)="uploadPicture($event,i)" style="color:transparent; width: 100px" />
         <button type="button"  class="deleteVariant" (click)="deletePicture(i)">x</button>
       </p>
+      {{pictureValidation}}
+
       <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
         VARIANT
       </button>
     </div>
 
      <div *ngIf="question.type === 'CHECKBOX_PICTURE'" class="answer">
-      <p *ngFor="let answer of question.answers; index as i">
+      <p *ngFor="let answer of question.choiceAnswers; index as i">
         <img src="https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png">
         <img *ngIf="previewUrls[i]" [src]="previewUrls[i]" style="max-width:300px;width:auto;max-height: 300px;height:auto">
         <input type="file" id="fileCheckbox" (change)="uploadPicture($event,i)" style="color:transparent; width: 100px" />

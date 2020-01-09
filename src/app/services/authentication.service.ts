@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import {AppConfig} from "../app.config";
-
+import {AppConfig} from '../app.config';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -10,6 +9,7 @@ export class AuthenticationService {
 
   public email: String;
   public password: String;
+
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string) {
@@ -17,33 +17,27 @@ export class AuthenticationService {
       { headers: { authorization : this.createBasicAuthToken(email, password) } }).pipe(map((res) => {
       this.email = email;
       this.password = password;
-      this.registerSuccessfulLogin(email, password);
+      this.registerSuccessfulLogin(email);
     }));
   }
 
   createBasicAuthToken(email: String, password: String) {
-    return 'Basic ' + btoa(email + ":" + password)
+    return 'Basic ' + btoa(email + ':' + password);
   }
 
-  registerSuccessfulLogin(email, password) {
-    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, email)
+  registerSuccessfulLogin(email) {
+    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, email);
   }
 
   logout() {
+   this.http.get(`${AppConfig.backBaseUrl}/logout`,{responseType: "text"}).toPromise().then();
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     this.email = null;
     this.password = null;
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
-    if (user === null) return false
-    return true
+    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    return user !== null;
   }
-
-  // getLoggedInUserName() {
-  //   let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
-  //   if (user === null) return ''
-  //   return user
-  // }
 }

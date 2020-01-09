@@ -19,6 +19,7 @@ export class CheckOpportunityComponent implements OnInit {
   isExist: boolean;
   wrongEmail: boolean = false;
   errorMessage: string;
+  isAuthenticated: boolean = false;
 
   constructor(@Inject(APP_CONFIG) private config: IAppConfig, private route: ActivatedRoute, private checkOpportunityService: CheckOpportunityService) {
   }
@@ -30,6 +31,25 @@ export class CheckOpportunityComponent implements OnInit {
         .toPromise()
         .then(data => {
           this.isExist = true;
+          console.log(data);
+
+          const auth_email: string = sessionStorage.getItem('authenticatedUser');
+          if (auth_email !== null){
+            const dto: CheckOpportunityDto = {
+              token: this.token,
+              email: auth_email
+            };
+            this.checkOpportunityService.checkEmail(dto)
+              .toPromise()
+              .then(data => {
+                this.isAuthenticated = true;
+                this.wrongEmail = false;
+                window.location.href = this.config.frontBaseUrl + '/questions?surveyId=' + data.surveyId + '&contactEmail=' + data.email;
+              })
+              .catch(data => {
+                this.isAuthenticated = false;
+              })
+          }
         })
         .catch(
           data => {
@@ -49,7 +69,7 @@ export class CheckOpportunityComponent implements OnInit {
       .toPromise()
       .then(data => {
         this.wrongEmail = false;
-        window.location.href = this.config.frontBaseUrl + '/questions?surveyId=' + data.surveyId + '&&contactEmail=' + data.email;
+        window.location.href = this.config.frontBaseUrl + '/questions?surveyId=' + data.surveyId + '&contactEmail=' + data.email;
       })
       .catch(data => {
         this.wrongEmail = true;

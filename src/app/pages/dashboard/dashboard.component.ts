@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from "../../services/authentication.service";
+import {faUser, faBuilding, faChartBar, faTools, faImage, faUsers} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,10 +9,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  icons = {faUser,faBuilding,faChartBar, faTools, faImage, faUsers};
+
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-
   }
 
 }

@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
@@ -11,16 +11,16 @@ import {APP_CONFIG, AppConfig} from './app.config';
 import {UserService} from './services/user.service';
 import {FormConstructorComponent} from './pages/form-constructor/form-constructor.component';
 import {QuestionComponent} from './components/question/question.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {LoginComponent } from "./components/login-registration/login";
-import {ConfirmComponent} from "./components/login-registration/confirm-account/confirm.component";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {LoginComponent} from './components/login-registration/login';
+import {ConfirmComponent} from './components/login-registration/confirm-account/confirm.component';
 import {BasicInterceptorService} from './services/basicInterceptor.service';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule, ToastrService} from 'ngx-toastr';
 import {SurveysComponent} from './pages/surveys/surveys.component';
 import {NgxSkltnModule} from 'ngx-skltn';
 import {SendFormComponent} from './pages/sendForm/sendForm.component';
-import {QuestionGeneralStatisticComponent} from './components/statistic/question-component/question-general-statistic.component';
+import {CookieService} from "ngx-cookie-service";
 import {ChartsModule} from 'ng2-charts';
 import {StatisticComponent} from './components/statistic/statistic.component';
 import {SurveySkltnComponent} from './components/survey-skltn/survey-skltn.component';
@@ -28,10 +28,14 @@ import {SurveyTopButtonsComponent} from './components/survey-top-buttons/survey-
 import {QuestionsPageComponent} from './pages/questions-page/questions-page.component';
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
-import {RegisterComponent} from "./components/login-registration/registration/registration.component";
-import {HttpErrorInterceptor} from "./services/http-error.interceptor";
-import {AuthInterceptor} from "./interceptor/auth-interceptor.interceptor";
-import { QuestionSeparatelyStatisticComponent } from './components/statistic/each-question/question-separately.component';
+import {RegisterComponent} from './components/login-registration/registration';
+import {HttpErrorInterceptor} from './services/http-error.interceptor';
+import {AuthInterceptor} from './interceptor/auth-interceptor.interceptor';
+import {GeneralStatisticComponent} from './components/statistic/general-statistic/general-statistic.component';
+import {SeparatelyStatisticComponent} from './components/statistic/separately-statistic/separately-statistic.component';
+import {FooterComponent} from './components/footer/footer.component';
+import {SocialComponent} from './pages/social/social.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,6 @@ import { QuestionSeparatelyStatisticComponent } from './components/statistic/eac
     DashboardComponent,
     AuthorizationComponent,
     FormConstructorComponent,
-    QuestionGeneralStatisticComponent,
     QuestionComponent,
     LoginComponent,
     RegisterComponent,
@@ -49,14 +52,16 @@ import { QuestionSeparatelyStatisticComponent } from './components/statistic/eac
     SurveysComponent,
     SurveySkltnComponent,
     SendFormComponent,
-    QuestionGeneralStatisticComponent,
     StatisticComponent,
     SurveyTopButtonsComponent,
     CheckOpportunityComponent,
     QuestionsPageComponent,
     AuthorizationComponent,
     OneQuestionComponent,
-    QuestionSeparatelyStatisticComponent,
+    SeparatelyStatisticComponent,
+    GeneralStatisticComponent,
+    FooterComponent,
+    SocialComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +77,7 @@ import { QuestionSeparatelyStatisticComponent } from './components/statistic/eac
     }),
     NgxSkltnModule.forRoot(),
     ChartsModule,
+    FontAwesomeModule
   ],
   exports: [
     ChartsModule,
@@ -84,8 +90,8 @@ import { QuestionSeparatelyStatisticComponent } from './components/statistic/eac
     {provide: APP_CONFIG, useValue: AppConfig},
     {provide: HTTP_INTERCEPTORS, useClass: BasicInterceptorService, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
-     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    QuestionsFormService],
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    QuestionsFormService, CookieService],
 
   bootstrap: [AppComponent]
 })
