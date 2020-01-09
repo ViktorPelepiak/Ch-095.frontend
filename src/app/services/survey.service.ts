@@ -4,6 +4,8 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Survey} from '../models/survey';
 import {Page} from '../models/page';
+import {SaveSurvey} from "../models/SaveSurvey";
+import {EditSurvey} from "../models/EditSurvey";
 
 @Injectable({
   providedIn: 'root'
@@ -36,9 +38,17 @@ export class SurveyService {
     });
   }
 
-  public cloneSurvey(id: number, isClearContacts: boolean): Observable<Survey> {
-    console.log(isClearContacts)
-    return this.http.post<Survey>(this.config.backBaseUrl + this.endPoint, {id, isClearContacts});
+  public cloneSurvey(id: number, clearContacts: boolean): Observable<Survey> {
+    console.log(clearContacts)
+    return this.http.post<Survey>(this.config.backBaseUrl + this.endPoint, {id, clearContacts:clearContacts});
+  }
+  
+    public saveEditedSurvey(editSurvey:EditSurvey): Observable<SaveSurvey>{
+    return  this.http.post<EditSurvey>(this.config.backBaseUrl + '/survey/update/'+editSurvey.surveyId,editSurvey);
+  }
+
+  public editSurvey(id:string){
+   return this.http.get<EditSurvey>(this.config.backBaseUrl + '/survey/edit/' + id);
   }
 
   public deleteSurvey(id: number): Observable<string> {

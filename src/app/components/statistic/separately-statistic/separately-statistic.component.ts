@@ -1,12 +1,12 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {OneQuestionSeparatelyStatistic} from "../../../models/OneQuestionSeparatelyStatistic";
 
 @Component({
   selector: 'questionSeparatelyStatistic',
-  templateUrl: './question-separately.component.html',
-  styleUrls: ['./question-separately.component.css']
+  templateUrl: './separately-statistic.component.html',
+  styleUrls: ['./separately-statistic.component.css']
 })
-export class QuestionSeparatelyStatisticComponent implements OnInit {
+export class SeparatelyStatisticComponent implements OnInit {
 
   constructor() { }
   ngOnInit() {

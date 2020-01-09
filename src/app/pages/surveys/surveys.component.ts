@@ -61,7 +61,8 @@ export class SurveysComponent implements OnInit {
     this.service.cloneSurvey(this.tempSurvey, this.isClearContacts)
       .toPromise()
       .then(e => {
-        e.countContacts = 0;
+        this.isClearContacts ? e.countContacts = 0 :
+          e.countContacts = this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)].countContacts;
         e.countAnswers = 0;
         this.surveys.push(e);
         if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage){ ++this.pageable.lastPage }
@@ -81,6 +82,8 @@ export class SurveysComponent implements OnInit {
       })
       .catch(e => console.error(e));
   }
+
+
 
   changeTempSurvey(survey: Survey): void {
     this.tempSurvey = survey.id;
@@ -140,6 +143,10 @@ export class SurveysComponent implements OnInit {
       params = params.append('status', status);
     }
     return params;
+  }
+
+   private isStatusNull(): boolean {
+    return this.route.snapshot.queryParamMap.get('status') == null;
   }
 
 }

@@ -25,6 +25,7 @@ const routes: Routes = [
   {path: 'header', component: HeaderComponent},
   {path: 'statistic', component: StatisticComponent, canActivate: [AuthGuardService]},
   {path: 'surveys/add', component: FormConstructorComponent, canActivate: [AuthGuardService]},
+  {path: 'surveys/edit/:id', component: FormConstructorComponent},
   {path: 'test/:token', component: CheckPossibilityComponent},
   {path: '**', redirectTo: '/'},
 ];
