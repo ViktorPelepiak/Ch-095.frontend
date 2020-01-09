@@ -38,17 +38,17 @@ export class SurveyService {
     });
   }
 
-  public saveEditedSurvey(editSurvey:EditSurvey): Observable<SaveSurvey>{
+  public cloneSurvey(id: number, clearContacts: boolean): Observable<Survey> {
+    console.log(clearContacts)
+    return this.http.post<Survey>(this.config.backBaseUrl + this.endPoint, {id, clearContacts:clearContacts});
+  }
+  
+    public saveEditedSurvey(editSurvey:EditSurvey): Observable<SaveSurvey>{
     return  this.http.post<EditSurvey>(this.config.backBaseUrl + '/survey/update/'+editSurvey.surveyId,editSurvey);
   }
 
   public editSurvey(id:string){
    return this.http.get<EditSurvey>(this.config.backBaseUrl + '/survey/edit/' + id);
-  }
-
-
-  public cloneSurvey(id: number, isClearContacts: boolean): Observable<Survey> {
-    return this.http.post<Survey>(this.config.backBaseUrl + this.endPoint, {id, isClearContacts});
   }
 
   public deleteSurvey(id: number): Observable<string> {
