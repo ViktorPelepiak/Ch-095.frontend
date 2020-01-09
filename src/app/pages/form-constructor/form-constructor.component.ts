@@ -35,18 +35,15 @@ export class FormConstructorComponent implements OnInit {
         .toPromise()
         .then(data => {
           this.questions = data.questions;
-          console.log(this.questions);
 
           this.surveyName = data.title;
           this.surveyPhotoName = data.surveyPhotoName;
           this.questionCounter = data.questions.length;
         });
     }
-    console.log(this.questionCounter);
   }
 
   addNewQuestion() {
- this.questions.forEach(x=> console.log(x.choiceAnswers));
     this.questionCounter = this.questionCounter + 1;
     let question = new Question();
     question.index = this.questionCounter;
@@ -54,7 +51,6 @@ export class FormConstructorComponent implements OnInit {
     question.type = "not set";
     question.choiceAnswers = [];
     question.required = false;
-    console.log(question);
     this.questions.push(question);
   }
 
