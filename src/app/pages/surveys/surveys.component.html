@@ -20,9 +20,8 @@
                    data-target="#editTitleModal">Rename</a>
                 <a class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
                    data-target="#cloneModal">Clone</a>
-                <a class="dropdown-item" href="#">Add contacts</a> <!-- other page -->
-                <a class="dropdown-item" [routerLink]="['/statistic']" [queryParams]="{surveyId:item.id}">Statistics</a>
-                <!-- other page -->
+                <a class="dropdown-item" [routerLink]="['/sendForm']" [queryParams]="{surveyId:item.id, title:item.title}">Add contacts</a> <!-- other page -->
+                <a class="dropdown-item" [routerLink]="['/statistic']" [queryParams]="{surveyId:item.id}">Statistics</a> <!-- other page -->
                 <a *ngIf="item.status === 'ACTIVE'; else notActive" class="dropdown-item"
                    (click)="surveyStatusDone(item.id)">Close</a>
                 <ng-template #notActive>
