@@ -10,6 +10,7 @@ export class AuthenticationService {
 
   public email: String;
   public password: String;
+
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string) {
@@ -30,15 +31,14 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.http.get('http://localhost:8080/logout',{responseType: "text"}).toPromise().then();
+   this.http.get(`${AppConfig.backBaseUrl}/logout`,{responseType: "text"}).toPromise().then();
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     this.email = null;
     this.password = null;
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
-    if (user === null) { return false; }
-    return true;
+    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    return user !== null;
   }
 }
