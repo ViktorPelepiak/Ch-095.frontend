@@ -14,7 +14,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string) {
-    return this.http.get<any>(`${AppConfig.backBaseUrl}/login`,
+    return this.http.get<any>(`${AppConfig.backBaseUrl}/Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/login`,
       { headers: { authorization : this.createBasicAuthToken(email, password) } }).pipe(map((res) => {
       this.email = email;
       this.password = password;
@@ -31,7 +31,7 @@ export class AuthenticationService {
   }
 
   logout() {
-   this.http.get(`${AppConfig.backBaseUrl}/logout`,{responseType: "text"}).toPromise().then();
+    this.http.post(`${AppConfig.backBaseUrl}/Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/logout`,{}).subscribe();
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     this.email = null;
     this.password = null;

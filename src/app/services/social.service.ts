@@ -11,10 +11,10 @@ export class SocialService {
   constructor(@Inject(APP_CONFIG) private config: IAppConfig, private http: HttpClient) { }
 
   public get(): Observable<any> {
-    return this.http.get(this.config.backBaseUrl + '/oauth_login');
+    return this.http.get(this.config.backBaseUrl + '/Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/oauth_login');
   }
 
   public test(): Observable<string>{
-    return this.http.get(this.config.backBaseUrl + '/test', {responseType: 'text'});
+    return this.http.get(this.config.backBaseUrl + '/Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/test', {responseType: 'text'});
   }
 }

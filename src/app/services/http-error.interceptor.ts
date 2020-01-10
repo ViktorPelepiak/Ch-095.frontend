@@ -27,7 +27,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                this.toast.error('An error occurred');
              }
         }
-            console.error(err);
         return throwError(err);
       }));
   }
