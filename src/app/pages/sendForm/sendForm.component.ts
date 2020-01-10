@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {EmailService} from "../../services/send-email.service";
 import {Email} from "../../models/email";
 import {ActivatedRoute} from "@angular/router";
@@ -11,14 +11,15 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SendFormComponent implements OnInit {
 
-  wrongEmails: string = null;
   isShown: boolean = true;
-  isShownRemoveSign: boolean = true;
-  isShown2: boolean = false;
-  isShown3: boolean = false;
-  public emails: any[] = [''];
-  public primaryEmails: string = "";
-  public title: string;
+  public surveyId = this.route.snapshot.queryParams["surveyId"];
+  public title = this.route.snapshot.queryParams["title"];
+  wrongEmails: string = null;
+  errorWrongEmails: string = null;
+  successfulMessage: string = null;
+  wrongEmails2: string = null;
+  errorWrongEmails2: string = null;
+  successfulMessage2: string = null;
   dynamicForm: FormGroup;
   submitted = false;
 
@@ -27,15 +28,23 @@ export class SendFormComponent implements OnInit {
               private route: ActivatedRoute) {
   }
 
+  changeForm() {
+    if (this.isShown) {
+      this.dynamicForm = this.formBuilder.group({
+        numberOfEmails: ['', Validators.required],
+        emailsArray: new FormArray([]),
+      });
+    } else {
+      this.dynamicForm = this.formBuilder.group({
+        emails1: new FormControl('', [
+          Validators.required,
+          Validators.pattern("^((\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*)\\s*[,]{0,1}\\s*)+$")])
+      });
+    }
+  }
+
   ngOnInit() {
-    this.dynamicForm = this.formBuilder.group({
-      numberOfEmails: ['', Validators.required],
-      emailsArray: new FormArray([])
-      // primaryEmails: new FormControl('', [
-      //   Validators.required,
-      //   Validators.pattern("^((\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*)\\s*[,]{0,1}\\s*)+$")])
-    });
-    // this.getTitle();
+    this.changeForm();
   }
 
   get f() {
@@ -48,15 +57,8 @@ export class SendFormComponent implements OnInit {
 
   toggleShow() {
     this.isShown = !this.isShown;
-    this.isShown2 = !this.isShown2;
+    this.changeForm();
   }
-
-  // removeEmail(i: number) {
-  //   // if (i == 1) {
-  //   //   this.isShownRemoveSign = false;
-  //   // }
-  //   this.emails.splice(i, 1);
-  // }
 
   isControlInvalid(controlName: string): boolean {
     const control = this.dynamicForm.controls[controlName];
@@ -78,42 +80,63 @@ export class SendFormComponent implements OnInit {
     }
   }
 
-  // getTitle() {
-  //   let surveyId = this.route.snapshot.queryParams["surveyId"]
-  //   this.emailService.getTitleSurvey(surveyId)
-  //     .toPromise().then(value => this.title = value["title"]);
-  // }
-
   sendEmails() {
-    const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), '81', '1');
-    console.log(this.dynamicForm.value.emails);
-    console.log(this.emailService.postEmailArray(email));
-    this.emailService.postEmailArray(email).toPromise().then(data => {
-      console.error(data);
-      this.wrongEmails = data;
-    }).catch(e => {
-        console.error(e);
-        this.wrongEmails = e.error
-      }
-    );
+    console.log(this.dynamicForm);
+    if (this.isShown) {
+      const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), this.surveyId);
+      console.log(email);
+      this.emailService.postEmailArray(email).toPromise().then(data => {
+        console.error("data", data);
+        this.wrongEmails = null;
+        this.successfulMessage = "these emails were successfully sent";
+        // this.dynamicForm.reset(100);
+      }).catch(e => {
+          console.error("error" + e.error);
+          this.wrongEmails = e.error;
+          this.errorWrongEmails = "these emails are wrong : " + this.wrongEmails;
+        }
+      );
+
+    } else {
+      const email = new Email(this.dynamicForm.value.emails1.split(","), this.surveyId);
+      this.emailService.postEmailArray(email).toPromise().then(data => {
+        console.error("emails", data);
+        this.wrongEmails2 = null;
+        this.successfulMessage2 = "these emails were successfully sent";
+      }).catch(e => {
+          console.error("error" + e.error);
+        this.wrongEmails2 = e.error;
+        this.errorWrongEmails2 = "these emails are wrong : " + this.wrongEmails2;
+        }
+      );
+    }
   }
 
   onSubmit() {
     this.submitted = true;
-    if (this.dynamicForm.invalid) {
-      return;
+    if (this.isShown) {
+      if (this.dynamicForm.invalid) {
+        return;
+      }
+      this.sendEmails();
+    } else {
+      if (this.dynamicForm.invalid) {
+        return;
+      }
+      this.sendEmails();
     }
-    this.sendEmails()
   }
 
   onReset() {
     this.submitted = false;
+    this.errorWrongEmails = "";
     this.dynamicForm.reset();
     this.t.clear();
   }
 
   onClear() {
     this.submitted = false;
+    this.errorWrongEmails = "";
     this.t.reset();
   }
 }

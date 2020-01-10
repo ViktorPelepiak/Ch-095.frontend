@@ -20,9 +20,8 @@
                    data-target="#editTitleModal">Rename</a>
                 <a class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
                    data-target="#cloneModal">Clone</a>
-                <a class="dropdown-item" href="#">Add contacts</a> <!-- other page -->
-                <a class="dropdown-item" [routerLink]="['/statistic']" [queryParams]="{surveyId:item.id}">Statistics</a>
-                <!-- other page -->
+                <a class="dropdown-item" [routerLink]="['/sendForm']" [queryParams]="{surveyId:item.id, title:item.title}">Add contacts</a> <!-- other page -->
+                <a class="dropdown-item" [routerLink]="['/statistic']" [queryParams]="{surveyId:item.id}">Statistics</a> <!-- other page -->
                 <a *ngIf="item.status === 'ACTIVE'; else notActive" class="dropdown-item"
                    (click)="surveyStatusDone(item.id)">Close</a>
                 <ng-template #notActive>
@@ -58,10 +57,14 @@
       </nav>
     </div>
   </div>
-  <div *ngIf="surveys && surveys.length === 0;" class="row">
-    <div class="col-12 text-center mt-5">
+  <div *ngIf="surveys && surveys.length === 0 && pageable.sort.direction" class="row">
+    <div *ngIf="isStatusNull(); else surveysWithStatus" class="col-12 text-center mt-5">
       <h1>Activity is not observed. It's time to create a survey!</h1>
       <button type="submit" class="btn btn-submit" [routerLink]="['/surveys/add']">Create survey</button>
+    </div>
+    <div #surveysWithStatus class="col-12 text-center mt-5">
+      <h1>There is no survey with this status</h1>
+      <button type="submit" class="btn btn-submit" (click)="redirects.deleteParam('status',['surveys'])">Status all</button>
     </div>
   </div>
   <ng-template #notSurveys>
