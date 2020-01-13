@@ -35,19 +35,15 @@ export class FormConstructorComponent implements OnInit {
         .toPromise()
         .then(data => {
           this.questions = data.questions;
-          console.log(this.questions);
 
           this.surveyName = data.title;
           this.surveyPhotoName = data.surveyPhotoName;
           this.questionCounter = data.questions.length;
         });
     }
-    console.log(this.questionCounter);
   }
 
-
   addNewQuestion() {
- this.questions.forEach(x=> console.log(x.choiceAnswers));
     this.questionCounter = this.questionCounter + 1;
     let question = new Question();
     question.index = this.questionCounter;
@@ -55,7 +51,6 @@ export class FormConstructorComponent implements OnInit {
     question.type = "not set";
     question.choiceAnswers = [];
     question.required = false;
-    console.log(question);
     this.questions.push(question);
   }
 
@@ -82,27 +77,15 @@ export class FormConstructorComponent implements OnInit {
       saveSurvey.title = this.surveyName;
       saveSurvey.questions = this.questions;
       if (this.isValidSurvey(saveSurvey)) {
-        this.savePhoto(saveSurvey);
+        this.savePhoto();
         this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
       }
     }
-
   }
 
 
-  savePhoto(saveSurvey: SaveSurvey) {
+  savePhoto() {
     if (this.surveyPhoto) this.uploadingPhoto.push(this.surveyPhoto);
-    // saveSurvey.questions.forEach(function (x, questionIndex) {
-    //   if(saveSurvey.questions[questionIndex].type === ('RADIO_PICTURE') ||
-    //     saveSurvey.questions[questionIndex].type === ('CHECKBOX_PICTURE')) {
-    //     saveSurvey.questions[questionIndex].answers.forEach(function (y, answerIndex) {
-    //         saveSurvey.questions[questionIndex].answers[answerIndex] =
-    //           saveSurvey.title + "_" + questionIndex + "_" + answerIndex + "_" + answerIndex +
-    //           questionIndex * answerIndex + "_" + saveSurvey.questions[questionIndex].answers[answerIndex];
-    //       }
-    //     )
-    //   }
-    // });
     this.questions.forEach(x => x.uploadingFiles.forEach(y => this.uploadingPhoto.push(y)));
     this.saveSurveyService.savePictures(this.uploadingPhoto).subscribe();
   }
@@ -138,7 +121,6 @@ export class FormConstructorComponent implements OnInit {
     }
   }
 
-
   private isAllQuestionsInput(questions: Question[]) {
     let isValidSurvey = true;
     let atLeastOneQuestionAbsent = false;
@@ -158,7 +140,7 @@ export class FormConstructorComponent implements OnInit {
         isValidSurvey = false;
       }
     }
-    if (atLeastOneQuestionAbsent) this.errorValidation += ". ";
+    if(atLeastOneQuestionAbsent) this.errorValidation += ". ";
     return isValidSurvey;
   }
 

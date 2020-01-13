@@ -12,7 +12,6 @@ import {Router} from '@angular/router';
 export class QuestionsPageComponent implements OnInit {
 
   constructor(private questionsFormService: QuestionsFormService, private router: Router) {}
-
   quest: [];
   surveyId;
   contactEmail;

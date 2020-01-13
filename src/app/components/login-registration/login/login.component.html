@@ -6,7 +6,8 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label>Email</label>
-            <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <input type="text" formControlName="email" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
             <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
               <div *ngIf="f.email.errors.required">Email is required</div>
               <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
@@ -14,7 +15,8 @@
           </div>
           <div class="form-group">
             <label>Password</label>
-            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <input type="password" formControlName="password" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
             <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
               <div *ngIf="f.password.errors.required">Password is required</div>
               <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
@@ -29,6 +31,33 @@
           </div>
         </form>
       </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <hr>
+          </div>
+          <div class="col" style="text-align: center;">
+            <h4>Or</h4>
+          </div>
+          <div class="col-sm">
+            <hr>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm" style="text-align: right">
+            <a href="{{config.backBaseUrl}}/{{googleLink}}" class="fa fa-google">&nbsp;oogle&nbsp;&nbsp;&nbsp;&nbsp;</a>
+          </div>
+          <div class="col" style="text-align: left;">
+            <a href="{{config.backBaseUrl}}/{{facebookLink}}" class="fa fa-facebook">&nbsp;acebook</a>
+          </div>
+        </div>
+      </div>
+
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </div>
   </div>
 </div>

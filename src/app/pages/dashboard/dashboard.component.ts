@@ -14,7 +14,6 @@ export class DashboardComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-
   }
 
 }
