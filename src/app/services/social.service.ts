@@ -14,7 +14,7 @@ export class SocialService {
     return this.http.get(this.config.backBaseUrl + '/Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/oauth_login');
   }
 
-  public test(): Observable<string>{
-    return this.http.get(this.config.backBaseUrl + '/Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/test', {responseType: 'text'});
+  public getAuthenticatedEmail(): Observable<string>{
+    return this.http.get(this.config.backBaseUrl + '/Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/authenticatedEmail', {responseType: 'text'});
   }
 }
