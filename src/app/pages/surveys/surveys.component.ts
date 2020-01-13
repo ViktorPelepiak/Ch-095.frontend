@@ -62,13 +62,13 @@ export class SurveysComponent implements OnInit {
       .toPromise()
       .then(e => {
         let newSurvey = JSON.parse(JSON.stringify( this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)]));
+        newSurvey.id = e;
         if (this.isClearContacts){
           newSurvey.countContacts = 0
         }
         newSurvey.countAnswers = 0;
         this.surveys.push(newSurvey);
         if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage){ ++this.pageable.lastPage }
-        console.log(e)
       })
       .catch(e => console.error(e));
   }
