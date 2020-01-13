@@ -32,56 +32,55 @@
                   </td>
                 </tr>
                 <p>Please separate multiple addresses with commas</p>
-                <div *ngIf="wrongEmails2 != null" class="errorMessage">{{errorWrongEmails2}}</div>
-                <div *ngIf="wrongEmails2 == null" class="successMessage">{{successfulMessage2}}</div>
               </table>
             </div>
+            <div *ngIf="wrongEmailsForTextarea != null" class="errorMessage">{{errorWrongEmailsForTextarea}}</div>
+            <div *ngIf="wrongEmailsForTextarea == null" class="successMessage">{{successfulMessageForTextarea}}</div>
           </div>
           <div *ngIf="isShown">
-            <div class="card-body">
-              <div class="form-row">
-                <div class="form-group">
-                   <span class="box">
-                          <label class="box1">Select number of emails  </label>
-              or
+            <tr>
+              <th>Email Address</th>
+              <th class="text-center"></th>
+            </tr>
+            <tr *ngFor="let emailsArray of t.controls; let i = index" class="list-group list-group-flush">
+              <div class="list-group-item">
+                <td class="text-center">
+                  <div [formGroup]="emailsArray" class="form-row">
+                    <div class="form-group col-12">
+                      <input type="text" formControlName="email" class="form-control" size="35"
+                             [ngClass]="{ 'is-invalid': submitted && emailsArray.controls.email.errors }"/>
+                      <div *ngIf="submitted && emailsArray.controls.email.errors" class="invalid-feedback">
+                        <div *ngIf="emailsArray.controls.email.errors.required">Email is required</div>
+                        <div *ngIf="emailsArray.controls.email.errors.email">Email must be a valid email address</div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="closeSign">
+                  <div *ngIf="isShownRemoveSign">
+                    <button type="button" class="close" (click)="removeEmail(i)"><span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                </td>
+              </div>
+            </tr>
+            <span class="box">
+                    <button type="button" (click)="addEmail()" class="btn btn-default" aria-label="Left Align">
+                      <fa-icon [icon]="icons.faPlusCircle"></fa-icon>
+                      Add one more</button>
+                    or
                     <button type="button" (click)="toggleShow()" type="checkbox" class="btn btn-default">
                       add many at once
                     </button>
-            </span>
-                  <select formControlName="numberOfEmails" class="form-control" (change)="onChangeEmails($event)"
-                          [ngClass]="{ 'is-invalid': submitted && f.numberOfEmails.errors }">
-                    <option value=""></option>
-                    <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
-                  </select>
-                  <div *ngIf="submitted && f.numberOfEmails.errors" class="invalid-feedback">
-                    <div *ngIf="f.numberOfEmails.errors.required">Number of emails is required</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <label>Email Address</label>
-            <div *ngFor="let emailsArray of t.controls; let i = index" class="list-group list-group-flush">
-              <div class="list-group-item">
-                <div [formGroup]="emailsArray" class="form-row">
-                  <div class="form-group col-6">
-                    <input type="text" formControlName="email" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && emailsArray.controls.email.errors }"/>
-                    <div *ngIf="submitted && emailsArray.controls.email.errors" class="invalid-feedback">
-                      <div *ngIf="emailsArray.controls.email.errors.required">Email is required</div>
-                      <div *ngIf="emailsArray.controls.email.errors.email">Email must be a valid email address</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="wrongEmails != null" class="errorMessage">{{errorWrongEmails}}</div>
-            <div *ngIf="wrongEmails == null" class="successMessage">{{successfulMessage}}</div>
-
+                  </span>
+            <div *ngIf="wrongEmailsForInputField != null" class="errorMessage">{{errorWrongEmailsForInputField}}</div>
+            <div *ngIf="wrongEmailsForInputField == null"
+                 class="successMessage">{{successfulMessageForInputField}}</div>
           </div>
         </div>
         <div class="modal-footer">
           <div *ngIf="!isShown">
-            <button (click)="toggleShow()" type="checkbox">Back</button>
+            <button class="btn btn-secondary mr-1" type="button" (click)="toggleShow()">Back</button>
           </div>
           <div>
             <button class="btn btn-primary mr-1" [disabled]="dynamicForm.invalid" (click)="onSubmit()">Send E-mail
@@ -91,7 +90,6 @@
             <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
           </div>
           <button class="btn btn-secondary mr-1" type="button" (click)="onClear()">Clear</button>
-
         </div>
       </div>
     </div>

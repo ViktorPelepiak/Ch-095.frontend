@@ -48,8 +48,8 @@ textarea {
   display: flex;
   flex-direction: column;
   position: relative;
-  top: 50px;
-  right: 50px;
+  top: 80px;
+  right: 80px;
   box-sizing: inherit;
 }
 
@@ -62,6 +62,7 @@ textarea {
 .box button {
   color: darkseagreen;
   font-weight: bold;
+  display: inline-block;
 }
 
 .box1 {
@@ -89,4 +90,10 @@ textarea {
 
 .successMessage {
   color: #44C160;
+}
+
+.closeSign{
+  position: absolute;
+  right: 10px;
+  top: 13px;
 }
