@@ -57,4 +57,11 @@ export class SurveyService {
     });
   }
 
+  public disableSurvey(id: number): Observable<string> {
+    console.log(id)
+    return this.http.put<string>(this.config.backBaseUrl + this.endPoint + "/disable", {},{
+      params: new HttpParams().append('id', id + '')
+    });
+  }
+
 }

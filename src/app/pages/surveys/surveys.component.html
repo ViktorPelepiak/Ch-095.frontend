@@ -57,7 +57,7 @@
       </nav>
     </div>
   </div>
-  <div *ngIf="surveys && surveys.length === 0 && pageable.sort.direction" class="row">
+  <div *ngIf="surveys && surveys.length === 0" class="row">
     <div *ngIf="isStatusNull(); else surveysWithStatus" class="col-12 text-center mt-5">
       <h1>Activity is not observed. It's time to create a survey!</h1>
       <button type="submit" class="btn btn-submit" [routerLink]="['/surveys/add']">Create survey</button>
@@ -136,7 +136,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" (click)="deleteSurvey()"
+          <button type="button" class="btn btn-primary" (click)="disableSurvey()"
                   data-dismiss="modal">Confirm
           </button>
         </div>
