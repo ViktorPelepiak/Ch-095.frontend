@@ -32,15 +32,15 @@ export class SurveyService {
   }
 
   public surveyStatusDone(id: number) {
-    return this.http.put<string>(this.config.backBaseUrl + this.endPoint + '/status/done', {}, {
+    return this.http.put<string>(this.config.backBaseUrl + this.endPoint + '/status/DONE', {}, {
       params: new HttpParams()
         .append('id', id + '')
     });
   }
 
-  public cloneSurvey(id: number, clearContacts: boolean): Observable<Survey> {
+  public cloneSurvey(id: number, clearContacts: boolean): Observable<number> {
     console.log(clearContacts)
-    return this.http.post<Survey>(this.config.backBaseUrl + this.endPoint, {id, clearContacts:clearContacts});
+    return this.http.post<number>(this.config.backBaseUrl + this.endPoint, {id, clearContacts:clearContacts});
   }
 
     public saveEditedSurvey(editSurvey:EditSurvey): Observable<SaveSurvey>{

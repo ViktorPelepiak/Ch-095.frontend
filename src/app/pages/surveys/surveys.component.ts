@@ -53,7 +53,7 @@ export class SurveysComponent implements OnInit {
   surveyStatusDone(id: number) {
     this.service.surveyStatusDone(id)
       .toPromise()
-      .then(e => this.surveys[this.surveys.findIndex(s => s.id === id)].status = 'DONE')
+      .then(() => this.surveys[this.surveys.findIndex(s => s.id === id)].status = 'DONE')
       .catch(e => console.error(e));
   }
 
@@ -61,12 +61,14 @@ export class SurveysComponent implements OnInit {
     this.service.cloneSurvey(this.tempSurvey, this.isClearContacts)
       .toPromise()
       .then(e => {
-        this.isClearContacts ? e.countContacts = 0 :
-          e.countContacts = this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)].countContacts;
-        e.countAnswers = 0;
-        this.surveys.push(e);
+        let newSurvey = JSON.parse(JSON.stringify( this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)]));
+        newSurvey.id = e;
+        if (this.isClearContacts){
+          newSurvey.countContacts = 0
+        }
+        newSurvey.countAnswers = 0;
+        this.surveys.push(newSurvey);
         if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage){ ++this.pageable.lastPage }
-        console.log(e)
       })
       .catch(e => console.error(e));
   }
@@ -128,16 +130,24 @@ export class SurveysComponent implements OnInit {
     let sort = this.route.snapshot.queryParamMap.get('sort');
     let status = this.route.snapshot.queryParamMap.get('status');
     if (currentPage !== null && currentPage > 0) {
-      params = params.append('page', String(currentPage - 1));
+      params = params.append('currentPage', String(currentPage - 1));
+    } else {
+      params = params.append('currentPage', '0');
     }
     if (size > 0) {
       params = params.append('size', String(size));
+    } else {
+      params = params.append('size', '12');
     }
     if (direction !== null) {
       params = params.append('direction', direction);
+    } else {
+      params = params.append('direction', 'DESC');
     }
     if (sort !== null) {
       params = params.append('sort', sort);
+    } else {
+      params = params.append('sort', "creationDate");
     }
     if (status !== null) {
       params = params.append('status', status);

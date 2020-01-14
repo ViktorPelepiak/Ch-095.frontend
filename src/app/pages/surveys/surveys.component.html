@@ -62,10 +62,12 @@
       <h1>Activity is not observed. It's time to create a survey!</h1>
       <button type="submit" class="btn btn-submit" [routerLink]="['/surveys/add']">Create survey</button>
     </div>
-    <div #surveysWithStatus class="col-12 text-center mt-5">
-      <h1>There is no survey with this status</h1>
-      <button type="submit" class="btn btn-submit" (click)="redirects.deleteParam('status',['surveys'])">Status all</button>
-    </div>
+    <ng-template #surveysWithStatus>
+      <div class="col-12 text-center mt-5">
+        <h1>There is no survey with this status</h1>
+        <button type="submit" class="btn btn-submit" (click)="redirects.deleteParam('status',['surveys'])">Status all</button>
+      </div>
+    </ng-template>
   </div>
   <ng-template #notSurveys>
     <div class="row">
