@@ -8,6 +8,10 @@
   max-height: 100%;
   position: relative;
 }
+.styleForAllForms{
+  padding-top: 10px;
+  position: relative;
+}
 
 textarea {
   width: 100%;
@@ -96,4 +100,20 @@ textarea {
   position: absolute;
   right: 10px;
   top: 13px;
+}
+
+.multiselect-dropdown .dropdown-btn {
+  display: inline-block;
+  border: 1px solid #adadad;
+  width: 100%;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: left;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border-radius: 4px;
 }

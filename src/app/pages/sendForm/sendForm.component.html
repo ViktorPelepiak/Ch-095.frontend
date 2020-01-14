@@ -12,32 +12,28 @@
           </button>
         </div>
         <div class="modal-body">
-          <div *ngIf="!isShown">
-            <div class="form-group">
-              <table class="table">
-                <tr>
-                  <th class="text-left">Enter multiple email addresses</th>
-                </tr>
-                <tr valign="top">
-                  <td class="text-center">
-                    <label>
+          <div class="styleForAllForms" *ngIf="isShownTextarea">
+            <tr>
+              <th class="text-left">Enter multiple email addresses</th>
+            </tr>
+            <tr valign="top">
+              <td class="text-center">
+                <label>
               <textarea
                 [class.is-invalid]="dynamicForm.get('emails1').invalid && dynamicForm.get('emails1').touched"
                 rows="4" cols="120" name="email" formControlName="emails1" class="form-control"
                 placeholder="email@gmail.com,email2@gmail.com,..."></textarea>
-                      <div class="error" *ngIf="isControlInvalid('emails1')">
-                        Emails is invalid
-                      </div>
-                    </label>
-                  </td>
-                </tr>
-                <p>Please separate multiple addresses with commas</p>
-              </table>
-            </div>
+                  <div class="error" *ngIf="isControlInvalid('emails1')">
+                    Emails is invalid
+                  </div>
+                </label>
+              </td>
+            </tr>
+            <p>Please separate multiple addresses with commas</p>
             <div *ngIf="wrongEmailsForTextarea != null" class="errorMessage">{{errorWrongEmailsForTextarea}}</div>
             <div *ngIf="wrongEmailsForTextarea == null" class="successMessage">{{successfulMessageForTextarea}}</div>
           </div>
-          <div *ngIf="isShown">
+          <div class="styleForAllForms" *ngIf="isShownInputType">
             <tr>
               <th>Email Address</th>
               <th class="text-center"></th>
@@ -72,21 +68,43 @@
                     <button type="button" (click)="toggleShow()" type="checkbox" class="btn btn-default">
                       add many at once
                     </button>
+                    or
+                    <button type="button" (click)="toggleShow2()" type="checkbox" class="btn btn-default">
+                      select contacts from group
+                    </button>
                   </span>
             <div *ngIf="wrongEmailsForInputField != null" class="errorMessage">{{errorWrongEmailsForInputField}}</div>
             <div *ngIf="wrongEmailsForInputField == null"
                  class="successMessage">{{successfulMessageForInputField}}</div>
           </div>
+          <div class="styleForAllForms" *ngIf="isShownSelectContact">
+            <tr>
+              <th class="text-left">Select contacts</th>
+            </tr>
+            <ng-multiselect-dropdown
+              name="city"
+              [placeholder]="'Select Contact'"
+              [data]="emailsSelect"
+              formControlName="selectEmail"
+              class="form-control"
+              [disabled]="disabled"
+              [settings]="dropdownSettings"
+              (onSelect)="onItemSelect($event)">
+            </ng-multiselect-dropdown>
+          </div>
         </div>
         <div class="modal-footer">
-          <div *ngIf="!isShown">
+          <div *ngIf="isShownTextarea">
             <button class="btn btn-secondary mr-1" type="button" (click)="toggleShow()">Back</button>
+          </div>
+          <div *ngIf="isShownSelectContact">
+            <button class="btn btn-secondary mr-1" type="button" (click)="toggleShow3()">Back</button>
           </div>
           <div>
             <button class="btn btn-primary mr-1" [disabled]="dynamicForm.invalid" (click)="onSubmit()">Send E-mail
             </button>
           </div>
-          <div *ngIf="isShown">
+          <div *ngIf="isShownInputType">
             <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
           </div>
           <button class="btn btn-secondary mr-1" type="button" (click)="onClear()">Clear</button>
