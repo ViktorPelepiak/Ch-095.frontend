@@ -20,7 +20,7 @@ export class SurveyService {
 
   public getSurveys(params: HttpParams): Observable<Page<Survey>> {
     let headers = new HttpHeaders();
-    return this.http.get<Page<Survey>>(this.config.backBaseUrl + '/survey', {params, headers, withCredentials: true});
+    return this.http.get<Page<Survey>>(this.config.backBaseUrl + '/Gradle___softserve_academy___EventTable_1_0_SNAPSHOT_war/survey', {params, headers, withCredentials: true});
   }
 
   public surveyUpdateTitle(id: number, title: string) {
@@ -42,7 +42,7 @@ export class SurveyService {
     console.log(clearContacts)
     return this.http.post<Survey>(this.config.backBaseUrl + this.endPoint, {id, clearContacts:clearContacts});
   }
-  
+
     public saveEditedSurvey(editSurvey:EditSurvey): Observable<SaveSurvey>{
     return  this.http.post<EditSurvey>(this.config.backBaseUrl + '/survey/update/'+editSurvey.surveyId,editSurvey);
   }

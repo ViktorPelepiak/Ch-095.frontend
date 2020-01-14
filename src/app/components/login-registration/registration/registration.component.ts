@@ -92,6 +92,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/']);
         },
         error => {
+          this.toast.error(error.error);
           this.loading = false;
           this.router.navigate(['/']);
 
