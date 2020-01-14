@@ -36,6 +36,7 @@ import {SeparatelyStatisticComponent} from './components/statistic/separately-st
 import {FooterComponent} from './components/footer/footer.component';
 import {SocialComponent} from './pages/social/social.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { ContactsComponent } from './pages/contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     GeneralStatisticComponent,
     FooterComponent,
     SocialComponent,
+    ContactsComponent,
   ],
   imports: [
     BrowserModule,

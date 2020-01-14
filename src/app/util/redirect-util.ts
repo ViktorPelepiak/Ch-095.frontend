@@ -17,6 +17,13 @@ export class RedirectUtil {
     this.routeToLink(link,queryParams);
   }
 
+  public deleteParam2(name: string,name2: string, link: any[]): void {
+    let queryParams = JSON.parse(JSON.stringify(this.route.snapshot.queryParams));
+    delete queryParams[name];
+    delete queryParams[name2];
+    this.routeToLink(link,queryParams);
+  }
+
   public setParam2(key1: string, value1: string, key2: string, value2: string, link: any[]): void {
     let queryParams = JSON.parse(JSON.stringify(this.route.snapshot.queryParams));
     queryParams[key1] = value1;

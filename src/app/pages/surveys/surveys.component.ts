@@ -34,9 +34,11 @@ export class SurveysComponent implements OnInit {
     this.service.getSurveys(this.buildRequestParams())
       .toPromise()
       .then(e => {
-        this.surveys = e.items
-        this.pageable = e.pageable
-        if (this.surveys.length === 0){ this.previousPage() }
+        this.surveys = e.items;
+        this.pageable = e.pageable;
+        if (this.surveys.length === 0) {
+          this.previousPage()
+        }
       })
       .catch(e => {
         console.error(e)
@@ -61,14 +63,16 @@ export class SurveysComponent implements OnInit {
     this.service.cloneSurvey(this.tempSurvey, this.isClearContacts)
       .toPromise()
       .then(e => {
-        let newSurvey = JSON.parse(JSON.stringify( this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)]));
+        let newSurvey = JSON.parse(JSON.stringify(this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)]));
         newSurvey.id = e;
-        if (this.isClearContacts){
+        if (this.isClearContacts) {
           newSurvey.countContacts = 0
         }
         newSurvey.countAnswers = 0;
         this.surveys.push(newSurvey);
-        if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage){ ++this.pageable.lastPage }
+        if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage) {
+          ++this.pageable.lastPage
+        }
       })
       .catch(e => console.error(e));
   }
@@ -79,12 +83,13 @@ export class SurveysComponent implements OnInit {
       .then(e => {
         if (e === 'OK') {
           this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1)
-          if (this.surveys.length === 0){ this.previousPage() }
+          if (this.surveys.length === 0) {
+            this.previousPage()
+          }
         }
       })
       .catch(e => console.error(e));
   }
-
 
 
   changeTempSurvey(survey: Survey): void {
@@ -119,7 +124,7 @@ export class SurveysComponent implements OnInit {
   }
 
   refreshPageWithParam(key: string, value: any): void {
-    this.redirects.setParam(key, value,['surveys']);
+    this.redirects.setParam(key, value, ['surveys']);
   }
 
   private buildRequestParams(): HttpParams {
@@ -155,7 +160,7 @@ export class SurveysComponent implements OnInit {
     return params;
   }
 
-   private isStatusNull(): boolean {
+  private isStatusNull(): boolean {
     return this.route.snapshot.queryParamMap.get('status') == null;
   }
 

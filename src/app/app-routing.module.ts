@@ -12,6 +12,7 @@ import {FormConstructorComponent} from './pages/form-constructor/form-constructo
 import {LoginComponent} from './components/login-registration/login';
 import {RegisterComponent} from './components/login-registration/registration';
 import {ConfirmComponent} from './components/login-registration/confirm-account/confirm.component';
+import {ContactsComponent} from "./pages/contacts/contacts.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'logout', component: DashboardComponent},
   {path: 'confirm', component: ConfirmComponent},
+  {path: 'contacts', component: ContactsComponent},
   {path: 'surveys', component: SurveysComponent, canActivate: [AuthGuardService]},
   {path: 'sendForm', component: SendFormComponent, canActivate: [AuthGuardService]},
   {path: 'questions', component: QuestionsPageComponent},

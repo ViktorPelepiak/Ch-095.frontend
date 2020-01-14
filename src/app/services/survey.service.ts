@@ -19,8 +19,7 @@ export class SurveyService {
   }
 
   public getSurveys(params: HttpParams): Observable<Page<Survey>> {
-    let headers = new HttpHeaders();
-    return this.http.get<Page<Survey>>(this.config.backBaseUrl + '/survey', {params, headers, withCredentials: true});
+    return this.http.get<Page<Survey>>(this.config.backBaseUrl + this.endPoint, {params});
   }
 
   public surveyUpdateTitle(id: number, title: string) {
