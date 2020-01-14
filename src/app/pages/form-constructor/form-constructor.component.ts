@@ -54,6 +54,15 @@ export class FormConstructorComponent implements OnInit {
     this.questions.push(question);
   }
 
+
+  deleteQuestion(index:number){
+    this.questionCounter--;
+    this.questions.splice(index-1, 1);
+    for (let questionIndex = 0; questionIndex < this.questions.length; questionIndex++){
+      this.questions[questionIndex].index = questionIndex + 1;
+    }
+  }
+
   uploadSurveyPhoto(event) {
     this.surveyPhoto = event.target.files[0];
     this.surveyPhotoName = event.target.files[0].name;

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Question} from "../../models/question";
 import {SaveSurveyService} from "../../services/save-survey.service";
 
@@ -14,6 +14,12 @@ export class QuestionComponent implements OnInit {
   previewUrls: any[] = [];
   pictureValidation: string;
   static readonly MAX_UPLOAD_SIZE = 2 * 1024 * 1024;
+
+  @Output() deleteQuestion = new EventEmitter<number>();
+
+  deleteQuestionFromConstructor(index:number) {
+    this.deleteQuestion.next(index);
+  }
 
   constructor(private saveSurveyService: SaveSurveyService) {
     this.previewUrls.push(null);
@@ -37,7 +43,6 @@ export class QuestionComponent implements OnInit {
     this.question.choiceAnswers.splice(variantOfAnswerIndex, 1);
     if (this.question.choiceAnswers.length === 0) this.question.type = 'not set';
   }
-
   addAnswerVariant() {
     this.question.choiceAnswers.push(" ");
     this.isButtonDisable = true;
