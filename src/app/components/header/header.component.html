@@ -11,6 +11,9 @@
 <!--        <a *ngIf="!isLoggedIn" class="nav-link" href="/confirm">Confirm</a>-->
 <!--      </li>-->
       <li>
+        <a *ngIf="isLoggedIn" class="nav-link" [routerLink]="['/contacts']">Contacts</a>
+      </li>
+      <li>
         <a *ngIf="isLoggedIn" class="nav-link" href="/logout" (click)=handleLogout()>Logout</a>
       </li>
     </ul>

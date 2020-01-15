@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Page} from "../models/page";
 import {Contact} from "../models/contactTableCol";
+import {Item} from "../models/item";
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,15 @@ export class ContactsService {
     return this.http.get<Page<Contact>>(this.config.backBaseUrl + this.endPoint, {params});
   }
 
-  public createContact(name: string, email: string): Observable<number> {
-    console.log(name,email);
-    return this.http.post<number>(this.config.backBaseUrl + this.endPoint, {},{params: new HttpParams().append("name", name).append("email", email), responseType:"text"});
+  public createContact(name: string, email: string): Observable<Item<number>> {
+    return this.http.post<Item<number>>(this.config.backBaseUrl + this.endPoint, {id:null,name,email});
+  }
+  public updateContact(id:number, name: string, email: string): Observable<Object> {
+    return this.http.put<Object>(this.config.backBaseUrl + this.endPoint, {id,name,email});
+  }
+
+  public deleteContact(id:number): Observable<Object> {
+    return this.http.delete<Object>(this.config.backBaseUrl + this.endPoint, {params: new HttpParams().append("id",id + '')});
   }
 
 }

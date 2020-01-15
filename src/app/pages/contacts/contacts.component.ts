@@ -19,15 +19,19 @@ export class ContactsComponent implements OnInit {
 
   tableHead: ContactTableCol[];
   items: Contact[];
-  tempItemId: number;
+  tempItemId: number = -1;
   private redirects: RedirectUtil;
   nameForm = new FormControl('');
   emailForm = new FormControl('');
+  filterForm = new FormControl('');
 
   pageable: Pageable;
 
   constructor(private service: ContactsService, private router: Router, private route: ActivatedRoute) {
     this.redirects = new RedirectUtil(router, route);
+    if (this.route.snapshot.queryParamMap.has("filter")){
+      this.filterForm.setValue(this.route.snapshot.queryParamMap.get("filter"))
+    }
   }
 
   ngOnInit() {
@@ -57,10 +61,18 @@ export class ContactsComponent implements OnInit {
     this.service.createContact(this.nameForm.value, this.emailForm.value)
       .toPromise()
       .then(e => {
-        this.items.push({email: this.emailForm.value, id: e, name: this.nameForm.value});
+        this.items.push({email: this.emailForm.value, id: e.item, name: this.nameForm.value});
         this.nameForm = new FormControl('');
         this.emailForm = new FormControl('');
       })
+  }
+
+  filter(){
+    this.redirects.setParam("filter", this.filterForm.value, ['contacts']);
+  }
+
+  clearFilter(){
+    this.redirects.deleteParam("filter",['contacts']);
   }
 
   /*todo change logic to pageable*/
@@ -84,6 +96,27 @@ export class ContactsComponent implements OnInit {
     }
     this.redirects.setParam2("sort", contact.field, "direction", contact.direction, ['contacts']);
     this.getContacts()
+  }
+
+  update() {
+    let name = this.nameForm.value;
+    let email = this.emailForm.value;
+    this.service.updateContact(this.tempItemId,name,email)
+      .toPromise()
+      .then(e => {
+        let item = this.items[this.items.findIndex(e => e.id === this.tempItemId)];
+        item.name = name;
+        item.email = email;
+      })
+      .catch(console.log)
+  }
+
+  delete(){
+    this.service.deleteContact(this.tempItemId)
+      .toPromise()
+      .then(e => {
+        this.items.splice(this.items.findIndex(e => e.id === this.tempItemId),1);
+      })
   }
 
   isDirectionAsc(contact: ContactTableCol): boolean {
@@ -120,8 +153,27 @@ export class ContactsComponent implements OnInit {
     return pages;
   }
 
-  private changeTempItem(item: Contact) {
+  private openEdit(item: Contact) {
+    this.nameForm = new FormControl(item.name);
+    this.emailForm = new FormControl(item.email);
+    this.changeTempItemId(item);
+  }
+
+  private getContact() {
+    return this.getTempItem().name === null ?
+      this.getTempItem().email.toUpperCase() :
+      this.getTempItem().name.toUpperCase()
+  }
+
+  private changeTempItemId(item: Contact) {
     this.tempItemId = item.id;
+  }
+
+  private getTempItem():Contact {
+    if (!this.items) return {email: "empty", id: -1, name:'empty'};
+    let index = this.items.findIndex(e => e.id === this.tempItemId);
+    if (index === -1) return {email: "empty", id: -1, name:'empty'};
+    return this.items[this.items.findIndex(e => e.id === this.tempItemId)];
   }
 
   private itemNumber(index: number) {

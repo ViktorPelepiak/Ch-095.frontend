@@ -22,7 +22,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
          catchError((err: any) => {
            if(err instanceof HttpErrorResponse) {
             try {
-              this.toast.error(`${err.error.message}`);
+              this.toast.error(`${err.error}`);
              } catch(e) {
                this.toast.error('An error occurred');
              }

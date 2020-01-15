@@ -17,14 +17,32 @@
 }
 
 .table-top {
-  background: #4b5366;
-  border: 1px solid #4b5366;
+  background: #343a40;
+  border: 1px solid #343a40;
   border-radius: 2px;
 }
 
 .icon--right {
   align-self: center;
   text-align: right;
+}
+
+.icon--button{
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.text-warning{
+  color:#ffc107!important
+}
+
+.icon--button:hover {
+  opacity: 0.7;
 }
 
 .page-link {
