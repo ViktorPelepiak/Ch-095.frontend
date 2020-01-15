@@ -123,6 +123,12 @@ select.form-control:focus {
   transition: .4s;
 }
 
+#deleteQuestion{
+  position: relative;
+  margin-top: 2%;
+  margin-left: 75%;
+}
+
 input:checked + .slider {
   background-color: #2196F3;
 }
