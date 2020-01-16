@@ -61,7 +61,7 @@
     <div *ngIf="question.type === 'RADIO_PICTURE'" class="answer">
       <p *ngFor="let answer of question.choiceAnswers; index as i">
         <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
-        <img [src]="previewUrls[i]" style="max-width:300px;width:auto;max-height: 300px;height:auto">
+        <img *ngIf="previewUrls[i]"  [src]="previewUrls[i]" style="max-width:300px;width:auto;max-height: 300px;height:auto">
         <input type="file" id="fileRadio" (change)="uploadPhoto($event,i)" style="color:transparent; width: 100px" />
         <button type="button"  class="deleteVariant" (click)="deletePhoto(i)">x</button>
       </p>
@@ -75,7 +75,7 @@
      <div *ngIf="question.type === 'CHECKBOX_PICTURE'" class="answer">
       <p *ngFor="let answer of question.choiceAnswers; index as i">
         <img src="https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png">
-        <img [src]="previewUrls[i]"   style="max-width:300px;width:auto;max-height: 300px;height:auto">
+        <img *ngIf="previewUrls[i]" [src]="previewUrls[i]"   style="max-width:300px;width:auto;max-height: 300px;height:auto">
         <input type="file" id="fileCheckbox" (change)="uploadPhoto($event,i)" style="color:transparent; width: 100px" />
         <button type="button"  class="deleteVariant" (click)="deletePhoto(i)">x</button>
       </p>

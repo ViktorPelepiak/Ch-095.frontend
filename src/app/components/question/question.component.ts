@@ -30,7 +30,7 @@ export class QuestionComponent implements OnInit {
      for(let i = 0; i < this.question.uploadingPhotos.length;i++){
        this.previewUrls[i] = 'data:image/png;base64,' + this.question.uploadingPhotos[i];
      }
-     console.log(this.question.uploadingPhotos);
+     this.isButtonDisable = false;
   }
 
   setType(event: any) {

@@ -23,7 +23,8 @@ export class FormConstructorComponent implements OnInit {
   surveyPhotoName: string;
   errorValidation: string;
 
-  constructor(private surveyService: SurveyService, private saveSurveyService: SaveSurveyService, private router: Router, private route: ActivatedRoute) {
+  constructor(private surveyService: SurveyService, private saveSurveyService: SaveSurveyService,
+              private router: Router, private route: ActivatedRoute) {
     this.surveyName = '';
     this.questionCounter = 0;
     this.questions = [];

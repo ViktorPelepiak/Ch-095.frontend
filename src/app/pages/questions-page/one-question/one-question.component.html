@@ -43,22 +43,20 @@
   <div class="answer" *ngIf="oneQuestion.type === 'CHECKBOX_PICTURE'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
-      <input formControlName="answers"type="hidden" value="{{oneQuestion.id}}"/>
     </h4>
-    <p *ngFor="let answer of oneQuestion.choiceAnswers">
+    <p *ngFor="let answer of oneQuestion.choiceAnswers; index as i">
       <input type="checkbox" [value]="answer" (change)="onCheckChange($event)">
-      <img style="max-width: 200px; height: auto;" src="{{answer}}" alt="">
+      <img [src]="previewUrls[i]" style="max-width:300px;width:auto;max-height: 300px;height:auto" alt="">
     </p>
   </div>
 
   <div [formGroup]="oneQuestionGroup" class="answer" *ngIf="oneQuestion.type === 'RADIO_PICTURE'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
-      <input formControlName="questionId" type="hidden" ngModel="{{oneQuestion.id}}" value="{{oneQuestion.id}}"/>
     </h4>
-    <p *ngFor="let answer of oneQuestion.choiceAnswers">
+    <p *ngFor="let answer of oneQuestion.choiceAnswers; index as i">
       <input formControlName="answers" type="radio" ngModel="{{answer}}" value="{{answer}}">
-      <img style="max-width: 200px; height: auto;" src="{{answer}}" alt="">
+      <img [src]="previewUrls[i]" style="max-width:300px;width:auto;max-height: 300px;height:auto" alt="">
     </p>
   </div>
 </div>
