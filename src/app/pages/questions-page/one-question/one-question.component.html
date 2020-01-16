@@ -43,6 +43,7 @@
   <div class="answer" *ngIf="oneQuestion.type === 'CHECKBOX_PICTURE'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
+      <input formControlName="answers" type="hidden" />
     </h4>
     <p *ngFor="let answer of oneQuestion.choiceAnswers; index as i">
       <input type="checkbox" [value]="answer" (change)="onCheckChange($event)">
@@ -53,6 +54,7 @@
   <div [formGroup]="oneQuestionGroup" class="answer" *ngIf="oneQuestion.type === 'RADIO_PICTURE'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
+      <input formControlName="questionId" type="hidden" ngModel="{{oneQuestion.id}}" value="{{oneQuestion.id}}"/>
     </h4>
     <p *ngFor="let answer of oneQuestion.choiceAnswers; index as i">
       <input formControlName="answers" type="radio" ngModel="{{answer}}" value="{{answer}}">
