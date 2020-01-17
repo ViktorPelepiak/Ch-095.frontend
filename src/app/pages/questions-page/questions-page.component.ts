@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionsFormService} from '../../services/questions-form.service';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-questions-page',
@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 
 export class QuestionsPageComponent implements OnInit {
 
-  constructor(private questionsFormService: QuestionsFormService, private router: Router) {}
+  constructor(private questionsFormService: QuestionsFormService, private router: Router, private route: ActivatedRoute) {}
   quest: [];
   surveyId;
   contactEmail;
@@ -21,19 +21,36 @@ export class QuestionsPageComponent implements OnInit {
     answers: new FormArray([])
   });
   submitted = false;
+  token;
 
-  getQuestions() {
-    this.questionsFormService.getSurvey()
-    .toPromise()
-    .then((data: any) => {
-      this.contactEmail = data.contactEmail;
-      this.surveyId = data.surveyId;
-      this.quest = data.questions;
-      this.quest.forEach(item => {
-        // @ts-ignore
-        item.choiceAnswers = (item.choiceAnswers.length > 0) ? JSON.parse(item.choiceAnswers) : [];
-      });
-    });
+  getQuestions(token: string) {
+    if (this.surveyId===undefined){
+      this.questionsFormService.getCommonSurvey(token)
+        .toPromise()
+        .then((data: any) => {
+          this.contactEmail = data.contactEmail;
+          this.surveyId = data.surveyId;
+          this.quest = data.questions;
+          this.quest.forEach(item => {
+            // @ts-ignore
+            item.choiceAnswers = (item.choiceAnswers.length > 0) ? JSON.parse(item.choiceAnswers) : [];
+          });
+        });
+    } else {
+      this.questionsFormService.getSurvey()
+        .toPromise()
+        .then((data: any) => {
+          this.contactEmail = data.contactEmail;
+          this.surveyId = data.surveyId;
+          this.quest = data.questions;
+          this.quest.forEach(item => {
+            // @ts-ignore
+            item.choiceAnswers = (item.choiceAnswers.length > 0) ? JSON.parse(item.choiceAnswers) : [];
+          });
+        });
+    }
+
+
   }
 
   onSubmit() {
@@ -48,6 +65,8 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getQuestions();
+
+    this.token = this.route.snapshot.paramMap.get('token');
+    this.getQuestions(this.token);
   }
 }
