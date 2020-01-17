@@ -38,6 +38,9 @@ export class SendFormComponent implements OnInit {
   wrongEmailsForTextarea: string = null;
   errorWrongEmailsForTextarea: string = null;
   successfulMessageForTextarea: string = null;
+  wrongEmailsForSelected: string = null;
+  errorWrongEmailsForSelected: string = null;
+  successfulMessageForSelected: string = null;
   dynamicForm: FormGroup;
   submitted = false;
   icons = {faPlus, faPlusCircle};
@@ -169,34 +172,38 @@ export class SendFormComponent implements OnInit {
       const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), this.surveyId);
       console.log(email);
       this.emailService.postEmailArray(email).toPromise().then(data => {
-        console.error("data", data);
+        console.error("data ", data);
         this.wrongEmailsForInputField = null;
         this.successfulMessageForInputField = "these emails were successfully sent";
       }).catch(e => {
-          console.error("error" + e.error);
+          console.error("error " + e.error);
           this.wrongEmailsForInputField = e.error;
-          this.errorWrongEmailsForInputField = "these emails are wrong : " + this.wrongEmailsForInputField;
+          this.errorWrongEmailsForInputField = "" + this.wrongEmailsForInputField;
         }
       );
     } else if (this.isShownTextarea) {
       const email = new Email(this.dynamicForm.value.emails1.replace(" ", "").split(","), this.surveyId);
       this.emailService.postEmailArray(email).toPromise().then(data => {
-        console.error("emails", data);
+        console.error("emails ", data);
         this.wrongEmailsForTextarea = null;
         this.successfulMessageForTextarea = "these emails were successfully sent";
       }).catch(e => {
-          console.error("error" + e.error);
+          console.error("error " + e.error);
           this.wrongEmailsForTextarea = e.error;
-          this.errorWrongEmailsForTextarea = "these emails are wrong : " + this.wrongEmailsForTextarea;
+          this.errorWrongEmailsForTextarea = "" + this.wrongEmailsForTextarea;
         }
       );
     } else {
       const email = new Email(this.dynamicForm.value.selectEmail.map(e => e.contact), this.surveyId);
       console.log(email);
       this.emailService.postSelectedEmail(email).toPromise().then(data => {
-        console.error("emailsSelect", data);
+        console.error("emailsSelect ", data);
+        this.wrongEmailsForSelected = null;
+        this.successfulMessageForSelected = "these emails were successfully sent";
       }).catch(e => {
-          console.error("error" + e.error);
+          console.error("error " + e.error);
+        this.wrongEmailsForSelected = e.error;
+        this.errorWrongEmailsForSelected = "" + this.wrongEmailsForSelected;
         }
       );
     }

@@ -29,6 +29,6 @@ export class EmailService {
   }
 
   public getContacts(): Observable<string[]> {
-    return this.http.get<string[]>(this.config.backBaseUrl + '/contacts?surveyId=' + this.surveyId);
+    return this.http.get<string[]>(this.config.backBaseUrl + '/availableContacts?surveyId=' + this.surveyId);
   }
 }

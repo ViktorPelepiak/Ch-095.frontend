@@ -91,6 +91,10 @@
               [settings]="dropdownSettings"
               (onSelect)="onItemSelect($event)">
             </ng-multiselect-dropdown>
+            <div *ngIf="wrongEmailsForSelected != null" class="errorMessage">{{errorWrongEmailsForSelected}}</div>
+            <div *ngIf="wrongEmailsForSelected == null"
+                 class="successMessage">{{successfulMessageForSelected}}
+            </div>
           </div>
         </div>
         <div class="modal-footer">
