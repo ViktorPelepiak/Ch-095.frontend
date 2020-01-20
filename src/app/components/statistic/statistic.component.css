@@ -46,3 +46,6 @@ hr{
 #separatelyStatistic{
   background: inherit;
 }
+#center_panel{
+  min-height: 500px;
+}
