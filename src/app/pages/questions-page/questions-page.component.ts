@@ -24,7 +24,8 @@ export class QuestionsPageComponent implements OnInit {
   token;
 
   getQuestions(token: string) {
-    if (this.surveyId===undefined){
+    localStorage.setItem("survey_id", this.surveyId);
+    if (this.token){
       this.questionsFormService.getCommonSurvey(token)
         .toPromise()
         .then((data: any) => {
