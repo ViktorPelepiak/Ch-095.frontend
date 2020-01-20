@@ -57,12 +57,23 @@ export class QuestionComponent implements OnInit {
 
   uploadPhoto(event, index) {
     if (this.isValidPhoto(event.target.files[0])) {
-      this.question.uploadingPhotos[index] = event.target.files[0];
-      this.question.choiceAnswers[index] = event.target.files[0].name;
+      let uploadFile = event.target.files[0];
+      let blob = uploadFile.slice(0, uploadFile.size, 'image/png');
+      let file = new File([blob],  this.generateRandomNameForPhoto() + event.target.files[0].name, {type: 'image/png'});
+      this.question.uploadingPhotos[index] = file;
+      this.question.choiceAnswers[index] = file.name;
       this.isButtonDisable = false;
       this.preview(index);
     }
   }
+
+  private generateRandomNameForPhoto() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
 
   private isValidPhoto(file: any) {
     this.photoValidation = '';

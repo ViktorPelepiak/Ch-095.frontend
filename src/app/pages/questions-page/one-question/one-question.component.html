@@ -40,7 +40,7 @@
     </p>
   </div>
 
-  <div class="answer" *ngIf="oneQuestion.type === 'CHECKBOX_PICTURE'">
+  <div [formGroup]="oneQuestionGroup" class="answer" *ngIf="oneQuestion.type === 'CHECKBOX_PICTURE'">
     <h4 class="font-weight-bold">
       {{oneQuestion.index + ". " + oneQuestion.value}}
       <input formControlName="answers" type="hidden" />

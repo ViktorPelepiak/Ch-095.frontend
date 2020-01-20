@@ -20,6 +20,7 @@ export class FormConstructorComponent implements OnInit {
   questions: Question[];
   uploadingPhoto: any;
   surveyPhoto: File;
+  surveyType: string;
   surveyPhotoName: string;
   errorValidation: string;
 
@@ -41,19 +42,40 @@ export class FormConstructorComponent implements OnInit {
           this.questions = data.questions;
           console.log(this.questions);
           this.surveyName = data.title;
+          // this.surveyType = data.surveyType;
           this.surveyPhotoName = data.surveyPhotoName;
           this.questionCounter = data.questions.length;
         });
     }
   }
 
-  deleteQuestion(index:number){
+
+  deleteQuestion(index: number) {
     this.questionCounter--;
-    this.questions.splice(index-1, 1);
-    for (let questionIndex = 0; questionIndex < this.questions.length; questionIndex++){
+    this.questions.splice(index - 1, 1);
+    for (let questionIndex = 0; questionIndex < this.questions.length; questionIndex++) {
       this.questions[questionIndex].index = questionIndex + 1;
     }
   }
+
+  setSurveyType(event: any) {
+    this.surveyType = event.target.value;
+    this.addRequiredQuestionForCommonSurvey();
+  }
+
+  addRequiredQuestionForCommonSurvey(){
+    let question = new Question();
+    question.index = 0;
+    question.question = '';
+    question.type = "TEXTBOX";
+    question.choiceAnswers = [];
+    question.required = false;
+    if(this.questions.length > 0){
+      this.questionCounter = this.questionCounter + 1;
+    }
+    this.questions.unshift(question);
+  }
+
 
   addNewQuestion() {
     this.questionCounter = this.questionCounter + 1;
@@ -154,7 +176,7 @@ export class FormConstructorComponent implements OnInit {
         isValidSurvey = false;
       }
     }
-    if(atLeastOneQuestionAbsent) this.errorValidation += ". ";
+    if (atLeastOneQuestionAbsent) this.errorValidation += ". ";
     return isValidSurvey;
   }
 
