@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {faArrowDown, faArrowUp, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faArrowDown, faArrowUp, faEdit, faTrash, faFileUpload, faFileDownload} from '@fortawesome/free-solid-svg-icons';
 import {Pageable} from "../../models/pageable";
 import {Contact, ContactTableCol, Direction} from "../../models/contactTableCol";
 import {ContactsService} from "../../services/contacts.service";
@@ -15,7 +15,7 @@ import {FormControl} from "@angular/forms";
 })
 export class ContactsComponent implements OnInit {
 
-  icons = {faArrowUp, faArrowDown, faEdit, faTrash};
+  icons = {faArrowUp, faArrowDown, faEdit, faTrash, faFileUpload, faFileDownload};
 
   tableHead: ContactTableCol[];
   items: Contact[];
@@ -65,6 +65,15 @@ export class ContactsComponent implements OnInit {
         this.nameForm = new FormControl('');
         this.emailForm = new FormControl('');
       })
+  }
+
+  importFromCsv(event) {
+    this.service.importFromCsv(event.target.files[0])
+      .toPromise()
+      .then(e => {
+        console.log("Already used emails : ",e)
+      })
+      .catch(console.log)
   }
 
   filter(){

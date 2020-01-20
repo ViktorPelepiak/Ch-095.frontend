@@ -22,14 +22,21 @@ export class ContactsService {
   }
 
   public createContact(name: string, email: string): Observable<Item<number>> {
-    return this.http.post<Item<number>>(this.config.backBaseUrl + this.endPoint, {id:null,name,email});
-  }
-  public updateContact(id:number, name: string, email: string): Observable<Object> {
-    return this.http.put<Object>(this.config.backBaseUrl + this.endPoint, {id,name,email});
+    return this.http.post<Item<number>>(this.config.backBaseUrl + this.endPoint, {id: null, name, email});
   }
 
-  public deleteContact(id:number): Observable<Object> {
-    return this.http.delete<Object>(this.config.backBaseUrl + this.endPoint, {params: new HttpParams().append("id",id + '')});
+  public importFromCsv(file: File): Observable<Item<Array<String>>> {
+    let formData = new FormData();
+    formData.set("file",file);
+    return this.http.post<Item<Array<String>>>(this.config.backBaseUrl + this.endPoint + "/import/scv", formData);
+  }
+
+  public updateContact(id: number, name: string, email: string): Observable<Object> {
+    return this.http.put<Object>(this.config.backBaseUrl + this.endPoint, {id, name, email});
+  }
+
+  public deleteContact(id: number): Observable<Object> {
+    return this.http.delete<Object>(this.config.backBaseUrl + this.endPoint, {params: new HttpParams().append("id", id + '')});
   }
 
 }

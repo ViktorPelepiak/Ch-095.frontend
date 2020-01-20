@@ -88,6 +88,13 @@
         <input type="text" class="form-control" id="email" [formControl]="emailForm">
       </div>
       <div class="modal-footer">
+        <label for="file-input">
+          <fa-icon [icon]="icons.faFileUpload"></fa-icon>
+        </label>
+        <input id="file-input" type="file" (change)="importFromCsv($event)"/>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          <fa-icon [icon]="icons.faFileDownload"></fa-icon>
+        </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary" (click)="createContact()"
                 data-dismiss="modal">Confirm
