@@ -4,9 +4,7 @@ import {EmailService} from "../../services/send-email.service";
 import {Email} from "../../models/email";
 import {ActivatedRoute} from "@angular/router";
 import {faPlus, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
-import {Observable} from "rxjs";
-import {Question} from "../../models/question";
-import {Contact} from "../../models/EditSurvey";
+import {Contact} from "../../models/email";
 
 
 @Component({
@@ -20,12 +18,8 @@ export class SendFormComponent implements OnInit {
   disabled = false;
   ShowFilter = false;
   emailsSelect: any = [];
-  selectedItems: any = [];
   dropdownSettings: any = {};
   allContacts: string[];
-  // allContact2 : Contact[] = [];
-  // sendedContact : Contact[] = [];
-
   isShownInputType: boolean = true;
   isShownTextarea: boolean = false;
   isShownSelectContact: boolean = false;
@@ -77,7 +71,7 @@ export class SendFormComponent implements OnInit {
       });
     } else {
       this.dynamicForm = this.formBuilder.group({
-        selectEmail: new FormControl([this.selectedItems])
+        selectEmail: new FormControl([/*this.selectedItems*/])
       });
       this.emailsSelect = contactsForDropdown;
       this.dropdownSettings = {
@@ -86,7 +80,7 @@ export class SendFormComponent implements OnInit {
         textField: 'contact',
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
-        itemsShowLimit: 20,
+        itemsShowLimit: 100,
         allowSearchFilter: this.ShowFilter
       };
     }
@@ -95,7 +89,6 @@ export class SendFormComponent implements OnInit {
   getContacts() {
     this.emailService
       .getContacts().subscribe(data => {
-      //console.log("data", data);
       this.allContacts = data;
       return this.allContacts;
     })
@@ -103,7 +96,6 @@ export class SendFormComponent implements OnInit {
 
   ngOnInit() {
     this.getContacts();
-    //console.log("onInit", this.allContacts);
     this.changeForm();
   }
 
@@ -196,7 +188,7 @@ export class SendFormComponent implements OnInit {
     } else {
       const email = new Email(this.dynamicForm.value.selectEmail.map(e => e.contact), this.surveyId);
       console.log(email);
-      this.emailService.postSelectedEmail(email).toPromise().then(data => {
+      this.emailService.postEmailArray(email).toPromise().then(data => {
         console.error("emailsSelect ", data);
         this.wrongEmailsForSelected = null;
         this.successfulMessageForSelected = "these emails were successfully sent";
@@ -228,7 +220,13 @@ export class SendFormComponent implements OnInit {
     this.errorWrongEmailsForInputField = "";
     this.successfulMessageForInputField = "";
     this.dynamicForm.reset();
-    this.t.clear();
+    if (this.t.length > 1) {
+      this.t.clear();
+      this.t.push(this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]]
+      }));
+      this.isShownRemoveSign = false;
+    }
   }
 
   onClear() {

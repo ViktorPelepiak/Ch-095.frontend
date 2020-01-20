@@ -6,8 +6,3 @@ export class EditSurvey {
   surveyPhotoName:string;
   questions:Question[];
 }
-
-export class Contact {
-  contact_id:number;
-  contact: string;
-}

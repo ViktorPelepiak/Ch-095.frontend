@@ -36,7 +36,6 @@ import {SeparatelyStatisticComponent} from './components/statistic/separately-st
 import {FooterComponent} from './components/footer/footer.component';
 import {SocialComponent} from './pages/social/social.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {NgSelectModule} from "@ng-select/ng-select";
 import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
 
 @NgModule({
@@ -71,7 +70,6 @@ import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-   // NgSelectModule,
     NgMultiSelectDropDownModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot({

@@ -82,7 +82,6 @@
               <th class="text-left">Select contacts</th>
             </tr>
             <ng-multiselect-dropdown
-              name="city"
               [placeholder]="'Select Contact'"
               [data]="emailsSelect"
               formControlName="selectEmail"
@@ -111,7 +110,9 @@
           <div *ngIf="isShownInputType">
             <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
           </div>
+          <div *ngIf="!isShownSelectContact">
           <button class="btn btn-secondary mr-1" type="button" (click)="onClear()">Clear</button>
+          </div>
         </div>
       </div>
     </div>
