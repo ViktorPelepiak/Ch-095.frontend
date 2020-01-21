@@ -86,7 +86,6 @@
               [data]="emailsSelect"
               formControlName="selectEmail"
               class="form-control"
-              [disabled]="disabled"
               [settings]="dropdownSettings"
               (onSelect)="onItemSelect($event)">
             </ng-multiselect-dropdown>
@@ -111,7 +110,7 @@
             <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
           </div>
           <div *ngIf="!isShownSelectContact">
-          <button class="btn btn-secondary mr-1" type="button" (click)="onClear()">Clear</button>
+            <button class="btn btn-secondary mr-1" type="button" (click)="onClear()">Clear</button>
           </div>
         </div>
       </div>

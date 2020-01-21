@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {EmailService} from "../../services/send-email.service";
-import {Email} from "../../models/email";
+import {Contact, Email} from "../../models/email";
 import {ActivatedRoute} from "@angular/router";
 import {faPlus, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
-import {Contact} from "../../models/email";
 
 
 @Component({
@@ -14,8 +13,6 @@ import {Contact} from "../../models/email";
 })
 export class SendFormComponent implements OnInit {
 
-
-  disabled = false;
   ShowFilter = false;
   emailsSelect: any = [];
   dropdownSettings: any = {};
@@ -39,12 +36,10 @@ export class SendFormComponent implements OnInit {
   submitted = false;
   icons = {faPlus, faPlusCircle};
 
-
   constructor(private emailService: EmailService,
               private formBuilder: FormBuilder,
               private route: ActivatedRoute) {
   }
-
 
   changeForm() {
     let contactsForDropdown: Contact [] = [];
@@ -71,7 +66,7 @@ export class SendFormComponent implements OnInit {
       });
     } else {
       this.dynamicForm = this.formBuilder.group({
-        selectEmail: new FormControl([/*this.selectedItems*/])
+        selectEmail: new FormControl([/*contactsForDropdown[0]*/])
       });
       this.emailsSelect = contactsForDropdown;
       this.dropdownSettings = {
@@ -101,10 +96,6 @@ export class SendFormComponent implements OnInit {
 
   onItemSelect(item: any) {
     console.log('onItemSelect', item);
-  }
-
-  onSelectAll(items: any) {
-    console.log('onSelectAll', items);
   }
 
   get f() {
@@ -187,15 +178,14 @@ export class SendFormComponent implements OnInit {
       );
     } else {
       const email = new Email(this.dynamicForm.value.selectEmail.map(e => e.contact), this.surveyId);
-      console.log(email);
       this.emailService.postEmailArray(email).toPromise().then(data => {
         console.error("emailsSelect ", data);
         this.wrongEmailsForSelected = null;
         this.successfulMessageForSelected = "these emails were successfully sent";
       }).catch(e => {
           console.error("error " + e.error);
-        this.wrongEmailsForSelected = e.error;
-        this.errorWrongEmailsForSelected = "" + this.wrongEmailsForSelected;
+          this.wrongEmailsForSelected = e.error;
+          this.errorWrongEmailsForSelected = "" + this.wrongEmailsForSelected;
         }
       );
     }
@@ -209,6 +199,10 @@ export class SendFormComponent implements OnInit {
       }
     } else if (this.isShownTextarea) {
       if (this.dynamicForm.invalid) {
+        return;
+      }
+    } else if (this.isShownSelectContact) {
+      if (this.dynamicForm.value.selectEmail.map(e => e.contact) == 0) {
         return;
       }
     }
@@ -237,5 +231,4 @@ export class SendFormComponent implements OnInit {
     this.successfulMessageForTextarea = "";
     this.t.reset();
   }
-
 }
