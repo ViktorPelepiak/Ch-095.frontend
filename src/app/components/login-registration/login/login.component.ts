@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
         }
       })
       .catch(email => {
-        console.log("Unauthorize");
         console.log(email);
       });
 
