@@ -3,43 +3,46 @@ import {Survey} from '../../models/survey';
 import {SurveyService} from '../../services/survey.service';
 import {Pageable} from '../../models/pageable';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {FormControl} from "@angular/forms";
-import {RedirectUtil} from "../../util/redirect-util";
-import {HttpParams} from "@angular/common/http";
+import {FormControl} from '@angular/forms';
+import {RedirectUtil} from '../../util/redirect-util';
+import {HttpParams} from '@angular/common/http';
+import {ModalContactsComponent} from './modal-contacts/modal-contacts.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-surveys',
   templateUrl: './surveys.component.html',
-  styleUrls: ['./surveys.component.css']
+  styleUrls: ['./surveys.component.css'],
 })
 export class SurveysComponent implements OnInit {
 
   surveys: Survey[];
   tempSurvey: number;
-  isClearContacts: boolean = false;
+  isClearContacts = false;
   pageable: Pageable;
   title = new FormControl('');
   private redirects: RedirectUtil;
 
-  constructor(private service: SurveyService, private router: Router, private route: ActivatedRoute) {
+  constructor(private service: SurveyService, private router: Router,
+              private route: ActivatedRoute, private modalService: NgbModal) {
     this.tempSurvey = 0;
     this.redirects = new RedirectUtil(router, route);
   }
 
   ngOnInit() {
-    this.getSurveys()
+    this.getSurveys();
   }
 
   getSurveys() {
     this.service.getSurveys(this.buildRequestParams())
       .toPromise()
       .then(e => {
-        this.surveys = e.items
-        this.pageable = e.pageable
-        if (this.surveys.length === 0){ this.previousPage() }
+        this.surveys = e.items;
+        this.pageable = e.pageable;
+        if (this.surveys.length === 0) { this.previousPage(); }
       })
       .catch(e => {
-        console.error(e)
+        console.error(e);
       });
   }
 
@@ -61,14 +64,14 @@ export class SurveysComponent implements OnInit {
     this.service.cloneSurvey(this.tempSurvey, this.isClearContacts)
       .toPromise()
       .then(e => {
-        let newSurvey = JSON.parse(JSON.stringify( this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)]));
+        const newSurvey = JSON.parse(JSON.stringify( this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)]));
         newSurvey.id = e;
-        if (this.isClearContacts){
-          newSurvey.countContacts = 0
+        if (this.isClearContacts) {
+          newSurvey.countContacts = 0;
         }
         newSurvey.countAnswers = 0;
         this.surveys.push(newSurvey);
-        if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage){ ++this.pageable.lastPage }
+        if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage) { ++this.pageable.lastPage; }
       })
       .catch(e => console.error(e));
   }
@@ -78,14 +81,19 @@ export class SurveysComponent implements OnInit {
       .toPromise()
       .then(e => {
         if (e === 'OK') {
-          this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1)
-          if (this.surveys.length === 0){ this.previousPage() }
+          this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1);
+          if (this.surveys.length === 0) { this.previousPage(); }
         }
       })
       .catch(e => console.error(e));
   }
 
-
+  showContacts(surveyId) {
+    const modalRef = this.modalService.open(ModalContactsComponent);
+    this.service.getContacts(surveyId).toPromise().then(value => {
+      modalRef.componentInstance.contacts = value;
+    });
+  }
 
   changeTempSurvey(survey: Survey): void {
     this.tempSurvey = survey.id;
@@ -93,7 +101,7 @@ export class SurveysComponent implements OnInit {
   }
 
   private buildPages(): number[] {
-    let pages = [];
+    const pages = [];
     for (let i = 1; i <= this.pageable.lastPage; i++) {
       pages.push(i);
     }
@@ -119,16 +127,16 @@ export class SurveysComponent implements OnInit {
   }
 
   refreshPageWithParam(key: string, value: any): void {
-    this.redirects.setParam(key, value,['surveys']);
+    this.redirects.setParam(key, value, ['surveys']);
   }
 
   private buildRequestParams(): HttpParams {
     let params = new HttpParams();
-    let currentPage = Number(this.route.snapshot.queryParamMap.get('page'));
-    let size = +this.route.snapshot.queryParamMap.get('size');
-    let direction = this.route.snapshot.queryParamMap.get('direction');
-    let sort = this.route.snapshot.queryParamMap.get('sort');
-    let status = this.route.snapshot.queryParamMap.get('status');
+    const currentPage = Number(this.route.snapshot.queryParamMap.get('page'));
+    const size = +this.route.snapshot.queryParamMap.get('size');
+    const direction = this.route.snapshot.queryParamMap.get('direction');
+    const sort = this.route.snapshot.queryParamMap.get('sort');
+    const status = this.route.snapshot.queryParamMap.get('status');
     if (currentPage !== null && currentPage > 0) {
       params = params.append('currentPage', String(currentPage - 1));
     } else {
@@ -147,7 +155,7 @@ export class SurveysComponent implements OnInit {
     if (sort !== null) {
       params = params.append('sort', sort);
     } else {
-      params = params.append('sort', "creationDate");
+      params = params.append('sort', 'creationDate');
     }
     if (status !== null) {
       params = params.append('status', status);
@@ -155,7 +163,7 @@ export class SurveysComponent implements OnInit {
     return params;
   }
 
-   private isStatusNull(): boolean {
+  private isStatusNull(): boolean {
     return this.route.snapshot.queryParamMap.get('status') == null;
   }
 

@@ -36,6 +36,9 @@ import {SeparatelyStatisticComponent} from './components/statistic/separately-st
 import {FooterComponent} from './components/footer/footer.component';
 import {SocialComponent} from './pages/social/social.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { ModalContactsComponent } from './pages/surveys/modal-contacts/modal-contacts.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -62,8 +65,10 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     GeneralStatisticComponent,
     FooterComponent,
     SocialComponent,
+    ModalContactsComponent,
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -77,13 +82,17 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     }),
     NgxSkltnModule.forRoot(),
     ChartsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ScrollingModule,
   ],
   exports: [
     ChartsModule,
     ReactiveFormsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  ],
+  entryComponents: [
+    ModalContactsComponent
   ],
   providers: [UserService,
     ToastrService,
