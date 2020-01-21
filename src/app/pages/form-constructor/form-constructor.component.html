@@ -1,5 +1,5 @@
 <div class="formConstructor">
-  <form>
+  <form *ngIf="surveyType.length == 0">
     <select (change)="setSurveyType($event)"  class="custom-select" id="selectTypeOfAnswer">
       <option disabled>SELECT SURVEY TYPE</option>
       <option value="INDIVIDUAL">INDIVIDUAL</option>
