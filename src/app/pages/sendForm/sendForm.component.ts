@@ -182,6 +182,7 @@ export class SendFormComponent implements OnInit {
         console.error("emailsSelect ", data);
         this.wrongEmailsForSelected = null;
         this.successfulMessageForSelected = "these emails were successfully sent";
+        this.getContacts();
       }).catch(e => {
           console.error("error " + e.error);
           this.wrongEmailsForSelected = e.error;
