@@ -88,11 +88,16 @@
         <input type="text" class="form-control" id="email" [formControl]="emailForm">
       </div>
       <div class="modal-footer">
+        <div class="custom-control custom-checkbox mr-sm-2">
+          <input type="checkbox" class="custom-control-input" id="importContainNames"
+                 [checked]="importNames" (change)="importNames = !importNames">
+          <label class="custom-control-label" for="importContainNames">Import contain names</label>
+        </div>
         <label for="file-input" class="btn btn-secondary pointer mt-2">
           <fa-icon [icon]="icons.faFileUpload"></fa-icon>
         </label>
         <input class="input-file" id="file-input" type="file" (change)="importFromCsv($event)"/>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="exportCsv()">
           <fa-icon [icon]="icons.faFileDownload"></fa-icon>
         </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

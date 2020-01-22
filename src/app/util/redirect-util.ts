@@ -5,6 +5,10 @@ export class RedirectUtil {
   constructor(private router: Router, private route: ActivatedRoute) {
   }
 
+  public refreshPage(link: any[]) {
+    this.routeToLink(link,JSON.parse(JSON.stringify(this.route.snapshot.queryParams)));
+  }
+
   public setParam(key: string, value: any, link: any[]): void {
     let queryParams = JSON.parse(JSON.stringify(this.route.snapshot.queryParams));
     queryParams[key] = value;

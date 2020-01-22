@@ -24,6 +24,7 @@ export class ContactsComponent implements OnInit {
   nameForm = new FormControl('');
   emailForm = new FormControl('');
   filterForm = new FormControl('');
+  importNames: boolean = false;
 
   pageable: Pageable;
 
@@ -68,12 +69,16 @@ export class ContactsComponent implements OnInit {
   }
 
   importFromCsv(event) {
-    this.service.importFromCsv(event.target.files[0])
+    this.service.importFromCsv(event.target.files[0], this.importNames)
       .toPromise()
       .then(e => {
-        console.log("Already used emails : ",e)
+        location.reload()
       })
       .catch(console.log)
+  }
+
+  exportCsv() {
+    this.service.exportCsv();
   }
 
   filter(){
