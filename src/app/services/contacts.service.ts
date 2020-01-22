@@ -5,7 +5,6 @@ import {Observable} from "rxjs";
 import {Page} from "../models/page";
 import {Contact} from "../models/contactTableCol";
 import {Item} from "../models/item";
-import * as FileSaver from "file-saver";
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +39,6 @@ export class ContactsService {
         const contentDispositionHeader: string = response.headers.get('Content-Disposition');
         const filename = contentDispositionHeader.split(';')[1].split('=')[1];
         const blob = new Blob([response._body], { type: 'application/csv' });
-        FileSaver.saveAs(blob, filename);
       });
   }
 
