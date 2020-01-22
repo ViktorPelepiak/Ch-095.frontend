@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       .then( email =>{
         console.log(email);
         if (email != "" && email != null){
-          this.authenticationService.registerSuccessfulLogin(email);
+          this.authenticationService.registerSuccessfulLogin(email, null);
           this.router.navigate([this.returnUrl]);
         }
       })

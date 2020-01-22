@@ -1,1 +1,144 @@
-<h1>Hello tamplate</h1>
+
+<div class="container">
+  <app-survey-top-buttons></app-survey-top-buttons>
+  <div *ngIf="surveys; else notSurveys" class="row">
+    <div *ngFor="let item of surveys" class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 p-relative">
+      <div class="card">
+        <img [src]="item.imageUrl === null ? 'https://via.placeholder.com/500' : item.imageUrl" alt="">
+
+        <div class="card-content">
+          <p class="title">{{item.title}}</p>
+          <div class="d-flex">
+            <div class="dropright d-inline-flex ml-auto">
+              <em class="material-icons btn-round no--select" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">more_vert</em>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a *ngIf="getManager()" class="dropdown-item"  href="http://localhost:4200/surveys/edit/{{item.id}}">Edit</a>
+                <a *ngIf="getManager()" class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
+                   data-target="#editTitleModal">Rename</a>
+                <a *ngIf="!getManager()"class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
+                   data-target="#cloneModal">Clone</a>
+                <a *ngIf="item.status === 'ACTIVE'; else notActive" class="dropdown-item"
+                   (click)="surveyStatusDone(item.id)">Close</a>
+                <ng-template #notActive>
+                  <a *ngIf="getManager()" class="dropdown-item" data-toggle="modal"
+                     data-target="#deleteModal" (click)="changeTempSurvey(item)">Delete</a>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div class="views align-self-center">Status : <a class="text--red" [ngClass]="{
+          'text--red':item.status === 'TEMPLATE'
+          }">{{item.status}}</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="surveys && surveys.length > 0" class="row">
+    <div class="d-flex col-12">
+      <nav *ngIf="pageable.lastPage !== 1">
+        <ul class="pagination">
+          <li class="page-item" [ngClass]="{disabled:pageable.currentPage === 1}">
+            <a class="page-link" (click)="previousPage()">Previous</a>
+          </li>
+          <li class="page-item" *ngFor="let page of buildPages()" [ngClass]="{active:pageable.currentPage === page}">
+            <a class="page-link" (click)="setPage(page)">{{page}}</a>
+          </li>
+          <li class="page-item" [ngClass]="{disabled:pageable.currentPage === pageable.lastPage}">
+            <a class="page-link" (click)="nextPage()">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div *ngIf="surveys && surveys.length === 0 && pageable.sort.direction" class="row">
+    <div *ngIf="isStatusNull(); else surveysWithStatus" class="col-12 text-center mt-5">
+      <h1>Activity is not observed. It's time to create a survey!</h1>
+      <button type="submit" class="btn btn-submit" [routerLink]="['/surveys/add']">Create survey</button>
+    </div>
+    <ng-template #surveysWithStatus>
+      <div class="col-12 text-center mt-5">
+        <h1>There is no survey with this status</h1>
+        <button type="submit" class="btn btn-submit" (click)="redirects.deleteParam('status',['surveys'])">Status all</button>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #notSurveys>
+    <div class="row">
+      <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 p-relative"
+           *ngFor="let item of [0,1,2,3,4,5,6,7]">
+        <app-survey-skltn></app-survey-skltn>
+      </div>
+    </div>
+  </ng-template>
+  <div class="modal fade" id="cloneModal" tabindex="-1"
+       role="dialog" aria-labelledby="cloneModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cloneModalLabel">Clone {{title.value.toUpperCase()}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" class="custom-control-input" id="isClearContacts" [checked]="isClearContacts" (change)="isClearContacts = !isClearContacts"
+                   required>
+            <label class="custom-control-label" for="isClearContacts">Clear contacts</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="clone()" data-dismiss="modal">Clone</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="editTitleModal" tabindex="-1"
+       role="dialog" aria-labelledby="editTitleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editTitleModalLabel">Edit title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" id="newTitle" [formControl]="title"
+                 aria-describedby="emailHelp">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="surveyUpdateTitle()"
+                  data-dismiss="modal">Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="getManager()" class="modal fade" id="deleteModal" tabindex="-1"
+       role="dialog" aria-labelledby="editTitleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteLabel">Delete {{title.value.toUpperCase()}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="deleteSurvey()"
+                  data-dismiss="modal">Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div  *ngIf="getManager()" class="menu-button no--select">
+  <em class="material-icons">add</em>
+  <a  [routerLink]="['/surveys/add']"><em class="material-icons">add_circle</em></a>
+</div>

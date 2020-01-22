@@ -14,7 +14,7 @@ export class CheckOpportunityService {
   constructor(@Inject(APP_CONFIG) private config: IAppConfig, private http: HttpClient) {}
 
   public test(token: string): Observable<string> {
-    return this.http.get(this.config.backBaseUrl + '/testAccess/' + token, {responseType: 'text'});
+    return this.http.get(this.config.backBaseUrl  + token, {responseType: 'text'});
   }
 
   public checkEmail(dto: CheckPossibilityDto): Observable<ContactSurveyDto> {
