@@ -177,10 +177,10 @@ export class FormConstructorComponent implements OnInit {
 
       } else {
         if (!atLeastOneQuestionAbsent) {
-          this.errorValidation += "Input your question № : " + (i + 1);
+          this.errorValidation += "Input your question № : " + questions[i].index;
           atLeastOneQuestionAbsent = true;
         } else {
-          this.errorValidation += ", " + (i + 1);
+          this.errorValidation += ", " + questions[i].index;
         }
         atLeastOneQuestionAbsent = true;
         document.getElementById("UserQuestion" + questions[i].index).style.borderBottom = "3px dotted #000000";
@@ -197,7 +197,7 @@ export class FormConstructorComponent implements OnInit {
     for (let i = 0; i < questions.length; i++) {
       if (questions[i].type === 'not set') {
         if (!atLeastOneQuestionHasntGotType) {
-          this.errorValidation += "Choose type in question № : " + (i + 1);
+          this.errorValidation += "Choose type in question № : " + questions[i].index;
           atLeastOneQuestionHasntGotType = true;
         } else {
           this.errorValidation += "," + (i + 1);
