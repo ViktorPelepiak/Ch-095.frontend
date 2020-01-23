@@ -30,8 +30,9 @@ export class AuthenticationService {
   }
 
   logout() {
-   this.http.get(`${AppConfig.backBaseUrl}/logout`,{responseType: "text"}).toPromise().then();
-    sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+   this.http.post(`${AppConfig.backBaseUrl}/logout`,{}).subscribe();
+    // sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    sessionStorage.clear()
     this.email = null;
     this.password = null;
   }
