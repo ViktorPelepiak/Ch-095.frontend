@@ -10,6 +10,20 @@
 input-disabled{
   background-color:#FFF !important;
 }
+
+surveyValidation{
+height: 3%;
+  width: 40%;
+border: 2px dotted red;
+font-family: Arial,s, cursive;
+}
+
+
+#nonValid{
+  color : red;
+}
+
+
 .image-upload{
   position: absolute;
   margin-left: 38%;
