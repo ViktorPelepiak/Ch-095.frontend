@@ -61,11 +61,11 @@
     <div *ngIf="question.type === 'RADIO_PICTURE'" class="answer">
       <p *ngFor="let answer of question.choiceAnswers; index as i">
         <img src="https://img.icons8.com/ios/24/000000/unchecked-radio-button.png">
-        <img *ngIf="previewUrls[i]" [src]="previewUrls[i]" style="max-width:300px;width:auto;max-height: 300px;height:auto">
-        <input type="file" id="fileRadio" (change)="uploadPicture($event,i)" style="color:transparent; width: 100px" />
-        <button type="button"  class="deleteVariant" (click)="deletePicture(i)">x</button>
+        <img *ngIf="previewUrls[i]"  [src]="previewUrls[i]" style="max-width:300px;width:auto;max-height: 300px;height:auto">
+        <input type="file" id="fileRadio" (change)="uploadPhoto($event,i)" style="color:transparent; width: 100px" />
+        <button type="button"  class="deleteVariant" (click)="deletePhoto(i)">x</button>
       </p>
-      {{pictureValidation}}
+      {{photoValidation}}
 
       <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
         VARIANT
@@ -75,9 +75,9 @@
      <div *ngIf="question.type === 'CHECKBOX_PICTURE'" class="answer">
       <p *ngFor="let answer of question.choiceAnswers; index as i">
         <img src="https://img.icons8.com/material-outlined/24/000000/unchecked-checkbox.png">
-        <img *ngIf="previewUrls[i]" [src]="previewUrls[i]" style="max-width:300px;width:auto;max-height: 300px;height:auto">
-        <input type="file" id="fileCheckbox" (change)="uploadPicture($event,i)" style="color:transparent; width: 100px" />
-        <button type="button"  class="deleteVariant" (click)="deletePicture(i)">x</button>
+        <img *ngIf="previewUrls[i]" [src]="previewUrls[i]"   style="max-width:300px;width:auto;max-height: 300px;height:auto">
+        <input type="file" id="fileCheckbox" (change)="uploadPhoto($event,i)" style="color:transparent; width: 100px" />
+        <button type="button"  class="deleteVariant" (click)="deletePhoto(i)">x</button>
       </p>
       <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
         VARIANT
@@ -92,7 +92,9 @@
         </div>
         <div style="clear:both;"></div>
     </div>
-
+    <div id="deleteQuestion">
+      <button type="button" class="btn btn-danger" (click)="deleteQuestionFromConstructor(question.index)">X</button>
+    </div>
   </form>
 </div>
 

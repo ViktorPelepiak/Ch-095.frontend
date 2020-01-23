@@ -6,10 +6,10 @@
        </label>
        <input id="file-input" type="file" (change)="uploadSurveyPhoto($event)"/>
      </div>
-    <input type="text" [(ngModel)]="surveyName" class="form-control" id="surveyName"
+    <input type="text"  [(ngModel)]="surveyName" class="form-control" id="surveyName"
            placeholder="Input name of your survey"  name="surveyName">
   <br>
-  <app-question *ngFor="let question of questions;" [question]="question"></app-question>
+  <app-question (deleteQuestion)="deleteQuestion($event)" *ngFor="let question of questions;" [question]="question"></app-question>
   <br>
   <button type="button" class="btn btn-dark" (click)="addNewQuestion()" id="addNewQuestion">ADD NEW QUESTION</button>
   <h6>{{errorValidation}}</h6>

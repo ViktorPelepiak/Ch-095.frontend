@@ -3,12 +3,12 @@ export class Question {
   question: string;
   type: string;
   choiceAnswers: String[];
-  uploadingFiles:File[];
+  uploadingPhotos:File[];
   required: boolean;
 
 
   constructor() {
-    this.uploadingFiles = [];
+    this.uploadingPhotos = [];
   }
 }
 

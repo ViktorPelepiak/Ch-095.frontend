@@ -5,6 +5,7 @@ import {SaveSurveyService} from "../../services/save-survey.service";
 import {ActivatedRoute, Router} from '@angular/router';
 import {EditSurvey} from "../../models/EditSurvey";
 import {SurveyService} from "../../services/survey.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-form-constructor',
@@ -12,20 +13,23 @@ import {SurveyService} from "../../services/survey.service";
   styleUrls: ['./form-constructor.component.css']
 })
 export class FormConstructorComponent implements OnInit {
+
   surveyId: string;
   @Input() surveyName: string;
   questionCounter;
   questions: Question[];
-  uploadingPhoto: File[];
+  uploadingPhoto: any;
   surveyPhoto: File;
   surveyPhotoName: string;
   errorValidation: string;
 
-  constructor(private surveyService: SurveyService, private saveSurveyService: SaveSurveyService, private router: Router, private route: ActivatedRoute) {
+  constructor(private surveyService: SurveyService, private saveSurveyService: SaveSurveyService,
+              private router: Router, private route: ActivatedRoute) {
     this.surveyName = '';
     this.questionCounter = 0;
     this.questions = [];
     this.uploadingPhoto = [];
+
   }
 
   ngOnInit() {
@@ -35,11 +39,19 @@ export class FormConstructorComponent implements OnInit {
         .toPromise()
         .then(data => {
           this.questions = data.questions;
-
+          console.log(this.questions);
           this.surveyName = data.title;
           this.surveyPhotoName = data.surveyPhotoName;
           this.questionCounter = data.questions.length;
         });
+    }
+  }
+
+  deleteQuestion(index:number){
+    this.questionCounter--;
+    this.questions.splice(index-1, 1);
+    for (let questionIndex = 0; questionIndex < this.questions.length; questionIndex++){
+      this.questions[questionIndex].index = questionIndex + 1;
     }
   }
 
@@ -53,6 +65,7 @@ export class FormConstructorComponent implements OnInit {
     question.required = false;
     this.questions.push(question);
   }
+
 
   uploadSurveyPhoto(event) {
     this.surveyPhoto = event.target.files[0];
@@ -69,6 +82,7 @@ export class FormConstructorComponent implements OnInit {
       editSurvey.questions = this.questions;
       editSurvey.surveyId = this.surveyId;
       if (this.isValidSurvey(editSurvey)) {
+        this.savePhoto();
         this.surveyService.saveEditedSurvey(editSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
       }
     } else {
@@ -86,8 +100,8 @@ export class FormConstructorComponent implements OnInit {
 
   savePhoto() {
     if (this.surveyPhoto) this.uploadingPhoto.push(this.surveyPhoto);
-    this.questions.forEach(x => x.uploadingFiles.forEach(y => this.uploadingPhoto.push(y)));
-    this.saveSurveyService.savePictures(this.uploadingPhoto).subscribe();
+    this.questions.forEach(x => x.uploadingPhotos.forEach(y => this.uploadingPhoto.push(y)));
+    this.saveSurveyService.savePhotos(this.uploadingPhoto).subscribe();
   }
 
 
