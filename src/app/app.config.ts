@@ -10,7 +10,7 @@ export interface IAppConfig {
 }
 
 export const AppConfig: IAppConfig = {
-  backBaseUrl: 'http://localhost:8081',
+  backBaseUrl: 'http://localhost:8080',
   frontBaseUrl: 'http://localhost:4200',
   surveyGeneralStatisticUrl: '/statistic/general?surveyId=',
   surveyEachStatisticUrl: '/statistic/separately?surveyId='
