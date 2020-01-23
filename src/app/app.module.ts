@@ -35,7 +35,9 @@ import {GeneralStatisticComponent} from './components/statistic/general-statisti
 import {SeparatelyStatisticComponent} from './components/statistic/separately-statistic/separately-statistic.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
 import { CheckCommonComponent } from './pages/check-possibility/check-common/check-common.component';
+
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { CheckCommonComponent } from './pages/check-possibility/check-common/che
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    NgMultiSelectDropDownModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 10000,
