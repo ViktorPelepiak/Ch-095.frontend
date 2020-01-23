@@ -32,13 +32,11 @@ export class ContactsService {
     return this.http.post<Item<Array<String>>>(this.config.backBaseUrl + this.endPoint + "/import/scv", formData);
   }
 
-  public exportCsv(): Observable<void> {
-    return this.http.get<void>(this.config.backBaseUrl + this.endPoint + "/export/scv",{responseType: "application/csv"})
+  public exportCsv() {
+    this.http.get<Response>(this.config.backBaseUrl + this.endPoint + "/export/scv",{})
       .toPromise()
       .then(response => {
-        const contentDispositionHeader: string = response.headers.get('Content-Disposition');
-        const filename = contentDispositionHeader.split(';')[1].split('=')[1];
-        const blob = new Blob([response._body], { type: 'application/csv' });
+
       });
   }
 
