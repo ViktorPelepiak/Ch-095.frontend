@@ -13,7 +13,6 @@ import {faPlus, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 })
 export class SendFormComponent implements OnInit {
 
-  ShowFilter = false;
   emailsSelect: any = [];
   dropdownSettings: any = {};
   allContacts: string[];
@@ -23,15 +22,8 @@ export class SendFormComponent implements OnInit {
   isShownRemoveSign: boolean = true;
   public surveyId = this.route.snapshot.queryParams["surveyId"];
   public title = this.route.snapshot.queryParams["title"];
-  wrongEmailsForInputField: string = null;
-  errorWrongEmailsForInputField: string = null;
-  successfulMessageForInputField: string = null;
-  wrongEmailsForTextarea: string = null;
-  errorWrongEmailsForTextarea: string = null;
-  successfulMessageForTextarea: string = null;
-  wrongEmailsForSelected: string = null;
-  errorWrongEmailsForSelected: string = null;
-  successfulMessageForSelected: string = null;
+  wrongEmails: string = null;
+  successfulMessage: string = null;
   dynamicForm: FormGroup;
   submitted = false;
   icons = {faPlus, faPlusCircle};
@@ -42,6 +34,8 @@ export class SendFormComponent implements OnInit {
   }
 
   changeForm() {
+    this.wrongEmails = "";
+    this.successfulMessage = "";
     let contactsForDropdown: Contact [] = [];
     if (this.allContacts != undefined) {
       for (let i = 0; i < this.allContacts.length; i++) {
@@ -75,8 +69,7 @@ export class SendFormComponent implements OnInit {
         textField: 'contact',
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
-        itemsShowLimit: 100,
-        allowSearchFilter: this.ShowFilter
+        itemsShowLimit: 100
       };
     }
   }
@@ -153,46 +146,31 @@ export class SendFormComponent implements OnInit {
   sendEmails() {
     if (this.isShownInputType) {
       const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), this.surveyId);
-      console.log(email);
-      this.emailService.postEmailArray(email).toPromise().then(data => {
-        console.error("data ", data);
-        this.wrongEmailsForInputField = null;
-        this.successfulMessageForInputField = "these emails were successfully sent";
-      }).catch(e => {
-          console.error("error " + e.error);
-          this.wrongEmailsForInputField = e.error;
-          this.errorWrongEmailsForInputField = "" + this.wrongEmailsForInputField;
-        }
-      );
+      this.postEmail(email);
     } else if (this.isShownTextarea) {
       const email = new Email(this.dynamicForm.value.emails1.replace(" ", "").split(","), this.surveyId);
-      this.emailService.postEmailArray(email).toPromise().then(data => {
-        console.error("emails ", data);
-        this.wrongEmailsForTextarea = null;
-        this.successfulMessageForTextarea = "these emails were successfully sent";
-      }).catch(e => {
-          console.error("error " + e.error);
-          this.wrongEmailsForTextarea = e.error;
-          this.errorWrongEmailsForTextarea = "" + this.wrongEmailsForTextarea;
-        }
-      );
+      this.postEmail(email);
     } else {
       const email = new Email(this.dynamicForm.value.selectEmail.map(e => e.contact), this.surveyId);
-      this.emailService.postEmailArray(email).toPromise().then(data => {
-        console.error("emailsSelect ", data);
-        this.wrongEmailsForSelected = null;
-        this.successfulMessageForSelected = "these emails were successfully sent";
-        this.getContacts();
-      }).catch(e => {
-          console.error("error " + e.error);
-          this.wrongEmailsForSelected = e.error;
-          this.errorWrongEmailsForSelected = "" + this.wrongEmailsForSelected;
-        }
-      );
+      this.postEmail(email);
     }
   }
 
+  postEmail(email) {
+    this.emailService.postEmailArray(email).toPromise().then(data => {
+      console.error("data ", data);
+      this.wrongEmails = null;
+      this.successfulMessage = "these emails were successfully sent";
+    }).catch(e => {
+        console.error("error " + e.error);
+        this.wrongEmails = e.error;
+      }
+    );
+  }
+
   onSubmit() {
+    this.wrongEmails = "";
+    this.successfulMessage = "";
     this.submitted = true;
     if (this.isShownInputType) {
       if (this.dynamicForm.invalid) {
@@ -211,10 +189,7 @@ export class SendFormComponent implements OnInit {
   }
 
   onReset() {
-    this.submitted = false;
-    this.errorWrongEmailsForInputField = "";
-    this.successfulMessageForInputField = "";
-    this.dynamicForm.reset();
+    this.onClear();
     if (this.t.length > 1) {
       this.t.clear();
       this.t.push(this.formBuilder.group({
@@ -226,10 +201,8 @@ export class SendFormComponent implements OnInit {
 
   onClear() {
     this.submitted = false;
-    this.errorWrongEmailsForInputField = "";
-    this.errorWrongEmailsForTextarea = "";
-    this.successfulMessageForInputField = "";
-    this.successfulMessageForTextarea = "";
+    this.wrongEmails = "";
+    this.successfulMessage = "";
     this.t.reset();
   }
 }

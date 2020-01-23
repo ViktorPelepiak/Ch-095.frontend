@@ -30,8 +30,8 @@
               </td>
             </tr>
             <p>Please separate multiple addresses with commas</p>
-            <div *ngIf="wrongEmailsForTextarea != null" class="errorMessage">{{errorWrongEmailsForTextarea}}</div>
-            <div *ngIf="wrongEmailsForTextarea == null" class="successMessage">{{successfulMessageForTextarea}}</div>
+            <div *ngIf="wrongEmails != null" class="errorMessage">{{wrongEmails}}</div>
+            <div *ngIf="wrongEmails == null" class="successMessage">{{successfulMessage}}</div>
           </div>
           <div class="styleForAllForms" *ngIf="isShownInputType">
             <tr>
@@ -73,9 +73,9 @@
                       select contacts from group
                     </button>
                   </span>
-            <div *ngIf="wrongEmailsForInputField != null" class="errorMessage">{{errorWrongEmailsForInputField}}</div>
-            <div *ngIf="wrongEmailsForInputField == null"
-                 class="successMessage">{{successfulMessageForInputField}}</div>
+            <div *ngIf="wrongEmails != null" class="errorMessage">{{wrongEmails}}</div>
+            <div *ngIf="wrongEmails == null"
+                 class="successMessage">{{successfulMessage}}</div>
           </div>
           <div class="styleForAllForms" *ngIf="isShownSelectContact">
             <tr>
@@ -89,9 +89,9 @@
               [settings]="dropdownSettings"
               (onSelect)="onItemSelect($event)">
             </ng-multiselect-dropdown>
-            <div *ngIf="wrongEmailsForSelected != null" class="errorMessage">{{errorWrongEmailsForSelected}}</div>
-            <div *ngIf="wrongEmailsForSelected == null"
-                 class="successMessage">{{successfulMessageForSelected}}
+            <div *ngIf="wrongEmails != null" class="errorMessage">{{wrongEmails}}</div>
+            <div *ngIf="wrongEmails == null"
+                 class="successMessage">{{successfulMessage}}
             </div>
           </div>
         </div>
