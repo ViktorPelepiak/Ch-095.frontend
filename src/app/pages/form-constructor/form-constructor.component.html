@@ -9,11 +9,23 @@
     <input type="text"  [(ngModel)]="surveyName" class="form-control" id="surveyName"
            placeholder="Input name of your survey"  name="surveyName">
   <br>
+
+     <form *ngIf="surveyType.length == 0">
+       <select (change)="setSurveyType($event)"  class="custom-select" id="selectTypeOfAnswer">
+         <option disabled>SELECT SURVEY TYPE</option>
+         <option value="INDIVIDUAL">INDIVIDUAL</option>
+         <option value="COMMON">COMMON</option>
+       </select>
+     </form>
+
   <app-question (deleteQuestion)="deleteQuestion($event)" *ngFor="let question of questions;" [question]="question"></app-question>
   <br>
   <button type="button" class="btn btn-dark" (click)="addNewQuestion()" id="addNewQuestion">ADD NEW QUESTION</button>
-  <h6>{{errorValidation}}</h6>
+  <div class="surveyValidation">
+    <p id="nonValid">{{errorValidation}}</p>
+  </div>
   <button type="button" class="btn btn-success" id="saveSurvey" (click)="sendSurvey()" id="saveSurvey">SAVE SURVEY
   </button>
+
    </form>
 </div>

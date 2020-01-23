@@ -52,7 +52,7 @@
       </button>
     </div>
 
-    <div *ngIf="question.type === 'TEXTBOX'" class="answer">
+    <div *ngIf="question.type === 'TEXTBOX'" class="answer" >
       <p >
         <input type="text" name="userQuestion" class="form-control" [disabled]=true placeholder="Textbox for answer">
       </p>
@@ -93,7 +93,7 @@
         <div style="clear:both;"></div>
     </div>
     <div id="deleteQuestion">
-      <button type="button" class="btn btn-danger" (click)="deleteQuestionFromConstructor(question.index)">X</button>
+      <button type="button" class="btn btn-danger" *ngIf="question.index != 0" (click)="deleteQuestionFromConstructor(question.index)">X</button>
     </div>
   </form>
 </div>

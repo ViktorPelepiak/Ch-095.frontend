@@ -5,7 +5,6 @@ import {SaveSurveyService} from "../../services/save-survey.service";
 import {ActivatedRoute, Router} from '@angular/router';
 import {EditSurvey} from "../../models/EditSurvey";
 import {SurveyService} from "../../services/survey.service";
-import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-form-constructor',
@@ -20,16 +19,17 @@ export class FormConstructorComponent implements OnInit {
   questions: Question[];
   uploadingPhoto: any;
   surveyPhoto: File;
+  surveyType: string;
   surveyPhotoName: string;
   errorValidation: string;
 
   constructor(private surveyService: SurveyService, private saveSurveyService: SaveSurveyService,
               private router: Router, private route: ActivatedRoute) {
     this.surveyName = '';
+    this.surveyType = '';
     this.questionCounter = 0;
     this.questions = [];
     this.uploadingPhoto = [];
-
   }
 
   ngOnInit() {
@@ -39,21 +39,43 @@ export class FormConstructorComponent implements OnInit {
         .toPromise()
         .then(data => {
           this.questions = data.questions;
-          console.log(this.questions);
           this.surveyName = data.title;
+          this.surveyType = data.surveyType;
           this.surveyPhotoName = data.surveyPhotoName;
           this.questionCounter = data.questions.length;
         });
     }
   }
 
-  deleteQuestion(index:number){
+
+  deleteQuestion(index: number) {
     this.questionCounter--;
-    this.questions.splice(index-1, 1);
-    for (let questionIndex = 0; questionIndex < this.questions.length; questionIndex++){
+    this.questions.splice(index - 1, 1);
+    for (let questionIndex = 0; questionIndex < this.questions.length; questionIndex++) {
       this.questions[questionIndex].index = questionIndex + 1;
     }
   }
+
+  setSurveyType(event: any) {
+    this.surveyType = event.target.value;
+    if(this.surveyType === "COMMON") {
+      this.addRequiredQuestionForCommonSurvey();
+    }
+  }
+
+  addRequiredQuestionForCommonSurvey(){
+    let question = new Question();
+    question.index = 0;
+    question.question = '';
+    question.type = "TEXTBOX";
+    question.choiceAnswers = [];
+    question.required = false;
+    if(this.questions.length > 0){
+      this.questionCounter ++;
+    }
+    this.questions.unshift(question);
+  }
+
 
   addNewQuestion() {
     this.questionCounter = this.questionCounter + 1;
@@ -81,6 +103,7 @@ export class FormConstructorComponent implements OnInit {
       editSurvey.title = this.surveyName;
       editSurvey.questions = this.questions;
       editSurvey.surveyId = this.surveyId;
+      editSurvey.surveyType = this.surveyType;
       if (this.isValidSurvey(editSurvey)) {
         this.savePhoto();
         this.surveyService.saveEditedSurvey(editSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
@@ -90,6 +113,7 @@ export class FormConstructorComponent implements OnInit {
       saveSurvey.surveyPhotoName = this.surveyPhotoName;
       saveSurvey.title = this.surveyName;
       saveSurvey.questions = this.questions;
+      saveSurvey.surveyType = this.surveyType;
       if (this.isValidSurvey(saveSurvey)) {
         this.savePhoto();
         this.saveSurveyService.saveSurvey(saveSurvey).subscribe(x => this.router.navigateByUrl("/surveys"));
@@ -105,17 +129,26 @@ export class FormConstructorComponent implements OnInit {
   }
 
 
-  isValidSurvey(saveSurvey: SaveSurvey) {
+  isValidSurvey(survey: any) {
     let isValidSurvey: boolean = true;
-    if (!this.isValidSurveyName(saveSurvey.title)) isValidSurvey = false;
-    if (!this.isSurveyHasQuestions(saveSurvey.questions.length)) isValidSurvey = false;
-    if (!this.isAllQuestionsInput(saveSurvey.questions)) isValidSurvey = false;
-    if (!this.isInAllQuestionsUserChooseType(saveSurvey.questions)) isValidSurvey = false;
+    if (!this.isUserChooseSurveyType(survey.surveyType)) isValidSurvey = false;
+    if (!this.isValidSurveyName(survey.title)) isValidSurvey = false;
+    if (!this.isSurveyHasQuestions(survey.questions.length)) isValidSurvey = false;
+    if (!this.isAllQuestionsInput(survey.questions)) isValidSurvey = false;
+    if (!this.isInAllQuestionsUserChooseType(survey.questions)) isValidSurvey = false;
     return isValidSurvey;
   }
 
-  private isValidSurveyName(surveyName: string) {
+  private isUserChooseSurveyType(survey:any){
     this.errorValidation = " ";
+    if(this.surveyType.length === 0){
+      this.errorValidation += "Choose survey type. ";
+      return false;
+    }
+    return true;
+  }
+
+  private isValidSurveyName(surveyName: string) {
     if (surveyName.length < 1) {
       document.getElementById("surveyName").style.borderBottom = "3px dotted #000000";
       this.errorValidation += "Input survey name. "
@@ -140,21 +173,21 @@ export class FormConstructorComponent implements OnInit {
     let atLeastOneQuestionAbsent = false;
     for (let i = 0; i < questions.length; i++) {
       if (questions[i].question.length && questions[i].question.length > 0) {
-        document.getElementById("UserQuestion" + (i + 1)).style.borderBottom = "1px solid #000000";
+        document.getElementById("UserQuestion" + questions[i].index).style.borderBottom = "1px solid #000000";
 
       } else {
         if (!atLeastOneQuestionAbsent) {
-          this.errorValidation += "Input your question № : " + (i + 1);
+          this.errorValidation += "Input your question № : " + questions[i].index;
           atLeastOneQuestionAbsent = true;
         } else {
-          this.errorValidation += ", " + (i + 1);
+          this.errorValidation += ", " + questions[i].index;
         }
         atLeastOneQuestionAbsent = true;
-        document.getElementById("UserQuestion" + (i + 1)).style.borderBottom = "3px dotted #000000";
+        document.getElementById("UserQuestion" + questions[i].index).style.borderBottom = "3px dotted #000000";
         isValidSurvey = false;
       }
     }
-    if(atLeastOneQuestionAbsent) this.errorValidation += ". ";
+    if (atLeastOneQuestionAbsent) this.errorValidation += ". ";
     return isValidSurvey;
   }
 
@@ -164,7 +197,7 @@ export class FormConstructorComponent implements OnInit {
     for (let i = 0; i < questions.length; i++) {
       if (questions[i].type === 'not set') {
         if (!atLeastOneQuestionHasntGotType) {
-          this.errorValidation += "Choose type in question № : " + (i + 1);
+          this.errorValidation += "Choose type in question № : " + questions[i].index;
           atLeastOneQuestionHasntGotType = true;
         } else {
           this.errorValidation += "," + (i + 1);
