@@ -34,8 +34,8 @@ import {GeneralStatisticComponent} from './components/statistic/general-statisti
 import {SeparatelyStatisticComponent} from './components/statistic/separately-statistic/separately-statistic.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {SurveyTemplateComponent} from "./pages/survey_tamplate/survey_template.component";
-import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
+import {SurveyTemplateComponent} from './pages/survey_tamplate/survey_template.component';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import { CheckCommonComponent } from './pages/check-possibility/check-common/check-common.component';
 
 import { ModalContactsComponent } from './pages/surveys/modal-contacts/modal-contacts.component';
@@ -67,7 +67,6 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     SeparatelyStatisticComponent,
     GeneralStatisticComponent,
     FooterComponent,
-    SocialComponent,
     ModalContactsComponent,
     CheckCommonComponent,
   ],
