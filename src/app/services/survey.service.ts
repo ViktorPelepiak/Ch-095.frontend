@@ -4,8 +4,8 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Survey} from '../models/survey';
 import {Page} from '../models/page';
-import {SaveSurvey} from '../models/SaveSurvey';
-import {EditSurvey} from '../models/EditSurvey';
+import {SaveSurvey} from "../models/SaveSurvey";
+import {EditSurvey} from "../models/EditSurvey";
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +19,14 @@ export class SurveyService {
   }
 
   public getSurveys(params: HttpParams): Observable<Page<Survey>> {
-    const headers = new HttpHeaders();
-    return this.http.get<Page<Survey>>(this.config.backBaseUrl + '/survey', {params, headers, withCredentials: true});
+    let headers = new HttpHeaders();
+    return this.http.get<Page<Survey>>(this.config.backBaseUrl + this.endPoint, {params, headers, withCredentials: true});
   }
 
+  public getSurveysTemplate(params: HttpParams): Observable<Page<Survey>> {
+    let headers = new HttpHeaders();
+    return this.http.get<Page<Survey>>(this.config.backBaseUrl + this.endPoint + '?status=TEMPLATE', {params, headers, withCredentials: true});
+  }
 
   public surveyUpdateTitle(id: number, title: string) {
     return this.http.put<string>(this.config.backBaseUrl + this.endPoint, {}, {
@@ -40,12 +44,12 @@ export class SurveyService {
   }
 
   public cloneSurvey(id: number, clearContacts: boolean): Observable<number> {
-    console.log(clearContacts);
-    return this.http.post<number>(this.config.backBaseUrl + this.endPoint, {id, clearContacts});
+    console.log(clearContacts)
+    return this.http.post<number>(this.config.backBaseUrl + this.endPoint, {id, clearContacts:clearContacts});
   }
 
-    public saveEditedSurvey(editSurvey: EditSurvey): Observable<SaveSurvey> {
-    return  this.http.post<EditSurvey>(this.config.backBaseUrl + '/survey/update/' + editSurvey.surveyId, editSurvey);
+    public saveEditedSurvey(editSurvey:EditSurvey): Observable<SaveSurvey>{
+    return this.http.post<EditSurvey>(this.config.backBaseUrl + '/survey/update/'+editSurvey.surveyId,editSurvey);
   }
 
   public getContacts(id: string) {
@@ -57,7 +61,7 @@ export class SurveyService {
   }
 
   public deleteSurvey(id: number): Observable<string> {
-    return this.http.delete<string>(this.config.backBaseUrl + this.endPoint, {
+    return this.http.delete<string>(this.config.backBaseUrl  + this.endPoint, {
       params: new HttpParams().append('id', id + '')
     });
   }
