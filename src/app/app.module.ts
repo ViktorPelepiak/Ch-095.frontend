@@ -29,7 +29,6 @@ import {QuestionsPageComponent} from './pages/questions-page/questions-page.comp
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
 import {RegisterComponent} from './components/login-registration/registration';
-//import {HttpErrorInterceptor} from './services/http-error.interceptor';
 import {AuthInterceptor} from './interceptor/auth-interceptor.interceptor';
 import {GeneralStatisticComponent} from './components/statistic/general-statistic/general-statistic.component';
 import {SeparatelyStatisticComponent} from './components/statistic/separately-statistic/separately-statistic.component';
@@ -94,7 +93,6 @@ import { CheckCommonComponent } from './pages/check-possibility/check-common/che
     ToastrService,
     {provide: APP_CONFIG, useValue: AppConfig},
     {provide: HTTP_INTERCEPTORS, useClass: BasicInterceptorService, multi: true},
-    //{provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     QuestionsFormService, CookieService],
 
