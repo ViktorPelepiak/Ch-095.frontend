@@ -76,6 +76,7 @@ export class SendFormComponent implements OnInit {
     this.surveyId = survey.id;
     this.title.setValue(survey.title);
     this.getContacts();
+
     //this.changeForm();
   }
 
