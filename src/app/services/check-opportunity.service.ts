@@ -20,4 +20,8 @@ export class CheckOpportunityService {
   public checkEmail(dto: CheckPossibilityDto): Observable<ContactSurveyDto> {
     return this.http.post<ContactSurveyDto>(this.config.backBaseUrl + '/testAccess/check', dto);
   }
+
+  public commonTest(token: string): Observable<any> {
+    return this.http.get(this.config.backBaseUrl + '/testAccess/common/' + token);
+  }
 }

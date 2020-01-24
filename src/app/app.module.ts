@@ -34,9 +34,11 @@ import {AuthInterceptor} from './interceptor/auth-interceptor.interceptor';
 import {GeneralStatisticComponent} from './components/statistic/general-statistic/general-statistic.component';
 import {SeparatelyStatisticComponent} from './components/statistic/separately-statistic/separately-statistic.component';
 import {FooterComponent} from './components/footer/footer.component';
-import {SocialComponent} from './pages/social/social.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SurveyTemplateComponent} from "./pages/survey_tamplate/survey_template.component";
+import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
+import { CheckCommonComponent } from './pages/check-possibility/check-common/check-common.component';
+
 
 @NgModule({
   declarations: [
@@ -63,7 +65,7 @@ import {SurveyTemplateComponent} from "./pages/survey_tamplate/survey_template.c
     SeparatelyStatisticComponent,
     GeneralStatisticComponent,
     FooterComponent,
-    SocialComponent,
+    CheckCommonComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +73,7 @@ import {SurveyTemplateComponent} from "./pages/survey_tamplate/survey_template.c
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    NgMultiSelectDropDownModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 10000,

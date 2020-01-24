@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Question} from "../../models/question";
 import {SaveSurveyService} from "../../services/save-survey.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-question',
@@ -12,19 +13,24 @@ export class QuestionComponent implements OnInit {
   isButtonDisable: boolean = true;
   isTypeSet: boolean = false;
   previewUrls: any[] = [];
-  pictureValidation: string;
+  photoValidation: string;
   static readonly MAX_UPLOAD_SIZE = 2 * 1024 * 1024;
 
-  constructor(private saveSurveyService: SaveSurveyService) {
-    this.previewUrls.push(null);
+  @Output() deleteQuestion = new EventEmitter<number>();
+
+  deleteQuestionFromConstructor(index:number) {
+    this.deleteQuestion.next(index);
+  }
+
+  constructor() {
+
   }
 
   ngOnInit() {
-    if(this.question.uploadingFiles){
-      for(let i = 0; i < this.question.uploadingFiles.length; i++){
-        this.preview(i);
-      }
-    }
+     for(let i = 0; i < this.question.uploadingPhotos.length;i++){
+       this.previewUrls[i] = 'data:image/png;base64,' + this.question.uploadingPhotos[i];
+     }
+     this.isButtonDisable = false;
   }
 
   setType(event: any) {
@@ -37,7 +43,6 @@ export class QuestionComponent implements OnInit {
     this.question.choiceAnswers.splice(variantOfAnswerIndex, 1);
     if (this.question.choiceAnswers.length === 0) this.question.type = 'not set';
   }
-
   addAnswerVariant() {
     this.question.choiceAnswers.push(" ");
     this.isButtonDisable = true;
@@ -48,53 +53,64 @@ export class QuestionComponent implements OnInit {
     this.isButtonDisable = false;
   }
 
-  //////////UPLOADING Picture///////////////
+  //////////UPLOADING PHOTOS///////////////
 
-  uploadPicture(event, index) {
-    if (this.isValidPicture(event.target.files[0])) {
-      this.question.uploadingFiles[index] = event.target.files[0];
-      this.question.choiceAnswers[index] = event.target.files[0].name;
+  uploadPhoto(event, index) {
+    if (this.isValidPhoto(event.target.files[0])) {
+      let uploadFile = event.target.files[0];
+      let blob = uploadFile.slice(0, uploadFile.size, 'image/png');
+      let file = new File([blob],  this.generateRandomNameForPhoto() + event.target.files[0].name, {type: 'image/png'});
+      this.question.uploadingPhotos[index] = file;
+      this.question.choiceAnswers[index] = file.name;
       this.isButtonDisable = false;
       this.preview(index);
     }
   }
 
-  private isValidPicture(file: any) {
-    this.pictureValidation = '';
+  private generateRandomNameForPhoto() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
+
+  private isValidPhoto(file: any) {
+    this.photoValidation = '';
     let isValid: boolean = true;
-    if (!this.isPicture(file.type)) {
+    if (!this.isPhoto(file.type)) {
       isValid = false;
-      this.pictureValidation += "You have not uploaded a type photo.";
+      this.photoValidation += "You have not uploaded a type photo.";
     }
-    if (!this.isPictureSmallerThanMaxValue(file.size)) {
+    if (!this.isPhotoSmallerThanMaxValue(file.size)) {
       isValid = false;
-      this.pictureValidation += "Picture did not load because its size is larger than " + (QuestionComponent.MAX_UPLOAD_SIZE / (1024 * 1024) + "MB");
+      this.photoValidation += "Picture did not load because its size is larger than " + (QuestionComponent.MAX_UPLOAD_SIZE / (1024 * 1024) + "MB");
     }
     return isValid;
   }
 
-  private isPictureSmallerThanMaxValue(size: number) {
+  private isPhotoSmallerThanMaxValue(size: number) {
     return size < QuestionComponent.MAX_UPLOAD_SIZE;
   }
 
-  private isPicture(fileType: string) {
+  private isPhoto(fileType: string) {
     return fileType.substr(0, 5) === "image";
   }
 
 
   preview(index) {
     let reader = new FileReader();
-    reader.readAsDataURL(this.question.uploadingFiles[index]);
+    reader.readAsDataURL(this.question.uploadingPhotos[index]);
     reader.onload = (_event) => {
       this.previewUrls[index] = reader.result;
     }
   }
 
-  deletePicture(index: number) {
-    this.pictureValidation = '';
+  deletePhoto(index: number) {
+    this.photoValidation = '';
     this.question.choiceAnswers.splice(index, 1);
-    if (this.question.uploadingFiles) {
-      this.question.uploadingFiles.splice(index, 1);
+    if (this.question.uploadingPhotos) {
+      this.question.uploadingPhotos.splice(index, 1);
       this.previewUrls.splice(index, 1);
     }
     if (this.question.choiceAnswers.length === 0) this.question.type = 'not set';

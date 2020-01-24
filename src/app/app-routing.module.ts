@@ -13,6 +13,7 @@ import {LoginComponent} from './components/login-registration/login';
 import {RegisterComponent} from './components/login-registration/registration';
 import {ConfirmComponent} from './components/login-registration/confirm-account/confirm.component';
 import {SurveyTemplateComponent} from "./pages/survey_tamplate/survey_template.component";
+import {CheckCommonComponent} from "./pages/check-possibility/check-common/check-common.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent },
@@ -27,8 +28,10 @@ const routes: Routes = [
   {path: 'header', component: HeaderComponent},
   {path: 'statistic', component: StatisticComponent, canActivate: [AuthGuardService]},
   {path: 'surveys/add', component: FormConstructorComponent, canActivate: [AuthGuardService]},
-  {path: 'surveys/edit/:id', component: FormConstructorComponent},
+  {path: 'surveys/edit/:id', component: FormConstructorComponent, canActivate: [AuthGuardService]},
   {path: 'test/:token', component: CheckPossibilityComponent},
+  {path: 'common/:token', component: CheckCommonComponent},
+  {path: 'questions/:token', component: QuestionsPageComponent},
   {path: '**', redirectTo: '/'},
 ];
 

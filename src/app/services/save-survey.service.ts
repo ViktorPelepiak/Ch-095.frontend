@@ -17,10 +17,10 @@ export class SaveSurveyService {
     return this.http.post<SaveSurvey>(this.config.backBaseUrl + '/survey/createNewSurvey', saveSurvey);
   }
 
-  public savePictures(uploadingPhoto: File[]) {
+  public savePhotos(uploadingPhotos: File[]) {
     let formData: FormData = new FormData();
-    for (let i = 0; i < uploadingPhoto.length; i++) {
-      formData.append('file', uploadingPhoto[i]);
+    for (let i = 0; i < uploadingPhotos.length; i++) {
+      formData.append('file', uploadingPhotos[i]);
     }
     return this.http.post<File[]>(this.config.backBaseUrl + '/fileupload', formData);
   }

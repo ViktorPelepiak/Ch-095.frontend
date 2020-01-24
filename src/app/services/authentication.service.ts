@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import {AppConfig} from "../app.config";
-
+import {AppConfig} from '../app.config';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
