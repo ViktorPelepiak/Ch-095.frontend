@@ -1,3 +1,4 @@
+
 <div class="container">
   <app-survey-top-buttons></app-survey-top-buttons>
   <div *ngIf="surveys; else notSurveys" class="row">
@@ -8,33 +9,26 @@
         <div class="card-content">
           <p class="title">{{item.title}}</p>
           <div class="d-flex">
-            <a class="views align-self-center">Views : <a class="text--green">{{item.countAnswers}}</a> / <a
-              class="text--red">{{item.countContacts}}</a></a>
             <div class="dropright d-inline-flex ml-auto">
               <em class="material-icons btn-round no--select" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">more_vert</em>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">View as user</a> <!-- other page -->
-                <a class="dropdown-item"  href="http://localhost:4200/surveys/edit/{{item.id}}">Edit</a> <!-- other page -->
-                <a class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
+                <a *ngIf="getManager()" class="dropdown-item"  href="http://localhost:4200/surveys/edit/{{item.id}}">Edit</a>
+                <a *ngIf="getManager()" class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
                    data-target="#editTitleModal">Rename</a>
-                <a class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
+                <a *ngIf="!getManager()"class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
                    data-target="#cloneModal">Clone</a>
-                <a class="dropdown-item" [routerLink]="['/sendForm']" [queryParams]="{surveyId:item.id, title:item.title}">Add contacts</a> <!-- other page -->
-                <a class="dropdown-item" [routerLink]="['/statistic']" [queryParams]="{surveyId:item.id}">Statistics</a> <!-- other page -->
                 <a *ngIf="item.status === 'ACTIVE'; else notActive" class="dropdown-item"
                    (click)="surveyStatusDone(item.id)">Close</a>
                 <ng-template #notActive>
-                  <a class="dropdown-item" data-toggle="modal"
+                  <a *ngIf="getManager()" class="dropdown-item" data-toggle="modal"
                      data-target="#deleteModal" (click)="changeTempSurvey(item)">Delete</a>
                 </ng-template>
               </div>
             </div>
           </div>
           <div class="views align-self-center">Status : <a class="text--red" [ngClass]="{
-          'text--red':item.status === 'NON_ACTIVE',
-          'text--green':item.status === 'ACTIVE',
-          'text--blue':item.status === 'DONE'
+          'text--red':item.status === 'TEMPLATE'
           }">{{item.status}}</a></div>
         </div>
       </div>
@@ -124,7 +118,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="deleteModal" tabindex="-1"
+  <div *ngIf="getManager()" class="modal fade" id="deleteModal" tabindex="-1"
        role="dialog" aria-labelledby="editTitleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -144,8 +138,7 @@
     </div>
   </div>
 </div>
-<div class="menu-button no--select">
+<div  *ngIf="getManager()" class="menu-button no--select">
   <em class="material-icons">add</em>
-  <a [routerLink]="['/surveys/add']"><em class="material-icons">add_circle</em></a>
-  <a [routerLink]="['/template-survey']"><em class="material-icons">dashboard</em></a>
+  <a  [routerLink]="['/surveys/add']"><em class="material-icons">add_circle</em></a>
 </div>
