@@ -21,7 +21,7 @@ export class AuthenticationService {
     }));
   }
 
-  createBasicAuthToken(email: String, password: String) {
+  createBasicAuthToken(email: string, password: string) {
     return 'Basic ' + btoa(email + ':' + password);
   }
 
@@ -31,8 +31,7 @@ export class AuthenticationService {
 
   logout() {
    this.http.post(`${AppConfig.backBaseUrl}/logout`,{}).subscribe();
-    // sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    sessionStorage.clear()
+    sessionStorage.clear();
     this.email = null;
     this.password = null;
   }
