@@ -5,7 +5,8 @@ import {AppConfig} from '../app.config';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
+  USER_ROLE = 'userRole';
 
   public email: String;
   public password: String;
@@ -16,8 +17,7 @@ export class AuthenticationService {
     return this.http.get<any>(`${AppConfig.backBaseUrl}/login`,
       { headers: { authorization : this.createBasicAuthToken(email, password) } }).pipe(map((res) => {
       this.email = email;
-      this.password = password;
-      this.registerSuccessfulLogin(email);
+      this.registerSuccessfulLogin(email, res.principal.authorities[0].authority );
     }));
   }
 
@@ -25,12 +25,13 @@ export class AuthenticationService {
     return 'Basic ' + btoa(email + ':' + password);
   }
 
-  registerSuccessfulLogin(email) {
+  registerSuccessfulLogin(email, role) {
     sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, email);
+    sessionStorage.setItem(this.USER_ROLE, role);
   }
 
   logout() {
-   this.http.post(`${AppConfig.backBaseUrl}/logout`,{}).subscribe();
+    this.http.post(`${AppConfig.backBaseUrl}/logout`,{}).subscribe();
     sessionStorage.clear();
     this.email = null;
     this.password = null;
@@ -39,5 +40,10 @@ export class AuthenticationService {
   isUserLoggedIn() {
     let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     return user !== null;
+  }
+
+  isManager() {
+    let user = sessionStorage.getItem(this.USER_ROLE);
+    return user ==='MANAGER';
   }
 }

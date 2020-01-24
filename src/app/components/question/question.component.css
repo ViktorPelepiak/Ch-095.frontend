@@ -17,6 +17,11 @@
   position: relative;
   margin-bottom: 30px;
 }
+#deleteQuestion{
+  position: relative;
+  margin-top: 1%;
+  margin-left: 90%;
+}
 #inputQuestion{
   font-family: 'Fjalla One', sans-serif;
 }
@@ -121,6 +126,12 @@ select.form-control:focus {
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
+}
+
+#deleteQuestion{
+  position: relative;
+  margin-top: 2%;
+  margin-left: 75%;
 }
 
 input:checked + .slider {

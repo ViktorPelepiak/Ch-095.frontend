@@ -7,3 +7,8 @@ export class Email {
   emailsArray: string[];
   surveyId: string;
 }
+
+export class Contact {
+  contact_id:number;
+  contact: string;
+}

@@ -12,6 +12,7 @@ import {FormConstructorComponent} from './pages/form-constructor/form-constructo
 import {LoginComponent} from './components/login-registration/login';
 import {RegisterComponent} from './components/login-registration/registration';
 import {ConfirmComponent} from './components/login-registration/confirm-account/confirm.component';
+import {SurveyTemplateComponent} from "./pages/survey_tamplate/survey_template.component";
 import {CheckCommonComponent} from "./pages/check-possibility/check-common/check-common.component";
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'logout', component: DashboardComponent},
   {path: 'confirm', component: ConfirmComponent},
+  {path: 'template-survey', component: SurveyTemplateComponent},
   {path: 'surveys', component: SurveysComponent, canActivate: [AuthGuardService]},
   {path: 'sendForm', component: SendFormComponent, canActivate: [AuthGuardService]},
   {path: 'questions', component: QuestionsPageComponent},

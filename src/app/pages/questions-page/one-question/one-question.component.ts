@@ -11,6 +11,7 @@ export class OneQuestionComponent implements OnInit {
 
   @Input() oneQuestion;
   @Input() parentForm: FormArray;
+  previewUrls: any[] = [];
   currentCheckbox = new FormArray([]);
   oneQuestionGroup = this.fb.group({
     questionId: new FormControl(),
@@ -21,6 +22,9 @@ export class OneQuestionComponent implements OnInit {
 
   ngOnInit() {
     this.parentForm.push(this.oneQuestionGroup);
+    for(let i = 0; i < this.oneQuestion.uploadingPhotos.length;i++){
+      this.previewUrls[i] = 'data:image/png;base64,' + this.oneQuestion.uploadingPhotos[i];
+    }
   }
 
   onCheckChange(event) {

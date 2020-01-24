@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {EmailService} from "../../services/send-email.service";
-import {Email} from "../../models/email";
+import {Contact, Email} from "../../models/email";
 import {ActivatedRoute} from "@angular/router";
 import {faPlus, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-sendForm',
@@ -12,16 +13,17 @@ import {faPlus, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 })
 export class SendFormComponent implements OnInit {
 
-  isShown: boolean = true;
+  emailsSelect: any = [];
+  dropdownSettings: any = {};
+  allContacts: string[];
+  isShownInputType: boolean = true;
+  isShownTextarea: boolean = false;
+  isShownSelectContact: boolean = false;
   isShownRemoveSign: boolean = true;
   public surveyId = this.route.snapshot.queryParams["surveyId"];
   public title = this.route.snapshot.queryParams["title"];
-  wrongEmailsForInputField: string = null;
-  errorWrongEmailsForInputField: string = null;
-  successfulMessageForInputField: string = null;
-  wrongEmailsForTextarea: string = null;
-  errorWrongEmailsForTextarea: string = null;
-  successfulMessageForTextarea: string = null;
+  wrongEmails: string = null;
+  successfulMessage: string = null;
   dynamicForm: FormGroup;
   submitted = false;
   icons = {faPlus, faPlusCircle};
@@ -32,21 +34,61 @@ export class SendFormComponent implements OnInit {
   }
 
   changeForm() {
-    if (this.isShown) {
+    this.wrongEmails = "";
+    this.successfulMessage = "";
+    let contactsForDropdown: Contact [] = [];
+    if (this.allContacts != undefined) {
+      for (let i = 0; i < this.allContacts.length; i++) {
+        let obj = new Contact();
+        obj.contact_id = i;
+        obj.contact = this.allContacts[i];
+        contactsForDropdown.push(obj);
+      }
+      console.log(contactsForDropdown);
+    }
+    if (this.isShownInputType) {
       this.dynamicForm = this.formBuilder.group({
         emailsArray: new FormArray([]),
       });
-    } else {
+      this.addEmail();
+      this.addEmail();
+    } else if (this.isShownTextarea) {
       this.dynamicForm = this.formBuilder.group({
         emails1: new FormControl('', [
           Validators.required,
           Validators.pattern("^((\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*)\\s*[,]{0,1}\\s*)+$")])
       });
+    } else {
+      this.dynamicForm = this.formBuilder.group({
+        selectEmail: new FormControl([/*contactsForDropdown[0]*/])
+      });
+      this.emailsSelect = contactsForDropdown;
+      this.dropdownSettings = {
+        singleSelection: false,
+        idField: 'contact_id',
+        textField: 'contact',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        itemsShowLimit: 100
+      };
     }
   }
 
+  getContacts() {
+    this.emailService
+      .getContacts().subscribe(data => {
+      this.allContacts = data;
+      return this.allContacts;
+    })
+  }
+
   ngOnInit() {
+    this.getContacts();
     this.changeForm();
+  }
+
+  onItemSelect(item: any) {
+    console.log('onItemSelect', item);
   }
 
   get f() {
@@ -58,7 +100,22 @@ export class SendFormComponent implements OnInit {
   }
 
   toggleShow() {
-    this.isShown = !this.isShown;
+    this.isShownInputType = !this.isShownInputType;
+    this.isShownTextarea = !this.isShownTextarea;
+    this.changeForm();
+  }
+
+  toggleShow2() {
+    this.isShownInputType = false;
+    this.isShownTextarea = false;
+    this.isShownSelectContact = true;
+    this.changeForm();
+  }
+
+  toggleShow3() {
+    this.isShownInputType = true;
+    this.isShownTextarea = false;
+    this.isShownSelectContact = false;
     this.changeForm();
   }
 
@@ -68,6 +125,7 @@ export class SendFormComponent implements OnInit {
   }
 
   addEmail() {
+    this.isShownRemoveSign = true;
     if (this.t.length < 50) {
       this.t.push(this.formBuilder.group({
         email: ['', [Validators.required, Validators.email]]
@@ -77,46 +135,53 @@ export class SendFormComponent implements OnInit {
 
   removeEmail(i: number) {
     this.t.removeAt(i);
-  }
-
-  sendEmails() {
-    console.log(this.dynamicForm);
-    if (this.isShown) {
-      const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), this.surveyId);
-      console.log(email);
-      this.emailService.postEmailArray(email).toPromise().then(data => {
-        console.error("data", data);
-        this.wrongEmailsForInputField = null;
-        this.successfulMessageForInputField = "these emails were successfully sent";
-      }).catch(e => {
-          console.error("error" + e.error);
-          this.wrongEmailsForInputField = e.error;
-          this.errorWrongEmailsForInputField = "these emails are wrong : " + this.wrongEmailsForInputField;
-        }
-      );
+    if (i == 1) {
+      this.isShownRemoveSign = false;
     } else {
-      const email = new Email(this.dynamicForm.value.emails1.replace(" ", "").split(","), this.surveyId);
-      this.emailService.postEmailArray(email).toPromise().then(data => {
-        console.error("emails", data);
-        this.wrongEmailsForTextarea = null;
-        this.successfulMessageForTextarea = "these emails were successfully sent";
-      }).catch(e => {
-          console.error("error" + e.error);
-          this.wrongEmailsForTextarea = e.error;
-          this.errorWrongEmailsForTextarea = "these emails are wrong : " + this.wrongEmailsForTextarea;
-        }
-      );
+      this.isShownRemoveSign = true;
+      this.t.removeAt(i);
     }
   }
 
+  sendEmails() {
+    if (this.isShownInputType) {
+      const email = new Email(this.dynamicForm.value.emailsArray.map(e => e.email), this.surveyId);
+      this.postEmail(email);
+    } else if (this.isShownTextarea) {
+      const email = new Email(this.dynamicForm.value.emails1.replace(" ", "").split(","), this.surveyId);
+      this.postEmail(email);
+    } else {
+      const email = new Email(this.dynamicForm.value.selectEmail.map(e => e.contact), this.surveyId);
+      this.postEmail(email);
+    }
+  }
+
+  postEmail(email) {
+    this.emailService.postEmailArray(email).toPromise().then(data => {
+      console.error("data ", data);
+      this.wrongEmails = null;
+      this.successfulMessage = "these emails were successfully sent";
+    }).catch(e => {
+        console.error("error " + e.error);
+        this.wrongEmails = e.error;
+      }
+    );
+  }
+
   onSubmit() {
+    this.wrongEmails = "";
+    this.successfulMessage = "";
     this.submitted = true;
-    if (this.isShown) {
+    if (this.isShownInputType) {
       if (this.dynamicForm.invalid) {
         return;
       }
-    } else {
+    } else if (this.isShownTextarea) {
       if (this.dynamicForm.invalid) {
+        return;
+      }
+    } else if (this.isShownSelectContact) {
+      if (this.dynamicForm.value.selectEmail.map(e => e.contact) == 0) {
         return;
       }
     }
@@ -124,19 +189,20 @@ export class SendFormComponent implements OnInit {
   }
 
   onReset() {
-    this.submitted = false;
-    this.errorWrongEmailsForInputField = "";
-    this.successfulMessageForInputField = "";
-    this.dynamicForm.reset();
-    this.t.clear();
+    this.onClear();
+    if (this.t.length > 1) {
+      this.t.clear();
+      this.t.push(this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]]
+      }));
+      this.isShownRemoveSign = false;
+    }
   }
 
   onClear() {
     this.submitted = false;
-    this.errorWrongEmailsForInputField = "";
-    this.errorWrongEmailsForTextarea = "";
-    this.successfulMessageForInputField = "";
-    this.successfulMessageForTextarea = "";
+    this.wrongEmails = "";
+    this.successfulMessage = "";
     this.t.reset();
   }
 }
