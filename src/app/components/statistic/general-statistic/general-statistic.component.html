@@ -7,7 +7,7 @@
     <div *ngFor="let image of images; let i = index">
       <p>Image #{{i+1}}</p>
       <img *ngIf="typeQuestions=='CHECKBOX_PICTURE'
-         || typeQuestions=='RADIO_PICTURE'" src="{{image}}" alt="">
+         || typeQuestions=='RADIO_PICTURE'" [src]="imageThing+image" alt="">
     </div>
     <canvas baseChart
             [datasets]="barChartData"

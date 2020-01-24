@@ -16,3 +16,8 @@ p{
   margin-bottom: 40px;
 }
 
+img{
+  max-height: 200px;
+  max-width: 200px;
+}
+
