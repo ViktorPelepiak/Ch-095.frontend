@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {Page} from "../models/page";
 import {Contact} from "../models/contactTableCol";
 import {Item} from "../models/item";
+import * as FileSaver from "file-saver";
 
 @Injectable({
   providedIn: 'root'
@@ -33,10 +34,12 @@ export class ContactsService {
   }
 
   public exportCsv() {
-    this.http.get<Response>(this.config.backBaseUrl + this.endPoint + "/export/scv",{})
+    this.http.get<Response>(this.config.backBaseUrl + this.endPoint + "/export/scv",{responseType: "text"})
       .toPromise()
       .then(response => {
-
+        console.log(response);
+        var blob = new Blob([response], {type: "text/plain;charset=utf-8"});
+        FileSaver.saveAs(blob, "contacts.csv");
       });
   }
 
