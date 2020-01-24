@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {EmailService} from "../../services/send-email.service";
 import {Contact, Email} from "../../models/email";
-import {ActivatedRoute} from "@angular/router";
 import {faPlus, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import {Survey} from "../../models/survey";
 
 
 @Component({
@@ -20,8 +20,8 @@ export class SendFormComponent implements OnInit {
   isShownTextarea: boolean = false;
   isShownSelectContact: boolean = false;
   isShownRemoveSign: boolean = true;
-  public surveyId = this.route.snapshot.queryParams["surveyId"];
-  public title = this.route.snapshot.queryParams["title"];
+  surveyId: number;
+  title = new FormControl('');
   wrongEmails: string = null;
   successfulMessage: string = null;
   dynamicForm: FormGroup;
@@ -29,8 +29,7 @@ export class SendFormComponent implements OnInit {
   icons = {faPlus, faPlusCircle};
 
   constructor(private emailService: EmailService,
-              private formBuilder: FormBuilder,
-              private route: ActivatedRoute) {
+              private formBuilder: FormBuilder) {
   }
 
   changeForm() {
@@ -44,7 +43,6 @@ export class SendFormComponent implements OnInit {
         obj.contact = this.allContacts[i];
         contactsForDropdown.push(obj);
       }
-      console.log(contactsForDropdown);
     }
     if (this.isShownInputType) {
       this.dynamicForm = this.formBuilder.group({
@@ -74,16 +72,23 @@ export class SendFormComponent implements OnInit {
     }
   }
 
+  changeSurvey(survey: Survey): void {
+    this.surveyId = survey.id;
+    this.title.setValue(survey.title);
+    this.getContacts();
+    //this.changeForm();
+  }
+
+
   getContacts() {
     this.emailService
-      .getContacts().subscribe(data => {
+      .getContacts(this.surveyId).subscribe(data => {
       this.allContacts = data;
       return this.allContacts;
     })
   }
 
   ngOnInit() {
-    this.getContacts();
     this.changeForm();
   }
 

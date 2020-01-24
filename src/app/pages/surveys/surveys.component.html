@@ -15,13 +15,14 @@
                   aria-haspopup="true" aria-expanded="false">more_vert</em>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#">View as user</a> <!-- other page -->
-                <a class="dropdown-item"  href="http://localhost:4200/surveys/edit/{{item.id}}">Edit</a> <!-- other page -->
+                <a class="dropdown-item" href="http://localhost:4200/surveys/edit/{{item.id}}">Edit</a>
                 <a class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
                    data-target="#editTitleModal">Rename</a>
                 <a class="dropdown-item" (click)="changeTempSurvey(item)" data-toggle="modal"
                    data-target="#cloneModal">Clone</a>
-                <a class="dropdown-item" [routerLink]="['/sendForm']" [queryParams]="{surveyId:item.id, title:item.title}">Add contacts</a> <!-- other page -->
-                <a class="dropdown-item" [routerLink]="['/statistic']" [queryParams]="{surveyId:item.id}">Statistics</a> <!-- other page -->
+                <a class="dropdown-item" (click)="sendForm.changeSurvey(item)" data-toggle="modal"
+                   data-target="#basicModal">Add contacts</a>
+                <a class="dropdown-item" [routerLink]="['/statistic']" [queryParams]="{surveyId:item.id}">Statistics</a>
                 <a *ngIf="item.status === 'ACTIVE'; else notActive" class="dropdown-item"
                    (click)="surveyStatusDone(item.id)">Close</a>
                 <ng-template #notActive>
@@ -65,7 +66,8 @@
     <ng-template #surveysWithStatus>
       <div class="col-12 text-center mt-5">
         <h1>There is no survey with this status</h1>
-        <button type="submit" class="btn btn-submit" (click)="redirects.deleteParam('status',['surveys'])">Status all</button>
+        <button type="submit" class="btn btn-submit" (click)="redirects.deleteParam('status',['surveys'])">Status all
+        </button>
       </div>
     </ng-template>
   </div>
@@ -89,7 +91,8 @@
         </div>
         <div class="modal-body">
           <div class="custom-control custom-checkbox mb-3">
-            <input type="checkbox" class="custom-control-input" id="isClearContacts" [checked]="isClearContacts" (change)="isClearContacts = !isClearContacts"
+            <input type="checkbox" class="custom-control-input" id="isClearContacts" [checked]="isClearContacts"
+                   (change)="isClearContacts = !isClearContacts"
                    required>
             <label class="custom-control-label" for="isClearContacts">Clear contacts</label>
           </div>
@@ -149,3 +152,4 @@
   <a [routerLink]="['/surveys/add']"><em class="material-icons">add_circle</em></a>
   <a href="#"><em class="material-icons">dashboard</em></a>
 </div>
+<app-sendForm></app-sendForm>
