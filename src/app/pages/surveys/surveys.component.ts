@@ -18,7 +18,7 @@ export class SurveysComponent implements OnInit {
 
   surveys: Survey[];
   tempSurvey: number;
-  isClearContacts = false;
+  isClearContacts : boolean = false;
   pageable: Pageable;
   title = new FormControl('');
   private redirects: RedirectUtil;
@@ -64,7 +64,7 @@ export class SurveysComponent implements OnInit {
     this.service.cloneSurvey(this.tempSurvey, this.isClearContacts)
       .toPromise()
       .then(e => {
-        const newSurvey = JSON.parse(JSON.stringify( this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)]));
+        let newSurvey = JSON.parse(JSON.stringify( this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)]));
         newSurvey.id = e;
         if (this.isClearContacts) {
           newSurvey.countContacts = 0;
@@ -101,7 +101,7 @@ export class SurveysComponent implements OnInit {
   }
 
   private buildPages(): number[] {
-    const pages = [];
+    let pages = [];
     for (let i = 1; i <= this.pageable.lastPage; i++) {
       pages.push(i);
     }
@@ -132,11 +132,11 @@ export class SurveysComponent implements OnInit {
 
   private buildRequestParams(): HttpParams {
     let params = new HttpParams();
-    const currentPage = Number(this.route.snapshot.queryParamMap.get('page'));
-    const size = +this.route.snapshot.queryParamMap.get('size');
-    const direction = this.route.snapshot.queryParamMap.get('direction');
-    const sort = this.route.snapshot.queryParamMap.get('sort');
-    const status = this.route.snapshot.queryParamMap.get('status');
+    let currentPage = Number(this.route.snapshot.queryParamMap.get('page'));
+    let size = +this.route.snapshot.queryParamMap.get('size');
+    let direction = this.route.snapshot.queryParamMap.get('direction');
+    let sort = this.route.snapshot.queryParamMap.get('sort');
+    let status = this.route.snapshot.queryParamMap.get('status');
     if (currentPage !== null && currentPage > 0) {
       params = params.append('currentPage', String(currentPage - 1));
     } else {
