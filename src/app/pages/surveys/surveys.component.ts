@@ -23,7 +23,7 @@ export class SurveysComponent implements OnInit {
 
   surveys: Survey[];
   tempSurvey: number;
-  isClearContacts : boolean = false;
+  isClearContacts: boolean = false;
   pageable: Pageable;
   title = new FormControl('');
   private redirects: RedirectUtil;
@@ -44,7 +44,9 @@ export class SurveysComponent implements OnInit {
       .then(e => {
         this.surveys = e.items;
         this.pageable = e.pageable;
-        if (this.surveys.length === 0){ this.previousPage() }
+        if (this.surveys.length === 0) {
+          this.previousPage()
+        }
       })
       .catch(e => {
         console.error(e);
@@ -76,7 +78,9 @@ export class SurveysComponent implements OnInit {
         }
         newSurvey.countAnswers = 0;
         this.surveys.push(newSurvey);
-        if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage) { ++this.pageable.lastPage; }
+        if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage) {
+          ++this.pageable.lastPage;
+        }
       })
       .catch(e => console.error(e));
   }
@@ -87,7 +91,9 @@ export class SurveysComponent implements OnInit {
       .then(e => {
         if (e === 'OK') {
           this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1);
-          if (this.surveys.length === 0){ this.previousPage() }
+          if (this.surveys.length === 0) {
+            this.previousPage()
+          }
         }
       })
       .catch(e => console.error(e));
@@ -101,7 +107,7 @@ export class SurveysComponent implements OnInit {
     });
   }
 
-  copyInputMessage(inputElement){
+  copyInputMessage(inputElement) {
     inputElement.select();
     document.execCommand('copy');
     inputElement.setSelectionRange(0, 0);

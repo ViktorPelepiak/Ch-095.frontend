@@ -110,22 +110,28 @@ export class SendFormComponent implements OnInit {
   }
 
   toggleShow() {
+    this.submitted = false;
     this.isShownInputType = !this.isShownInputType;
     this.isShownTextarea = !this.isShownTextarea;
+    this.getContacts();
     this.changeForm();
   }
 
   toggleShow2() {
+    this.submitted = false;
     this.isShownInputType = false;
     this.isShownTextarea = false;
     this.isShownSelectContact = true;
+    this.getContacts();
     this.changeForm();
   }
 
   toggleShow3() {
+    this.submitted = false;
     this.isShownInputType = true;
     this.isShownTextarea = false;
     this.isShownSelectContact = false;
+    this.getContacts();
     this.changeForm();
   }
 
@@ -163,6 +169,7 @@ export class SendFormComponent implements OnInit {
     } else {
       const email = new Email(this.dynamicForm.value.selectEmail.map(e => e.contact), this.surveyId);
       this.postEmail(email);
+      this.getContacts();
     }
   }
 
