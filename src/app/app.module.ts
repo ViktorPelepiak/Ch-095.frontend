@@ -41,6 +41,7 @@ import { CheckCommonComponent } from './pages/check-possibility/check-common/che
 import { ModalContactsComponent } from './pages/surveys/modal-contacts/modal-contacts.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {ContactsComponent} from './pages/contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     FooterComponent,
     ModalContactsComponent,
     CheckCommonComponent,
+    ContactsComponent,
   ],
   imports: [
     NgbModule,

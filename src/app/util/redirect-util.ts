@@ -5,6 +5,10 @@ export class RedirectUtil {
   constructor(private router: Router, private route: ActivatedRoute) {
   }
 
+  public refreshPage(link: any[]) {
+    this.routeToLink(link,JSON.parse(JSON.stringify(this.route.snapshot.queryParams)));
+  }
+
   public setParam(key: string, value: any, link: any[]): void {
     let queryParams = JSON.parse(JSON.stringify(this.route.snapshot.queryParams));
     queryParams[key] = value;
@@ -14,6 +18,13 @@ export class RedirectUtil {
   public deleteParam(name: string, link: any[]): void {
     let queryParams = JSON.parse(JSON.stringify(this.route.snapshot.queryParams));
     delete queryParams[name];
+    this.routeToLink(link,queryParams);
+  }
+
+  public deleteParam2(name: string,name2: string, link: any[]): void {
+    let queryParams = JSON.parse(JSON.stringify(this.route.snapshot.queryParams));
+    delete queryParams[name];
+    delete queryParams[name2];
     this.routeToLink(link,queryParams);
   }
 

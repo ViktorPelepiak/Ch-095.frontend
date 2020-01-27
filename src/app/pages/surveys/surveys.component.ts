@@ -85,8 +85,8 @@ export class SurveysComponent implements OnInit {
       .catch(e => console.error(e));
   }
 
-  deleteSurvey() {
-    this.service.deleteSurvey(this.tempSurvey)
+  disableSurvey() {
+    this.service.disableSurvey(this.tempSurvey)
       .toPromise()
       .then(e => {
         if (e === 'OK') {
