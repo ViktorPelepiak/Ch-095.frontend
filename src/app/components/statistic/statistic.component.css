@@ -1,4 +1,4 @@
-div{
+#root{
   background: linear-gradient(to right, aliceblue, beige);
 }
 div .content{

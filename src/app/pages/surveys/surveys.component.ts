@@ -1,33 +1,41 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {Survey} from '../../models/survey';
 import {SurveyService} from '../../services/survey.service';
 import {Pageable} from '../../models/pageable';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+
+import {ModalContactsComponent} from './modal-contacts/modal-contacts.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl} from "@angular/forms";
 import {RedirectUtil} from "../../util/redirect-util";
 import {HttpParams} from "@angular/common/http";
+import {SendFormComponent} from "../sendForm/sendForm.component";
+import {APP_CONFIG, IAppConfig} from "../../app.config";
 
 @Component({
   selector: 'app-surveys',
   templateUrl: './surveys.component.html',
-  styleUrls: ['./surveys.component.css']
+  styleUrls: ['./surveys.component.css'],
 })
 export class SurveysComponent implements OnInit {
 
+  @ViewChild(SendFormComponent, {static: false}) sendForm: SendFormComponent;
+
   surveys: Survey[];
   tempSurvey: number;
-  isClearContacts: boolean = false;
+  isClearContacts : boolean = false;
   pageable: Pageable;
   title = new FormControl('');
   private redirects: RedirectUtil;
 
-  constructor(private service: SurveyService, private router: Router, private route: ActivatedRoute) {
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private service: SurveyService,
+              private router: Router, private route: ActivatedRoute, private modalService: NgbModal) {
     this.tempSurvey = 0;
     this.redirects = new RedirectUtil(router, route);
   }
 
   ngOnInit() {
-    this.getSurveys()
+    this.getSurveys();
   }
 
   getSurveys() {
@@ -36,12 +44,10 @@ export class SurveysComponent implements OnInit {
       .then(e => {
         this.surveys = e.items;
         this.pageable = e.pageable;
-        if (this.surveys.length === 0) {
-          this.previousPage()
-        }
+        if (this.surveys.length === 0){ this.previousPage() }
       })
       .catch(e => {
-        console.error(e)
+        console.error(e);
       });
   }
 
@@ -66,13 +72,11 @@ export class SurveysComponent implements OnInit {
         let newSurvey = JSON.parse(JSON.stringify(this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)]));
         newSurvey.id = e;
         if (this.isClearContacts) {
-          newSurvey.countContacts = 0
+          newSurvey.countContacts = 0;
         }
         newSurvey.countAnswers = 0;
         this.surveys.push(newSurvey);
-        if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage) {
-          ++this.pageable.lastPage
-        }
+        if (this.surveys.length > this.pageable.size && this.pageable.currentPage == this.pageable.lastPage) { ++this.pageable.lastPage; }
       })
       .catch(e => console.error(e));
   }
@@ -82,15 +86,26 @@ export class SurveysComponent implements OnInit {
       .toPromise()
       .then(e => {
         if (e === 'OK') {
-          this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1)
-          if (this.surveys.length === 0) {
-            this.previousPage()
-          }
+          this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1);
+          if (this.surveys.length === 0){ this.previousPage() }
         }
       })
       .catch(e => console.error(e));
   }
 
+
+  showContacts(surveyId) {
+    const modalRef = this.modalService.open(ModalContactsComponent);
+    this.service.getContacts(surveyId).toPromise().then(value => {
+      modalRef.componentInstance.contacts = value;
+    });
+
+  copyInputMessage(inputElement){
+    inputElement.select();
+    document.execCommand('copy');
+    inputElement.setSelectionRange(0, 0);
+
+  }
 
   changeTempSurvey(survey: Survey): void {
     this.tempSurvey = survey.id;
@@ -152,7 +167,7 @@ export class SurveysComponent implements OnInit {
     if (sort !== null) {
       params = params.append('sort', sort);
     } else {
-      params = params.append('sort', "creationDate");
+      params = params.append('sort', 'creationDate');
     }
     if (status !== null) {
       params = params.append('status', status);

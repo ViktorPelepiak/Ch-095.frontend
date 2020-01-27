@@ -18,6 +18,8 @@ li{
  padding-left: 40px;
 }
 img{
-display: block;
+  display: block;
   margin-left: 50px;
+  max-height: 200px;
+  max-width: 200px;
 }

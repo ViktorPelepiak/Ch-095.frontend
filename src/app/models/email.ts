@@ -1,14 +1,14 @@
 export class Email {
-  constructor(emailsArray: string[], surveyId: string) {
+  constructor(emailsArray: string[], surveyId: number) {
     this.emailsArray = emailsArray;
     this.surveyId = surveyId;
   }
 
   emailsArray: string[];
-  surveyId: string;
+  surveyId: number;
 }
 
 export class Contact {
-  contact_id:number;
+  contact_id: number;
   contact: string;
 }

@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h4 class="modal-title">Contacts</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" id="modalWindow">
+  <ul *ngFor="let contact of contacts" class="list-group">
+    <li class="list-group-item">{{contact}}</li>
+  </ul>
+
+<!--  <ul class="list">-->
+<!--    <cdk-virtual-scroll-viewport   itemSize="90" >-->
+<!--      <ng-container *cdkVirtualFor="let contact of contacts">-->
+<!--        <li>{{contact}}</li>-->
+<!--      </ng-container>-->
+<!--    </cdk-virtual-scroll-viewport>-->
+<!--  </ul>-->
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>
