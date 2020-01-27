@@ -99,6 +99,7 @@ export class SurveysComponent implements OnInit {
     this.service.getContacts(surveyId).toPromise().then(value => {
       modalRef.componentInstance.contacts = value;
     });
+  }
 
   copyInputMessage(inputElement){
     inputElement.select();
