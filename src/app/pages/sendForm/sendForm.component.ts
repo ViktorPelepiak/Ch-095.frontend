@@ -73,9 +73,14 @@ export class SendFormComponent implements OnInit {
   }
 
   changeSurvey(survey: Survey): void {
+    this.isShownInputType = true;
+    this.isShownTextarea = false;
+    this.isShownSelectContact = false;
+    this.changeForm();
     this.surveyId = survey.id;
     this.title.setValue(survey.title);
     this.getContacts();
+    this.onReset();
   }
 
 
@@ -200,7 +205,10 @@ export class SendFormComponent implements OnInit {
       this.t.push(this.formBuilder.group({
         email: ['', [Validators.required, Validators.email]]
       }));
-      this.isShownRemoveSign = false;
+      this.t.push(this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]]
+      }));
+      this.isShownRemoveSign = true;
     }
   }
 
