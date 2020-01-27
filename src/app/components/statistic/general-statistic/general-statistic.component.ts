@@ -22,6 +22,19 @@ export class GeneralStatisticComponent implements OnInit {
   @Input() public numberVoters: number;
   @Input() public images: string[];
 
+
+  public lineChartOptions: any = {
+    responsive: true,
+    scales : {
+      yAxes: [{
+        ticks: {
+          max : 6,
+          min : 0,
+        }
+      }],
+    },
+  };
+
   ngOnInit()
   {
 
