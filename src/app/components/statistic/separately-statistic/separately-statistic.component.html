@@ -24,7 +24,7 @@
             <input type="checkbox" *ngIf="model.type=='CHECKBOX_PICTURE'"
                    onclick='window.event.returnValue=false'
                    [checked]="model.answer.includes(choiceAnswer)">
-            <img [src]="choiceAnswer"><Br>
+            <img [src]="imageThing+choiceAnswer" alt=""><Br>
           </p>
         </div>
 
@@ -33,7 +33,7 @@
             <input type="radio" *ngIf="model.type=='RADIO_PICTURE'"
                    onclick='window.event.returnValue=false'
                    [checked]="model.answer.includes(choiceAnswer)">
-            <img [src]="choiceAnswer"><Br>
+            <img [src]="imageThing+choiceAnswer" alt=""><Br>
         </div>
 
         <textarea *ngIf="model.type=='TEXTAREA'" readonly class="textArea"

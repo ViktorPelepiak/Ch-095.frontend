@@ -52,8 +52,12 @@ export class SurveyService {
     return this.http.post<EditSurvey>(this.config.backBaseUrl + '/survey/update/'+editSurvey.surveyId,editSurvey);
   }
 
-  public editSurvey(id:string){
-   return this.http.get<EditSurvey>(this.config.backBaseUrl + '/survey/edit/' + id);
+  public getContacts(id: string) {
+   return this.http.get<string[]>(this.config.backBaseUrl + '/survey/contacts/' + id);
+  }
+
+  public editSurvey(id: string) {
+    return this.http.get<EditSurvey>(this.config.backBaseUrl + '/survey/edit/' + id);
   }
 
   public deleteSurvey(id: number): Observable<string> {
