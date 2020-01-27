@@ -5,4 +5,6 @@ export class Survey {
   status: string;
   countAnswers?: number;
   countContacts?: number;
+  surveyType: string;
+  commonUrl: string;
 }

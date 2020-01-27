@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {Survey} from '../../models/survey';
 import {SurveyService} from '../../services/survey.service';
 import {Pageable} from '../../models/pageable';
@@ -10,6 +10,7 @@ import {FormControl} from "@angular/forms";
 import {RedirectUtil} from "../../util/redirect-util";
 import {HttpParams} from "@angular/common/http";
 import {SendFormComponent} from "../sendForm/sendForm.component";
+import {APP_CONFIG, IAppConfig} from "../../app.config";
 
 @Component({
   selector: 'app-surveys',
@@ -27,8 +28,8 @@ export class SurveysComponent implements OnInit {
   title = new FormControl('');
   private redirects: RedirectUtil;
 
-  constructor(private service: SurveyService, private router: Router,
-              private route: ActivatedRoute, private modalService: NgbModal) {
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private service: SurveyService, 
+              private router: Router, private route: ActivatedRoute, private modalService: NgbModal) {
     this.tempSurvey = 0;
     this.redirects = new RedirectUtil(router, route);
   }
@@ -43,7 +44,7 @@ export class SurveysComponent implements OnInit {
       .then(e => {
         this.surveys = e.items;
         this.pageable = e.pageable;
-        if (this.surveys.length === 0) { this.previousPage(); }
+        if (this.surveys.length === 0){ this.previousPage() }
       })
       .catch(e => {
         console.error(e);
@@ -86,17 +87,24 @@ export class SurveysComponent implements OnInit {
       .then(e => {
         if (e === 'OK') {
           this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1);
-          if (this.surveys.length === 0) { this.previousPage(); }
+          if (this.surveys.length === 0){ this.previousPage() }
         }
       })
       .catch(e => console.error(e));
   }
+
 
   showContacts(surveyId) {
     const modalRef = this.modalService.open(ModalContactsComponent);
     this.service.getContacts(surveyId).toPromise().then(value => {
       modalRef.componentInstance.contacts = value;
     });
+
+  copyInputMessage(inputElement){
+    inputElement.select();
+    document.execCommand('copy');
+    inputElement.setSelectionRange(0, 0);
+
   }
 
   changeTempSurvey(survey: Survey): void {
