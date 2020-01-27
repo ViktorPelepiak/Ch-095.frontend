@@ -9,6 +9,7 @@ export class Question {
 
   constructor() {
     this.uploadingPhotos = [];
+    this.choiceAnswers = [];
   }
 }
 

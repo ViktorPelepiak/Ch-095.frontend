@@ -34,7 +34,6 @@ export class FormConstructorComponent implements OnInit {
 
   ngOnInit() {
     this.surveyId = this.route.snapshot.paramMap.get('id');
-    console.log(this.surveyId);
     if (this.surveyId !== null) {
       this.surveyService.editSurvey(this.surveyId)
         .toPromise()

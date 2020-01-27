@@ -15,10 +15,11 @@ export class QuestionComponent implements OnInit {
   previewUrls: any[] = [];
   photoValidation: string;
   static readonly MAX_UPLOAD_SIZE = 2 * 1024 * 1024;
+  static readonly MAX_NUMBER_OF_OPTIONS = 4;
 
   @Output() deleteQuestion = new EventEmitter<number>();
 
-  deleteQuestionFromConstructor(index:number) {
+  deleteQuestionFromConstructor(index: number) {
     this.deleteQuestion.next(index);
   }
 
@@ -27,10 +28,10 @@ export class QuestionComponent implements OnInit {
   }
 
   ngOnInit() {
-     for(let i = 0; i < this.question.uploadingPhotos.length;i++){
-       this.previewUrls[i] = 'data:image/png;base64,' + this.question.uploadingPhotos[i];
-     }
-     this.isButtonDisable = false;
+    for (let i = 0; i < this.question.uploadingPhotos.length; i++) {
+      this.previewUrls[i] = 'data:image/png;base64,' + this.question.uploadingPhotos[i];
+    }
+    this.isButtonDisable = false;
   }
 
   setType(event: any) {
@@ -41,34 +42,46 @@ export class QuestionComponent implements OnInit {
 
   deleteVariant(variantOfAnswerIndex: number) {
     this.question.choiceAnswers.splice(variantOfAnswerIndex, 1);
-    if (this.question.choiceAnswers.length === 0) this.question.type = 'not set';
+    if (this.question.choiceAnswers.length === 0) {
+      this.question.type = 'not set';
+    }
+    if (this.isButtonDisable && this.question.choiceAnswers.length < QuestionComponent.MAX_NUMBER_OF_OPTIONS) {
+      this.isButtonDisable = false;
+    }
   }
-  addAnswerVariant() {
-    this.question.choiceAnswers.push(" ");
-    this.isButtonDisable = true;
+
+  addAnswerVariant(question: Question) {
+    if (question.choiceAnswers.length < QuestionComponent.MAX_NUMBER_OF_OPTIONS) {
+      this.question.choiceAnswers.push(" ");
+      this.isButtonDisable = true;
+    }
   }
 
   setAnswerVariant(index, variantOfAnswer) {
     this.question.choiceAnswers[index] = variantOfAnswer;
-    this.isButtonDisable = false;
+    if (this.question.choiceAnswers.length < QuestionComponent.MAX_NUMBER_OF_OPTIONS) {
+      this.isButtonDisable = false;
+    }
   }
 
   //////////UPLOADING PHOTOS///////////////
 
   uploadPhoto(event, index) {
+    if (this.question.choiceAnswers.length < QuestionComponent.MAX_NUMBER_OF_OPTIONS) {
+      this.isButtonDisable = false;
+    }
     if (this.isValidPhoto(event.target.files[0])) {
       let uploadFile = event.target.files[0];
       let blob = uploadFile.slice(0, uploadFile.size, 'image/png');
-      let file = new File([blob],  this.generateRandomNameForPhoto() + event.target.files[0].name, {type: 'image/png'});
+      let file = new File([blob], this.generateRandomNameForPhoto() + event.target.files[0].name, {type: 'image/png'});
       this.question.uploadingPhotos[index] = file;
       this.question.choiceAnswers[index] = file.name;
-      this.isButtonDisable = false;
       this.preview(index);
     }
   }
 
   private generateRandomNameForPhoto() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
@@ -114,6 +127,7 @@ export class QuestionComponent implements OnInit {
       this.previewUrls.splice(index, 1);
     }
     if (this.question.choiceAnswers.length === 0) this.question.type = 'not set';
+    if (this.isButtonDisable) this.isButtonDisable = false;
   }
 
 }

@@ -36,7 +36,7 @@
 
         <button type="button" class="btn btn-secondary" class="deleteVariant" (click)="deleteVariant(i)">x</button>
       </p>
-      <button type="button" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+      <button type="button" [disabled]="isButtonDisable" (click)="addAnswerVariant(question)">ADD
         VARIANT
       </button>
     </div>
@@ -47,7 +47,7 @@
                (change)="setAnswerVariant(i,variantOfAnswer.value)">
         <button type="button"  class="deleteVariant" (click)="deleteVariant(i)">x</button>
       </p>
-      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant(question)">ADD
         VARIANT
       </button>
     </div>
@@ -67,7 +67,7 @@
       </p>
       {{photoValidation}}
 
-      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant(question)">ADD
         VARIANT
       </button>
     </div>
@@ -79,7 +79,7 @@
         <input type="file" id="fileCheckbox" (change)="uploadPhoto($event,i)" style="color:transparent; width: 100px" />
         <button type="button"  class="deleteVariant" (click)="deletePhoto(i)">x</button>
       </p>
-      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant()">ADD
+      <button type="button" class="btn btn-secondary" [disabled]="isButtonDisable" (click)="addAnswerVariant(question)">ADD
         VARIANT
       </button>
     </div>
