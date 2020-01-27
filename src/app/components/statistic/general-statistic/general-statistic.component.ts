@@ -8,6 +8,9 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class GeneralStatisticComponent implements OnInit {
 
+
+  private imageThing = 'data:image/png;base64,';
+
   constructor(){
   }
 

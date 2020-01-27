@@ -1,0 +1,9 @@
+ul {
+  max-width: 500px;
+  padding: 10px;
+}
+
+#modalWindow{
+  overflow: scroll;
+  max-height: 500px;
+}

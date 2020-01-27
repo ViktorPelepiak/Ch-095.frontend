@@ -38,6 +38,9 @@ import {SurveyTemplateComponent} from "./pages/survey_tamplate/survey_template.c
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import { CheckCommonComponent } from './pages/check-possibility/check-common/check-common.component';
 
+import { ModalContactsComponent } from './pages/surveys/modal-contacts/modal-contacts.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -64,9 +67,11 @@ import { CheckCommonComponent } from './pages/check-possibility/check-common/che
     SeparatelyStatisticComponent,
     GeneralStatisticComponent,
     FooterComponent,
+    ModalContactsComponent,
     CheckCommonComponent,
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -81,13 +86,17 @@ import { CheckCommonComponent } from './pages/check-possibility/check-common/che
     }),
     NgxSkltnModule.forRoot(),
     ChartsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ScrollingModule,
   ],
   exports: [
     ChartsModule,
     ReactiveFormsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  ],
+  entryComponents: [
+    ModalContactsComponent
   ],
   providers: [UserService,
     ToastrService,

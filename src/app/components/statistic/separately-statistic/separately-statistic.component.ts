@@ -8,6 +8,9 @@ import {OneQuestionSeparatelyStatistic} from "../../../models/OneQuestionSeparat
 })
 export class SeparatelyStatisticComponent implements OnInit {
 
+
+  private imageThing = 'data:image/png;base64,';
+
   constructor() { }
   ngOnInit() {
   }

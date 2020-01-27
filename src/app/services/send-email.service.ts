@@ -10,12 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class EmailService {
 
-  surveyId;
-
   constructor(@Inject(APP_CONFIG) private config: IAppConfig, private http: HttpClient, private route: ActivatedRoute) {
-    this.route.queryParams.subscribe(params => {
-      this.surveyId = params.surveyId;
-    });
   }
 
   public postEmailArray(email: Email): Observable<string> {
@@ -23,7 +18,7 @@ export class EmailService {
     return this.http.post<string>(this.config.backBaseUrl + '/sendEmails', email);
   }
 
-  public getContacts(): Observable<string[]> {
-    return this.http.get<string[]>(this.config.backBaseUrl + '/availableContacts?surveyId=' + this.surveyId);
+  public getContacts(surveyId: number): Observable<string[]> {
+    return this.http.get<string[]>(this.config.backBaseUrl + '/availableContacts?surveyId=' + surveyId);
   }
 }

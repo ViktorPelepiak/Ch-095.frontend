@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {APP_CONFIG, IAppConfig} from "../app.config";
 import {Observable} from "rxjs";
 import {SaveSurvey} from "../models/SaveSurvey";
-import {Headers} from "@angular/http";
 
 @Injectable({
   providedIn: 'root'

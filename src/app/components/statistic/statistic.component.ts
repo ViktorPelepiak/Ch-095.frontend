@@ -1,10 +1,10 @@
 import {Component, ComponentFactoryResolver, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {GeneralStatisticComponent} from "./general-statistic/general-statistic.component";
-import {StatisticService} from "../../services/statistic.service";
-import {QuestionsGeneralStatistic} from "../../models/QuestionsGeneralStatistic";
-import {SeparatelyStatisticComponent} from "./separately-statistic/separately-statistic.component";
-import {QuestionsSeparatelyStatistic} from "../../models/QuestionsSeparatelyStatistic";
+import {ActivatedRoute} from '@angular/router';
+import {GeneralStatisticComponent} from './general-statistic/general-statistic.component';
+import {StatisticService} from '../../services/statistic.service';
+import {QuestionsGeneralStatistic} from '../../models/QuestionsGeneralStatistic';
+import {SeparatelyStatisticComponent} from './separately-statistic/separately-statistic.component';
+import {QuestionsSeparatelyStatistic} from '../../models/QuestionsSeparatelyStatistic';
 
 
 @Component({
@@ -21,8 +21,8 @@ export class StatisticComponent implements OnInit {
 
   private title: string;
 
-  private generalStatisticShow = "generalStatistic";
-  private separatelyStatisticShow = "separatelyStatistic";
+  private generalStatisticShow = 'generalStatistic';
+  private separatelyStatisticShow = 'separatelyStatistic';
   private whichShow: string = this.generalStatisticShow;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
@@ -31,17 +31,17 @@ export class StatisticComponent implements OnInit {
   }
 
   ngOnInit() {
-    let surveyId = this.route.snapshot.queryParams["surveyId"];
+    const surveyId = this.route.snapshot.queryParams.surveyId;
 
     this.statisticService.getEachStatisticDTO(surveyId,
       (data) => {
-        this.initializeSeparatelyStatistic(data)
+        this.initializeSeparatelyStatistic(data);
       });
 
 
     this.statisticService.getGeneralStatisticDTO(surveyId,
       (data) => {
-        this.initializeGeneralStatistic(data)
+        this.initializeGeneralStatistic(data);
       });
 
   }
@@ -53,7 +53,7 @@ export class StatisticComponent implements OnInit {
       value.questionDTOS.sort(
         (a, b) => a.index - b.index);
       this.questionsSeparately[index].models = value.questionDTOS;
-    })
+    });
   }
 
   initializeGeneralStatistic(data: QuestionsGeneralStatistic) {
@@ -67,12 +67,12 @@ export class StatisticComponent implements OnInit {
       this.questionsGeneral[index].typeQuestions = value.type;
       this.questionsGeneral[index].barChartData = [{
         data: this.getDataChart(value.answers, value.choiceAnswers),
-        label: ""
+        label: ''
       }];
-      if (value.type == "CHECKBOX_PICTURE" || value.type == "RADIO_PICTURE") {
-        let labels = [];
+      if (value.type == 'CHECKBOX_PICTURE' || value.type == 'RADIO_PICTURE') {
+        const labels = [];
         value.choiceAnswers.forEach((value1, index1) => {
-          labels[index1] = "Image #"+(index1+1);
+          labels[index1] = 'Image #' + (index1 + 1);
         });
         this.questionsGeneral[index].barChartLabels = labels;
         this.questionsGeneral[index].images = value.choiceAnswers;
@@ -84,8 +84,8 @@ export class StatisticComponent implements OnInit {
   }
 
   getDataChart(answers: string[][], choiceAnswers: string[]): number[] {
-    let answer = [].concat(...answers);
-    let map = new Map();
+    const answer = [].concat(...answers);
+    const map = new Map();
     choiceAnswers.forEach(value => map.set(value, 0));
     answer.forEach(value => map.set(value, 1 + map.get(value)));
     return [...map.values()];
