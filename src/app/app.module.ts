@@ -35,7 +35,7 @@ import {SeparatelyStatisticComponent} from './components/statistic/separately-st
 import {FooterComponent} from './components/footer/footer.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SurveyTemplateComponent} from "./pages/survey_tamplate/survey_template.component";
-import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import { CheckCommonComponent } from './pages/check-possibility/check-common/check-common.component';
 
 
