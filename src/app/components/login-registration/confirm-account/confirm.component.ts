@@ -30,7 +30,7 @@ export class ConfirmComponent implements OnInit{
           if (error.status=== 400) {
             this.userService.resendConfirmationToken(this.queryParams.token)
               .subscribe(()=>{});
-            this.toast.info("Please check your email and confirm registration");
+            this.toast.info("Your token is expired. Please recheck your email and confirm registration");
             this.router.navigate(['/']);
           }
         });

@@ -28,7 +28,7 @@ export class SurveysComponent implements OnInit {
   title = new FormControl('');
   private redirects: RedirectUtil;
 
-  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private service: SurveyService, 
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private service: SurveyService,
               private router: Router, private route: ActivatedRoute, private modalService: NgbModal) {
     this.tempSurvey = 0;
     this.redirects = new RedirectUtil(router, route);
@@ -99,8 +99,9 @@ export class SurveysComponent implements OnInit {
     this.service.getContacts(surveyId).toPromise().then(value => {
       modalRef.componentInstance.contacts = value;
     });
+  }
 
-  copyInputMessage(inputElement){
+  copyInputMessage(inputElement) {
     inputElement.select();
     document.execCommand('copy');
     inputElement.setSelectionRange(0, 0);
