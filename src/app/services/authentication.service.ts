@@ -1,28 +1,28 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 import {AppConfig} from '../app.config';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthenticationService {
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
   USER_ROLE = 'userRole';
 
-  public email: String;
-  public password: String;
+  public email: string;
+  public password: string;
 
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   login(email: string, password: string) {
     return this.http.get<any>(`${AppConfig.backBaseUrl}/login`,
-      { headers: { authorization : this.createBasicAuthToken(email, password) } }).pipe(map((res) => {
+      {headers: {authorization: this.createBasicAuthToken(email, password)}}).pipe(map((res) => {
       this.email = email;
-      this.registerSuccessfulLogin(email, res.principal.authorities[0].authority );
+      this.registerSuccessfulLogin(email, res.principal.authorities[0].authority);
     }));
   }
 
-  createBasicAuthToken(email: String, password: String) {
+  createBasicAuthToken(email: string, password: string) {
     return 'Basic ' + btoa(email + ':' + password);
   }
 
@@ -32,8 +32,8 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.http.post(`${AppConfig.backBaseUrl}/logout`,{}).subscribe();
-    sessionStorage.clear()
+    this.http.post(`${AppConfig.backBaseUrl}/logout`, {}).subscribe();
+    sessionStorage.clear();
     this.email = null;
     this.password = null;
   }
@@ -45,6 +45,6 @@ export class AuthenticationService {
 
   isManager() {
     let user = sessionStorage.getItem(this.USER_ROLE);
-    return user ==='MANAGER';
+    return user === 'MANAGER';
   }
 }

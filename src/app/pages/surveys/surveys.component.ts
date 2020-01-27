@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {Survey} from '../../models/survey';
 import {SurveyService} from '../../services/survey.service';
 import {Pageable} from '../../models/pageable';
@@ -7,6 +7,7 @@ import {FormControl} from "@angular/forms";
 import {RedirectUtil} from "../../util/redirect-util";
 import {HttpParams} from "@angular/common/http";
 import {SendFormComponent} from "../sendForm/sendForm.component";
+import {APP_CONFIG, IAppConfig} from "../../app.config";
 
 @Component({
   selector: 'app-surveys',
@@ -24,7 +25,7 @@ export class SurveysComponent implements OnInit {
   title = new FormControl('');
   private redirects: RedirectUtil;
 
-  constructor(private service: SurveyService, private router: Router, private route: ActivatedRoute) {
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private service: SurveyService, private router: Router, private route: ActivatedRoute) {
     this.tempSurvey = 0;
     this.redirects = new RedirectUtil(router, route);
   }
@@ -37,8 +38,8 @@ export class SurveysComponent implements OnInit {
     this.service.getSurveys(this.buildRequestParams())
       .toPromise()
       .then(e => {
-        this.surveys = e.items
-        this.pageable = e.pageable
+        this.surveys = e.items;
+        this.pageable = e.pageable;
         if (this.surveys.length === 0){ this.previousPage() }
       })
       .catch(e => {
@@ -81,14 +82,18 @@ export class SurveysComponent implements OnInit {
       .toPromise()
       .then(e => {
         if (e === 'OK') {
-          this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1)
+          this.surveys.splice(this.surveys.findIndex(i => i.id === this.tempSurvey), 1);
           if (this.surveys.length === 0){ this.previousPage() }
         }
       })
       .catch(e => console.error(e));
   }
 
-
+  copyInputMessage(inputElement){
+    inputElement.select();
+    document.execCommand('copy');
+    inputElement.setSelectionRange(0, 0);
+  }
 
   changeTempSurvey(survey: Survey): void {
     this.tempSurvey = survey.id;
