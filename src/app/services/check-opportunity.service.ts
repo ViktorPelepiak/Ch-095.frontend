@@ -14,10 +14,14 @@ export class CheckOpportunityService {
   constructor(@Inject(APP_CONFIG) private config: IAppConfig, private http: HttpClient) {}
 
   public test(token: string): Observable<string> {
-    return this.http.get(this.config.backBaseUrl + '/testAccess/' + token, {responseType: 'text'});
+    return this.http.get(this.config.backBaseUrl  + token, {responseType: 'text'});
   }
 
   public checkEmail(dto: CheckPossibilityDto): Observable<ContactSurveyDto> {
     return this.http.post<ContactSurveyDto>(this.config.backBaseUrl + '/testAccess/check', dto);
+  }
+
+  public commonTest(token: string): Observable<any> {
+    return this.http.get(this.config.backBaseUrl + '/testAccess/common/' + token);
   }
 }

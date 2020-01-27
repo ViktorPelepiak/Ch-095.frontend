@@ -29,13 +29,15 @@ import {QuestionsPageComponent} from './pages/questions-page/questions-page.comp
 import {QuestionsFormService} from './services/questions-form.service';
 import {OneQuestionComponent} from './pages/questions-page/one-question/one-question.component';
 import {RegisterComponent} from './components/login-registration/registration';
-import {HttpErrorInterceptor} from './services/http-error.interceptor';
 import {AuthInterceptor} from './interceptor/auth-interceptor.interceptor';
 import {GeneralStatisticComponent} from './components/statistic/general-statistic/general-statistic.component';
 import {SeparatelyStatisticComponent} from './components/statistic/separately-statistic/separately-statistic.component';
 import {FooterComponent} from './components/footer/footer.component';
-import {SocialComponent} from './pages/social/social.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {SurveyTemplateComponent} from "./pages/survey_tamplate/survey_template.component";
+import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
+import { CheckCommonComponent } from './pages/check-possibility/check-common/check-common.component';
+
 import { ContactsComponent } from './pages/contacts/contacts.component';
 
 @NgModule({
@@ -49,6 +51,7 @@ import { ContactsComponent } from './pages/contacts/contacts.component';
     LoginComponent,
     RegisterComponent,
     ConfirmComponent,
+    SurveyTemplateComponent,
     CheckPossibilityComponent,
     SurveysComponent,
     SurveySkltnComponent,
@@ -62,6 +65,7 @@ import { ContactsComponent } from './pages/contacts/contacts.component';
     SeparatelyStatisticComponent,
     GeneralStatisticComponent,
     FooterComponent,
+    CheckCommonComponent,
     SocialComponent,
     ContactsComponent,
   ],
@@ -71,6 +75,7 @@ import { ContactsComponent } from './pages/contacts/contacts.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    NgMultiSelectDropDownModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 10000,
@@ -91,7 +96,6 @@ import { ContactsComponent } from './pages/contacts/contacts.component';
     ToastrService,
     {provide: APP_CONFIG, useValue: AppConfig},
     {provide: HTTP_INTERCEPTORS, useClass: BasicInterceptorService, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     QuestionsFormService, CookieService],
 

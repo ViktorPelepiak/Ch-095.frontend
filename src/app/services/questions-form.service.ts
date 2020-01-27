@@ -23,6 +23,10 @@ export class QuestionsFormService {
     return this.httpClient.get<any>(this.config.backBaseUrl + '/question?surveyId=' + this.surveyId + '&contactEmail=' + this.contactEmail);
   }
 
+  getCommonSurvey(token: string): Observable<any> {
+    return this.httpClient.get<any>(this.config.backBaseUrl + '/question/common/' + token);
+  }
+
   saveAnswers(dataAnswer): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     return this.httpClient.post<any>(this.config.backBaseUrl + '/question', JSON.stringify(dataAnswer),  {headers});
