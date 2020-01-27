@@ -28,7 +28,7 @@ export class SurveysComponent implements OnInit {
   title = new FormControl('');
   private redirects: RedirectUtil;
 
-  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private service: SurveyService, 
+  constructor(@Inject(APP_CONFIG) private config: IAppConfig, private service: SurveyService,
               private router: Router, private route: ActivatedRoute, private modalService: NgbModal) {
     this.tempSurvey = 0;
     this.redirects = new RedirectUtil(router, route);
@@ -69,7 +69,7 @@ export class SurveysComponent implements OnInit {
     this.service.cloneSurvey(this.tempSurvey, this.isClearContacts)
       .toPromise()
       .then(e => {
-        let newSurvey = JSON.parse(JSON.stringify( this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)]));
+        let newSurvey = JSON.parse(JSON.stringify(this.surveys[this.surveys.findIndex(e => e.id === this.tempSurvey)]));
         newSurvey.id = e;
         if (this.isClearContacts) {
           newSurvey.countContacts = 0;
@@ -81,8 +81,8 @@ export class SurveysComponent implements OnInit {
       .catch(e => console.error(e));
   }
 
-  deleteSurvey() {
-    this.service.deleteSurvey(this.tempSurvey)
+  disableSurvey() {
+    this.service.disableSurvey(this.tempSurvey)
       .toPromise()
       .then(e => {
         if (e === 'OK') {
@@ -99,6 +99,7 @@ export class SurveysComponent implements OnInit {
     this.service.getContacts(surveyId).toPromise().then(value => {
       modalRef.componentInstance.contacts = value;
     });
+  }
 
   copyInputMessage(inputElement){
     inputElement.select();
