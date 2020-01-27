@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {Survey} from '../../models/survey';
 import {SurveyService} from '../../services/survey.service';
 import {Pageable} from '../../models/pageable';
@@ -6,6 +6,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormControl} from "@angular/forms";
 import {RedirectUtil} from "../../util/redirect-util";
 import {HttpParams} from "@angular/common/http";
+import {SendFormComponent} from "../sendForm/sendForm.component";
 import {APP_CONFIG, IAppConfig} from "../../app.config";
 
 @Component({
@@ -14,6 +15,8 @@ import {APP_CONFIG, IAppConfig} from "../../app.config";
   styleUrls: ['./surveys.component.css']
 })
 export class SurveysComponent implements OnInit {
+
+  @ViewChild(SendFormComponent, {static: false}) sendForm: SendFormComponent;
 
   surveys: Survey[];
   tempSurvey: number;
