@@ -14,6 +14,7 @@ import {RegisterComponent} from './components/login-registration/registration';
 import {ConfirmComponent} from './components/login-registration/confirm-account/confirm.component';
 import {SurveyTemplateComponent} from "./pages/survey_tamplate/survey_template.component";
 import {CheckCommonComponent} from "./pages/check-possibility/check-common/check-common.component";
+import {ContactsComponent} from "./pages/contacts/contacts.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'logout', component: DashboardComponent},
   {path: 'confirm', component: ConfirmComponent},
   {path: 'template-survey', component: SurveyTemplateComponent},
+  {path: 'contacts', component: ContactsComponent},
   {path: 'surveys', component: SurveysComponent, canActivate: [AuthGuardService]},
   {path: 'sendForm', component: SendFormComponent, canActivate: [AuthGuardService]},
   {path: 'questions', component: QuestionsPageComponent},
