@@ -20,7 +20,12 @@ export class SurveyService {
 
   public getSurveys(params: HttpParams): Observable<Page<Survey>> {
     let headers = new HttpHeaders();
-    return this.http.get<Page<Survey>>(this.config.backBaseUrl + '/survey', {params, headers, withCredentials: true});
+    return this.http.get<Page<Survey>>(this.config.backBaseUrl + this.endPoint, {params, headers, withCredentials: true});
+  }
+
+  public getSurveysTemplate(params: HttpParams): Observable<Page<Survey>> {
+    let headers = new HttpHeaders();
+    return this.http.get<Page<Survey>>(this.config.backBaseUrl + this.endPoint + '?status=TEMPLATE', {params, headers, withCredentials: true});
   }
 
   public surveyUpdateTitle(id: number, title: string) {
@@ -52,7 +57,7 @@ export class SurveyService {
   }
 
   public deleteSurvey(id: number): Observable<string> {
-    return this.http.delete<string>(this.config.backBaseUrl + this.endPoint, {
+    return this.http.delete<string>(this.config.backBaseUrl  + this.endPoint, {
       params: new HttpParams().append('id', id + '')
     });
   }
