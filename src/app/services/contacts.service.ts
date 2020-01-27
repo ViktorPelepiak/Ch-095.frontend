@@ -34,11 +34,11 @@ export class ContactsService {
   }
 
   public exportCsv() {
-    this.http.get<Response>(this.config.backBaseUrl + this.endPoint + "/export/scv",{responseType: "text"})
+    this.http.get<Item<string>>(this.config.backBaseUrl + this.endPoint + "/export/scv",{})
       .toPromise()
       .then(response => {
         console.log(response);
-        var blob = new Blob([response], {type: "text/plain;charset=utf-8"});
+        var blob = new Blob([response.item], {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(blob, "contacts.csv");
       });
   }

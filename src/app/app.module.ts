@@ -36,9 +36,9 @@ import {FooterComponent} from './components/footer/footer.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SurveyTemplateComponent} from "./pages/survey_tamplate/survey_template.component";
 import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
-import { CheckCommonComponent } from './pages/check-possibility/check-common/check-common.component';
+import {CheckCommonComponent} from './pages/check-possibility/check-common/check-common.component';
 
-import { ContactsComponent } from './pages/contacts/contacts.component';
+import {ContactsComponent} from './pages/contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +66,6 @@ import { ContactsComponent } from './pages/contacts/contacts.component';
     GeneralStatisticComponent,
     FooterComponent,
     CheckCommonComponent,
-    SocialComponent,
     ContactsComponent,
   ],
   imports: [
